@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>CFOP</title>    
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<script src="algs/f2l.js"></script>    
+
+<script>
+    
+    addImage = function(parrent,nameOfImage){
+        var tmp = new Image();
+        tmp.className = "small_cube";
+        tmp.src="img/"+nameOfImage+".png";
+        try{
+            parrent.appendChild(tmp)
+            
+        }catch(e){
+            console.log("error"+e)
+        }
+    }
+    
+    
+    
+    if(document.location.search.match(/alg/))
+    {
+        var urlVar = document.location.search.replace("?alg=","");
+        
+    }else{
+        if(document.location.search.length)
+            document.location.href="index.html"
+    }
+    //urlVar[0]=null;
+  
+     parseInt(urlVar);
+        document.write("<div class='algorithms'>")
+        document.write('<img src="img/f2l_kostka'+parseInt(++urlVar)+'.png"/>');
+        urlVar--;
+        for(var  x in algorithms[urlVar])
+            addImage(document.getElementsByClassName("algorithms")[0],algorithms[urlVar][x])
+            //console.log(algorithms[i][x])
+            //document.write("<img class='small_alg' src="'img/'+algorithms[i][x]+'.png'"/>")
+        
+        document.write("</div></a>")
+    
+
+    
+     
+    
+    
+</script>
+    
+</body>
+</html>
