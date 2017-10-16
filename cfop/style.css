@@ -9,13 +9,13 @@ a{
 body{
     font-family:luck;
     margin:0px ;
-    background-color: white;
+    background-color: #efefef;
    
 }
 
 .algorithms{
     
-    background: white;
+    background: lime;
     border: solid 2px black;
     
     font-size:40px;
@@ -33,11 +33,14 @@ body{
     margin-left:50px;
 }
 .kostka_alg{
+    margin:15px;
     float:left;
+    width:120px;
+    height:120px;
 }
 
 .small_cube{
-    width:10%;
+    width:12.5%;
     height:width;
 }
 .navbar{
@@ -47,12 +50,13 @@ body{
     height:100px;
     text-align:center;
     margin-bottom:100px;
+    border-bottom:solid 1px black;
 }
 .button_type_alg{
    
     float:left;
     width:33.3%;
-    background:lime;
+    background:linear-gradient(to right, lime , orange);
     line-height:100px;
     height:100%;
     color:black;

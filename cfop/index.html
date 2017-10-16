@@ -5,6 +5,7 @@
 </head>
 <body>
 <script src="algs/f2l.js"></script>    
+<script src="algs/oll.js"></script>    
 
 <script>
     
@@ -31,7 +32,7 @@
             case "f2l":
                 for(var i=0;i<f2l.length;i++)
                 {
-                    document.write("<a href='showAlgorithm.html?alg="+i+"'>")
+                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=f2l'>")
                     document.write("<div class='algorithms'>")
                     document.write('<img class="kostka_alg" src="img/f2l_kostka'+(i+1)+'.png"/>');
                     document.write("<div class='text_alg'>")
@@ -41,6 +42,18 @@
                     document.write("</div></a>")
                 }
             break;
+            case "oll":
+                for(var i=0;i<oll.length;i++)
+                {
+                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=oll'>")
+                    document.write("<div class='algorithms'>")
+                    document.write('<img class="kostka_alg" src="oll/oll'+(i)+'.png"/>');
+                    document.write("<div class='text_alg'>")
+                    for(var x in oll[i])
+                        document.write(oll[i][x]+" ")
+                    document.write("</div>")
+                    document.write("</div></a>")
+                }
                 
                 
         }
@@ -58,8 +71,8 @@
 </script>
     <div class='navbar'>
         <a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a>
-        <a href='index.html?type=f2l' ><div class='button_type_alg' >OLL</div></a>
-        <a href='index.html?type=f2l'><div class='button_type_alg'>PLL</div></a>
+        <a href='index.html?type=oll' ><div class='button_type_alg' >OLL</div></a>
+        <a href='index.html?type=pll'><div class='button_type_alg'>PLL</div></a>
     </div>
     
     <div class='footer'>
