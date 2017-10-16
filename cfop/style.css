@@ -1,12 +1,13 @@
 @font-face {
     font-family: luck;
-    src: url(LuckiestGuy-Regular.ttf);
+    src: url("Rubik-Black.ttf");
 }
 a{
     text-decoration: none;
     text-decoration-color: black;
 }
 body{
+    margin:0px ;
     background-color: yellow;
 }
 
