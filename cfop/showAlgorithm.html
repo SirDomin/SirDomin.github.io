@@ -5,6 +5,7 @@
 </head>
 <body>
 <script src="algs/f2l.js"></script>    
+<div class='navbar'><a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a><a href='index.html?type=f2l'><div class='button_type_alg'>OLL</div></a><a href='index.html?type=f2l'><div class='button_type_alg'>PLL</div></a></div>
 
 <script>
     
@@ -45,10 +46,20 @@
     
 
     
-     
+     document.write("<div class='footer'>Created by: Dominik Garbulski <a href='https://www.github.com/sirdomin'><img class='icon' src='img/GitHub-Mark-32px.png'/></a></div>")
+    var navbar = document.getElementsByClassName('navbar')[0];
+    var sticky = navbar.offsetTop;
     
+    function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
     
 </script>
+     
     
 </body>
 </html>

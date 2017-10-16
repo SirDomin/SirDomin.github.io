@@ -22,35 +22,48 @@
     
     
     
-    if(document.location.search.match(/alg/))
+    if(document.location.search.match(/type/))
     {
-        var urlVar = document.location.search.replace("?alg=","");
+        var urlVar = document.location.search.replace("?type=","");
+        document.write("<br><br><br><br><br><br>")
+        switch(urlVar)
+        {
+            case "f2l":
+                for(var i=0;i<f2l.length;i++)
+                {
+                    document.write("<a href='showAlgorithm.html?alg="+i+"'>")
+                    document.write("<div class='algorithms'>")
+                    document.write('<img class="kostka_alg" src="img/f2l_kostka'+(i+1)+'.png"/>');
+                    document.write("<div class='text_alg'>")
+                    for(var x in f2l[i])
+                        document.write(f2l[i][x]+" ")
+                    document.write("</div>")
+                    document.write("</div></a>")
+                }
+            break;
+                
+                
+        }
         
     }else{
-        if(document.location.search.length)
-            document.location.href="index.html"
+          
     }
-    //urlVar[0]=null;
     
-for(var i=0;i<f2l.length;i++)
-    {
-        document.write("<a href='showAlgorithm.html?alg="+i+"'>")
-        document.write("<div class='algorithms'>")
-        document.write('<img class="kostka_alg" src="img/f2l_kostka'+(i+1)+'.png"/>');
-        document.write("<div class='text_alg'>")
-        for(var x in f2l[i])
-            document.write(f2l[i][x]+" ")
-        document.write("</div>")
-            //console.log(algorithms[i][x])
-            //document.write("<img class='small_alg' src="'img/'+algorithms[i][x]+'.png'"/>")
-        
-        document.write("</div></a>")
-    }
+    
+
     
      
     
     
 </script>
+    <div class='navbar'>
+        <a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a>
+        <a href='index.html?type=f2l'><div class='button_type_alg'>OLL</div></a>
+        <a href='index.html?type=f2l'><div class='button_type_alg'>PLL</div></a>
+    </div>
     
-</body>
+    <div class='footer'>
+        Created by: Dominik Garbulski <a href="https://www.github.com/sirdomin"><img class="icon" src="img/GitHub-Mark-32px.png"/></a>
+    </div>
+</body> 
 </html>
