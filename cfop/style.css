@@ -9,7 +9,7 @@ a{
 body{
     font-family:luck;
     margin:0px ;
-    background-color: yellow;
+    background-color: white;
    
 }
 
@@ -23,9 +23,10 @@ body{
     display:block;
     height:150px;
 }
-body > a:first-of-type { 
-margin-top: 100px;
+.algorithms:hover{
+    background:orange;
 }
+
 .text_alg{
     float:left; 
     line-height: 150px;
@@ -48,15 +49,19 @@ margin-top: 100px;
     margin-bottom:100px;
 }
 .button_type_alg{
-    border:solid 0.85px black;
+   
     float:left;
-    width:33.18%;
-    background:red;
+    width:33.3%;
+    background:lime;
     line-height:100px;
     height:100%;
     color:black;
     font-size: 40px;
 }
+.button_type_alg:hover{
+    background:orange;
+}
+
 .footer{
 
   right: 0;
