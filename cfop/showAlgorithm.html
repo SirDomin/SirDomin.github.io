@@ -11,6 +11,8 @@
     
     addImage = function(parrent,nameOfImage){
         var tmp = new Image();
+        parrent.style.height="500px";
+        parrent.style.background="orange";
         tmp.className = "small_cube";
         tmp.src="img/"+nameOfImage+".png";
         try{
@@ -37,6 +39,7 @@
         document.write("<div class='algorithms'>")
         document.write('<img src="img/f2l_kostka'+parseInt(++urlVar)+'.png"/>');
         urlVar--;
+        document.write("<br>")
         for(var  x in f2l[urlVar])
             addImage(document.getElementsByClassName("algorithms")[0],f2l[urlVar][x])
             //console.log(algorithms[i][x])
