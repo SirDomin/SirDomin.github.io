@@ -6,6 +6,7 @@
 <body>
 <script src="algs/f2l.js"></script>    
 <script src="algs/oll.js"></script>    
+<script src="algs/pll.js"></script>    
 
 <script>
     
@@ -54,7 +55,20 @@
                     document.write("</div>")
                     document.write("</div></a>")
                 }
-                
+            break;
+            
+            case "pll":
+                for(var i=0;i<pll.length;i++)
+                {
+                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=pll'>")
+                    document.write("<div class='algorithms'>")
+                    document.write('<img class="kostka_alg" src="pll/pll'+(i)+'.png"/>');
+                    document.write("<div class='text_alg'>")
+                    for(var x in pll[i])
+                        document.write(pll[i][x]+" ")
+                    document.write("</div>")
+                    document.write("</div></a>")
+                }
                 
         }
         

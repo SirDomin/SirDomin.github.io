@@ -5,7 +5,8 @@
 </head>
 <body>
 <script src="algs/f2l.js"></script>    
-<script src="algs/oll.js"></script>    
+<script src="algs/oll.js"></script>  
+<script src="algs/pll.js"></script>  
 <div class='navbar'><a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a><a href='index.html?type=oll'><div class='button_type_alg'>OLL</div></a><a href='index.html?type=pll'><div class='button_type_alg'>PLL</div></a></div>
 
 <script>
@@ -58,6 +59,16 @@
                 document.write("<br><br><br><br>")
                 for(var  x in oll[urlVar])
                     addImage(document.getElementsByClassName("algorithms")[0],oll[urlVar][x])
+            
+                document.write("</div></a>")
+            break;
+            
+        case "pll":
+                document.write('<img class="kostka_alg" src="pll/pll'+parseInt(urlVar)+'.png"/>');
+                
+                document.write("<br><br><br><br>")
+                for(var  x in pll[urlVar])
+                    addImage(document.getElementsByClassName("algorithms")[0],pll[urlVar][x])
             
                 document.write("</div></a>")
             break;
