@@ -7,6 +7,7 @@
 <script src="algs/f2l.js"></script>    
 <script src="algs/oll.js"></script>    
 <script src="algs/pll.js"></script>    
+<script src="algs/cross.js"></script>    
 
 <script>
     
@@ -26,71 +27,49 @@
     
     if(document.location.search.match(/type/))
     {
-        var urlVar = document.location.search.replace("?type=","");
+        urlVar = document.location.search.replace("?type=","")||"cross";
+        
         document.write("<br><br><br><br><br><br>")
-        switch(urlVar)
-        {
-            case "f2l":
-                for(var i=0;i<f2l.length;i++)
+       
+                for(var i=0;i<window[urlVar].length;i++)
                 {
-                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=f2l'>")
+                    document.write("<a href='showAlgorithm.html?alg="+i+"&type="+urlVar+"'>")
                     document.write("<div class='algorithms'>")
-                    document.write(i+'<img class="kostka_alg" src="img/f2l_kostka'+(i+1)+'.png"/>');
+                    document.write(i+'<img class="kostka_alg" src="'+urlVar+'/'+urlVar+(i)+'.png"/>');
                     document.write("<div class='text_alg'>")
-                    for(var x in f2l[i])
-                        document.write(f2l[i][x]+" ")
+                    for(var x in window[urlVar][i])
+                        document.write(window[urlVar][i][x]+" ")
                     document.write("</div>")
                     document.write("</div></a>")
                 }
-            break;
-            case "oll":
-                for(var i=0;i<oll.length;i++)
-                {
-                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=oll'>")
-                    document.write("<div class='algorithms'>")
-                    document.write(i+'<img class="kostka_alg" src="oll/oll'+(i)+'.png"/>');
-                    document.write("<div class='text_alg'>")
-                    for(var x in oll[i])
-                        document.write(oll[i][x]+" ")
-                    document.write("</div>")
-                    document.write("</div></a>")
-                }
-            break;
-            
-            case "pll":
-                for(var i=0;i<pll.length;i++)
-                {
-                    document.write("<a href='showAlgorithm.html?alg="+i+"&type=pll'>")
-                    document.write("<div class='algorithms'>")
-                    document.write(i+'<img class="kostka_alg" src="pll/pll'+(i)+'.png"/>');
-                    document.write("<div class='text_alg'>")
-                    for(var x in pll[i])
-                        document.write(pll[i][x]+" ")
-                    document.write("</div>")
-                    document.write("</div></a>")
-                }
-                
-        }
+         
         
     }else{
-          
+          document.location="index.html?type=cross";
+        
     }
     
     
 
-    
+ 
      
     
     
 </script>
     <div class='navbar'>
-        <a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a>
-        <a href='index.html?type=oll' ><div class='button_type_alg' >OLL</div></a>
-        <a href='index.html?type=pll'><div class='button_type_alg'>PLL</div></a>
+        <a href="index.html?type=cross"><div id="cross" class='button_type_alg'>CROSS</div></a>
+        <a href='index.html?type=f2l'><div id="f2l" class='button_type_alg'>F2l</div></a>
+        <a href='index.html?type=oll' ><div id="oll" class='button_type_alg' >OLL</div></a>
+        <a href='index.html?type=pll'><div id="pll" class='button_type_alg'>PLL</div></a>
     </div>
     
-    <div class='footer'>
+    <div class='footer' id="footer">
         Created by: Dominik Garbulski <a href="https://www.github.com/sirdomin"><img class="icon" src="img/GitHub-Mark-32px.png"/></a>
     </div>
+    <script>
+        if(!document.location.search.match(/type/))document.getElementById("footer").style.marginTop=screen.availHeight-110;
+       document.getElementById(urlVar).style.color="hsla(0, 0%, 75%, 1)";
+    document.getElementById(urlVar).style.borderBottom="solid 5px #81c332";
+    </script>
 </body> 
 </html>

@@ -7,14 +7,19 @@
 <script src="algs/f2l.js"></script>    
 <script src="algs/oll.js"></script>  
 <script src="algs/pll.js"></script>  
-<div class='navbar'><a href='index.html?type=f2l'><div class='button_type_alg'>F2l</div></a><a href='index.html?type=oll'><div class='button_type_alg'>OLL</div></a><a href='index.html?type=pll'><div class='button_type_alg'>PLL</div></a></div>
-
+<script src="algs/cross.js"></script>  
+ <div class='navbar'>
+        <a href="index.html?type=cross"><div id="cross" class='button_type_alg'>CROSS</div></a>
+        <a href='index.html?type=f2l'><div id="f2l" class='button_type_alg'>F2l</div></a>
+        <a href='index.html?type=oll' ><div id="oll" class='button_type_alg' >OLL</div></a>
+        <a href='index.html?type=pll'><div id="pll" class='button_type_alg'>PLL</div></a>
+    </div>
 <script>
     
     addImage = function(parrent,nameOfImage){
         var tmp = new Image();
         parrent.style.height="700px";
-        parrent.style.background="orange";
+        parrent.style.background="#81c332";
         tmp.className = "small_cube";
         tmp.src="moves/"+nameOfImage+".png";
         try{
@@ -37,43 +42,23 @@
     }else{
         if(document.location.search.length)
             document.location.href="index.html"
+        
+        urlvar = "cross";
     }
-    //urlVar[0]=null;
+    
   
+    
                 parseInt(urlVar);
                 document.write("<div class='algorithms'>")
-    switch(type){
-            case "f2l":
-                document.write('<img class="kostka_alg" src="img/f2l_kostka'+parseInt(++urlVar)+'.png"/>');
-                urlVar--;
-                document.write("<br>")
-                for(var  x in f2l[urlVar])
-                    addImage(document.getElementsByClassName("algorithms")[0],f2l[urlVar][x])
+    
+        
+    document.write('<img class="kostka_alg" src="'+type+'/'+type+urlVar+'.png"/>');
+   
+     document.write("<br><br><br><br>")
+                for(var  x in window[type][urlVar])
+                    addImage(document.getElementsByClassName("algorithms")[0],window[type][urlVar][x])
             
                 document.write("</div></a>")
-            break;
-            
-        case "oll":
-                document.write('<img class="kostka_alg" src="oll/oll'+parseInt(urlVar)+'.png"/>');
-                
-                document.write("<br><br><br><br>")
-                for(var  x in oll[urlVar])
-                    addImage(document.getElementsByClassName("algorithms")[0],oll[urlVar][x])
-            
-                document.write("</div></a>")
-            break;
-            
-        case "pll":
-                document.write('<img class="kostka_alg" src="pll/pll'+parseInt(urlVar)+'.png"/>');
-                
-                document.write("<br><br><br><br>")
-                for(var  x in pll[urlVar])
-                    addImage(document.getElementsByClassName("algorithms")[0],pll[urlVar][x])
-            
-                document.write("</div></a>")
-            break;
-    }
-     
     
 
     
@@ -90,7 +75,10 @@
 }
     
 </script>
-     
+     <script>
+       document.getElementById(type).style.color="hsla(0, 0%, 75%, 1)";
+    document.getElementById(type).style.borderBottom="solid 5px #81c332";
+    </script>
     
 </body>
 </html>
