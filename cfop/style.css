@@ -7,33 +7,47 @@ a{
     text-decoration-color: black;
 }
 html{
-    //text-align: center;
 }
 body{
-   // width:70%;
     font-family:luck;
-   
     margin:0px ;
-    background-color: hsla(322, 0%, 21%, 1);
+    background-color: hsla(322, 0%, 30%, 1);
    
 }
 
 .algorithms{
-    
     background: #81c332;
     border: solid 2px black;
-    
     font-size:40px;
     color:black;
     display:block;
     height:150px;
+   
+    
+}
+@keyframes agorithms-background {
+    from {background-color: #81c332;}
+    to {background-color: #619226;}
+}
+@keyframes algorithms-color{
+    from{color:black;}
+    to{color:color:hsla(0, 0%, 75%, 1);;}
 }
 .algorithms:hover{
-    color:white;
+    animation-name: agorithms-background;
+    animation-duration: 0.5s;
+    animation-name: algorithms-color;
+    animation-duration: 0.2s;
+    background:#619226;
+    color:hsla(0, 0%, 75%, 1);
 }
 
+
+
+
+
 .text_alg{
-    float:left; 
+ float:left;
     line-height: 150px;
     margin-left:50px;
 }
@@ -56,13 +70,12 @@ body{
     text-align:center;
     margin-bottom:100px;
    
-    background:  hsla(322, 0%, 21%, 1);
+    background:  hsla(322, 0%, 30%, 1);
 }
 .button_type_alg{
    
     float:left;
     width:25%;
-    
     line-height:100px;
     height:90%;
     color:black;
@@ -94,4 +107,11 @@ body{
   position: fixed;
   top: 0;
   width: 100%
+}
+.alg_number{
+    line-height: 150px;
+    float:left;
+}
+#show_alg_number{
+    color:black;
 }

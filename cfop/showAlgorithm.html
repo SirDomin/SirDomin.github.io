@@ -22,53 +22,39 @@
         parrent.style.background="#81c332";
         tmp.className = "small_cube";
         tmp.src="moves/"+nameOfImage+".png";
-        try{
-            parrent.appendChild(tmp)
-            
-        }catch(e){
-            console.log("error"+e)
-        }
+            try{
+                parrent.appendChild(tmp);
+            }catch(e){
+                console.log("error"+e);
+            }
     }
-    
-    
-    document.write("<br><br><br><br><br><br>")
-    if(document.location.search.match(/alg/))
-    {
-        var urlVar = document.location.search.replace("?alg=","");
-        alg = urlVar.split("&type=");
-        urlVar = alg[0];
-        type = alg[1];
-        console.log(type)
-    }else{
-        if(document.location.search.length)
-            document.location.href="index.html"
-        
-        urlvar = "cross";
-    }
-    
-  
-    
-                parseInt(urlVar);
-                document.write("<div class='algorithms'>")
-    
-        
-    document.write('<img class="kostka_alg" src="'+type+'/'+type+urlVar+'.png"/>');
-   
-     document.write("<br><br><br><br>")
-                for(var  x in window[type][urlVar])
-                    addImage(document.getElementsByClassName("algorithms")[0],window[type][urlVar][x])
+    document.write("<br><br><br><br><br><br>");
+        if(document.location.search.match(/alg/))
+        {
+            var urlVar = document.location.search.replace("?alg=","");
+            alg = urlVar.split("&type=");
+            urlVar = alg[0];
+            type = alg[1];
             
-                document.write("</div></a>")
-    
-
-    
-     document.write("<div class='footer'>Created by: Dominik Garbulski <a href='https://www.github.com/sirdomin'><img class='icon' src='img/GitHub-Mark-32px.png'/></a></div>")
+        }else{
+            if(document.location.search.length)
+                document.location.href="index.html";
+            urlvar = "cross";
+    }
+    parseInt(urlVar);
+    document.write("<div class='algorithms'>");
+    document.write('<i class="alg_number" id="show_alg_number">'+type+' | alg. '+urlVar+'</i><img class="kostka_alg" src="'+type+'/'+type+urlVar+'.png"/>');
+    document.write("<br><br><br><br>");
+        for(var  x in window[type][urlVar])
+            addImage(document.getElementsByClassName("algorithms")[0],window[type][urlVar][x]);
+    document.write("</div></a>");
+    document.write("<center><div class='footer'>Created by: Dominik Garbulski <a href='https://www.github.com/sirdomin'><img class='icon' src='img/GitHub-Mark-32px.png'/></a></div></center>");
     var navbar = document.getElementsByClassName('navbar')[0];
     var sticky = navbar.offsetTop;
     
-    function myFunction() {
+function myFunction() {
   if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
+    navbar.classList.add("sticky");
   } else {
     navbar.classList.remove("sticky");
   }
@@ -76,8 +62,8 @@
     
 </script>
      <script>
-       document.getElementById(type).style.color="hsla(0, 0%, 75%, 1)";
-    document.getElementById(type).style.borderBottom="solid 5px #81c332";
+        document.getElementById(type).style.color="hsla(0, 0%, 75%, 1)";
+        document.getElementById(type).style.borderBottom="solid 5px #81c332";
     </script>
     
 </body>

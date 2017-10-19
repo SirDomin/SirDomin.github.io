@@ -15,46 +15,31 @@
         var tmp = new Image();
         tmp.className = "small_cube";
         tmp.src="img/"+nameOfImage+".png";
-        try{
-            parrent.appendChild(tmp)
-            
-        }catch(e){
-            console.log("error")
-        }
+            try{
+                parrent.appendChild(tmp)
+            }catch(e){
+                console.log("error")
+            }
     }
-    
-    
-    
     if(document.location.search.match(/type/))
     {
         urlVar = document.location.search.replace("?type=","")||"cross";
-        
-        document.write("<br><br><br><br><br><br>")
+        document.write("<br><br><br><br><br><br>");
        
-                for(var i=0;i<window[urlVar].length;i++)
-                {
-                    document.write("<a href='showAlgorithm.html?alg="+i+"&type="+urlVar+"'>")
-                    document.write("<div class='algorithms'>")
-                    document.write(i+'<img class="kostka_alg" src="'+urlVar+'/'+urlVar+(i)+'.png"/>');
-                    document.write("<div class='text_alg'>")
-                    for(var x in window[urlVar][i])
-                        document.write(window[urlVar][i][x]+" ")
-                    document.write("</div>")
-                    document.write("</div></a>")
-                }
-         
-        
+            for(var i=0;i<window[urlVar].length;i++)
+            {
+                document.write("<a href='showAlgorithm.html?alg="+i+"&type="+urlVar+"'>");
+                document.write("<div class='algorithms'>");
+                document.write('<i class="alg_number">'+i+'</i><img class="kostka_alg" src="'+urlVar+'/'+urlVar+(i)+'.png"/>');
+                document.write("<div class='text_alg'>");
+                for(var x in window[urlVar][i])
+                    document.write(window[urlVar][i][x]+" ");
+                document.write("</div>");
+                document.write("</div></a>");
+            }
     }else{
           document.location="index.html?type=cross";
-        
     }
-    
-    
-
- 
-     
-    
-    
 </script>
     <div class='navbar'>
         <a href="index.html?type=cross"><div id="cross" class='button_type_alg'>CROSS</div></a>
@@ -62,14 +47,16 @@
         <a href='index.html?type=oll' ><div id="oll" class='button_type_alg' >OLL</div></a>
         <a href='index.html?type=pll'><div id="pll" class='button_type_alg'>PLL</div></a>
     </div>
-    
+    <center>
     <div class='footer' id="footer">
         Created by: Dominik Garbulski <a href="https://www.github.com/sirdomin"><img class="icon" src="img/GitHub-Mark-32px.png"/></a>
     </div>
+    </center>
     <script>
         if(!document.location.search.match(/type/))document.getElementById("footer").style.marginTop=screen.availHeight-110;
-       document.getElementById(urlVar).style.color="hsla(0, 0%, 75%, 1)";
-    document.getElementById(urlVar).style.borderBottom="solid 5px #81c332";
+        
+        document.getElementById(urlVar).style.color="hsla(0, 0%, 75%, 1)";
+        document.getElementById(urlVar).style.borderBottom="solid 5px #81c332";
     </script>
 </body> 
 </html>
