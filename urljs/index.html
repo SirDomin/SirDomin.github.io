@@ -1,14 +1,12 @@
 <html>
 <head>
     <style>
-        form{
-            
+        form {
             border:solid 1px black;
             height:200px;
             width:300px;
             text-align: center;
         }
-    
     </style>
 </head>
 <body>
@@ -19,10 +17,8 @@
         Password:<input type="text" id="password"/><br/>
         <input type="button" value="send" onclick="login()"/>
     </form>
-    <script>
-            
-        function login(){
-            
+    <script>   
+        function login() {
             setVariable("name",document.getElementById("name").value);
             setVariable("password",document.getElementById("password").value);
             redirect("result.html","name","password")
