@@ -43,8 +43,8 @@ function getVariable(variable_name){
     
     for(var i = 0;i<urlVar.length;i++)
         {   
-            if(urlVar[i].match(variable_name))return urlVar[i].split("=")[1];
-                else return undefined;
+            if(urlVar[i].match(variable_name))return urlVar[i].split("=")[1] || undefined;
+                else return "variable not found";
         }
     
     //console.log(document.location.search.match("/"+variable_name+"/"))
