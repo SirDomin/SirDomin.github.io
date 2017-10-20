@@ -39,13 +39,20 @@ function redirect(link,variables_to_send){
 function getVariable(variable_name){
     
     var urlVar = document.location.search.replace("?","");
+    var err=false;
     urlVar = urlVar.split("&");
-    
-    for(var i = 0;i<urlVar.length;i++)
+    console.log(urlVar.length)
+    for(var i = 0;i<urlVar.length-1;i++)
         {   
-            if(urlVar[i].match(variable_name))return urlVar[i].split("=")[1] || undefined;
-                else return "variable not found";
+            console.log(i)
+            if(urlVar[i].match(variable_name)){
+                err = false;
+                return urlVar[i].split("=")[1] || undefined;
+            }else{
+                err = true;
+            }
         }
+    if(err==true)return ("variable "+variable_name+" not found");
     
     //console.log(document.location.search.match("/"+variable_name+"/"))
 }
