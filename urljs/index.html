@@ -1,12 +1,22 @@
 <html>
 <head>
+    <style>
+        form{
+            
+            border:solid 1px black;
+            height:200px;
+            width:300px;
+            text-align: center;
+        }
     
+    </style>
 </head>
 <body>
     <script src="url.js"></script>
     <form>
-        <input type="text" id="name"/>
-        <input type="text" id="password"/>
+        <h1>Formularz</h1>
+        Name:<input type="text" id="name"/><br/>
+        Password:<input type="text" id="password"/><br/>
         <input type="button" value="send" onclick="login()"/>
     </form>
     <script>
