@@ -1,0 +1,22 @@
+<html>
+<head>
+    
+</head>
+<body>
+    <script src="url.js"></script>
+    <form>
+        <input type="text" id="name"/>
+        <input type="text" id="password"/>
+        <input type="button" value="send" onclick="login()"/>
+    </form>
+    <script>
+            
+        function login(){
+            
+            setVariable("name",document.getElementById("name").value);
+            setVariable("password",document.getElementById("password").value);
+            redirect("result.html","name","password")
+        }
+    </script>
+</body>
+</html>
