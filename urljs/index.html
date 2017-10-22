@@ -14,18 +14,22 @@
 <body>
     <script src="url.js"></script>
     <form>
-        <h1>Formularz</h1>
-        Name:<input type="text" id="name"/><br/>
-        Password:<input type="text" id="password"/><br/>
+        <h1>Variables to send</h1>
+        variable 1:<input type="text" id="v1"/><br/>
+        variable 2:<input type="text" id="v2"/><br/>
+        variable 3:<input type="text" id="v3"/><br/>
         <input type="button" value="send" onclick="login()"/>
     </form>
     <script>
             
         function login(){
+            //set variables
+            setVariable("v1",document.getElementById("v1").value);
+            setVariable("v2",document.getElementById("v2").value);
+            setVariable("v3",document.getElementById("v3").value);
             
-            setVariable("name",document.getElementById("name").value);
-            setVariable("password",document.getElementById("password").value);
-            redirect("result.html","name","password")
+            //send them
+            redirect("result.html","v1","v2","v3")
         }
     </script>
 </body>

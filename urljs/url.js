@@ -41,10 +41,10 @@ function getVariable(variable_name){
     var urlVar = document.location.search.replace("?","");
     var err=false;
     urlVar = urlVar.split("&");
-    console.log(urlVar.length)
+    
     for(var i = 0;i<urlVar.length-1;i++)
         {   
-            console.log(i)
+           
             if(urlVar[i].match(variable_name)){
                 err = false;
                 return urlVar[i].split("=")[1] || undefined;
@@ -54,5 +54,5 @@ function getVariable(variable_name){
         }
     if(err==true)return ("variable "+variable_name+" not found");
     
-    //console.log(document.location.search.match("/"+variable_name+"/"))
+  
 }

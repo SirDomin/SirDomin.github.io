@@ -9,11 +9,11 @@
 <script src="algs/pll.js"></script>  
 <script src="algs/cross.js"></script>  
  <div class='navbar'>
-        <a href="index.html?type=cross"><div id="cross" class='button_type_alg'>CROSS</div></a>
-        <a href='index.html?type=f2l'><div id="f2l" class='button_type_alg'>F2l</div></a>
-        <a href='index.html?type=oll' ><div id="oll" class='button_type_alg' >OLL</div></a>
-        <a href='index.html?type=pll'><div id="pll" class='button_type_alg'>PLL</div></a>
-    </div>
+    <a href="index.html?type=cross"><div id="cross" class='button_type_alg'>CROSS</div></a>
+    <a href='index.html?type=f2l'><div id="f2l" class='button_type_alg'>F2l</div></a>
+    <a href='index.html?type=oll' ><div id="oll" class='button_type_alg' >OLL</div></a>
+    <a href='index.html?type=pll'><div id="pll" class='button_type_alg'>PLL</div></a>
+</div>
 <script>
     
     addImage = function(parrent,nameOfImage){
@@ -29,26 +29,30 @@
             }
     }
     document.write("<br><br><br><br><br><br>");
+    
         if(document.location.search.match(/alg/))
         {
             var urlVar = document.location.search.replace("?alg=","");
             alg = urlVar.split("&type=");
             urlVar = alg[0];
             type = alg[1];
-            
         }else{
             if(document.location.search.length)
                 document.location.href="index.html";
             urlvar = "cross";
     }
+    
     parseInt(urlVar);
     document.write("<div class='algorithms'>");
     document.write('<i class="alg_number" id="show_alg_number">'+type+' | alg. '+urlVar+'</i><img class="kostka_alg" src="'+type+'/'+type+urlVar+'.png"/>');
     document.write("<br><br><br><br>");
-        for(var  x in window[type][urlVar])
-            addImage(document.getElementsByClassName("algorithms")[0],window[type][urlVar][x]);
+    
+    for(var  x in window[type][urlVar])
+        addImage(document.getElementsByClassName("algorithms")[0],window[type][urlVar][x]);
+    
     document.write("</div></a>");
     document.write("<center><div class='footer'>Created by: Dominik Garbulski <a href='https://www.github.com/sirdomin'><img class='icon' src='img/GitHub-Mark-32px.png'/></a></div></center>");
+    
     var navbar = document.getElementsByClassName('navbar')[0];
     var sticky = navbar.offsetTop;
     

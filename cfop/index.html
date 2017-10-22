@@ -21,6 +21,7 @@
                 console.log("error")
             }
     }
+    
     if(document.location.search.match(/type/))
     {
         urlVar = document.location.search.replace("?type=","")||"cross";
@@ -32,8 +33,10 @@
                 document.write("<div class='algorithms'>");
                 document.write('<i class="alg_number">'+i+'</i><img class="kostka_alg" src="'+urlVar+'/'+urlVar+(i)+'.png"/>');
                 document.write("<div class='text_alg'>");
+                
                 for(var x in window[urlVar][i])
                     document.write(window[urlVar][i][x]+" ");
+                
                 document.write("</div>");
                 document.write("</div></a>");
             }
