@@ -43,8 +43,6 @@ function getVariable(variable_name) {
     var err = false;
     urlVar = urlVar.split("&");
     
-    console.log(urlVar.length)
-    
     for(var i = 0; i < urlVar.length-1; i++)
     {   
         if(urlVar[i].match(variable_name)) {
