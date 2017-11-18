@@ -5,8 +5,6 @@ Bullet = function(x,y,w,h,speed,id,src){
 	this.h = h;
 	this.speed = speed;
 	this.id = id;
-	console.log(id)
-	
 	this.target = {
 		x : mouse.x,
 		y : mouse.y,
@@ -14,18 +12,13 @@ Bullet = function(x,y,w,h,speed,id,src){
 	//speed x and y calculated on target x,y and start point
 	this.xVelocity = Math.cos(Math.atan2((this.y + this.h / 2) - (this.target.y), this.target.x - (this.x + this.w / 2)));
     this.yVelocity = -1 * Math.sin(Math.atan2((this.y + this.h / 2) - (this.target.y), this.target.x - (this.x + this.w / 2)));
-
     this.update = function() {
     	this.x += this.speed * this.xVelocity;
     	this.y += this.speed * this.yVelocity;
-
     	if(this.x<0||this.y<0||this.y>canvas.h||this.x>canvas.w){
-    		
     		delete player.weapon.bullets[this.id];
     	}
-
     }
-
 	this.render = function() {
 		//rotate the bullet so it looks realistic
 		ctx.save();
@@ -36,8 +29,6 @@ Bullet = function(x,y,w,h,speed,id,src){
 		ctx.restore();
 	}
 }
-
-
 Weapon0 = function(x,y){
 //30,295
 	this.x = x;
@@ -72,7 +63,8 @@ Weapon0 = function(x,y){
 					break; 
 				}
 			}
-		}else {
+		}
+		else {
 			if(!this.reloading)
 			{
 				this.reloading = true;

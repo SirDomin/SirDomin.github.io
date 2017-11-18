@@ -38,15 +38,12 @@ Player = function(){
         this.weapon.render();
         ctx.drawImage(this.handle,this.x,this.y,this.w,this.h);
         ctx.restore();
-
         //render active bullets
         for(var i in this.weapon.bullets) {
 			this.weapon.bullets[i].render();
 			this.weapon.bullets[i].update();
 		}
-
 		ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,50);
-
 	}
 	this.shot = function() {
 		this.weapon.shot(this.eowX,this.eowY);
@@ -69,7 +66,6 @@ LoadingBar = function(x,y,w,h) {
 		ctx.fillRect(this.x + this.borderWidth,this.y + this.borderWidth,(this.w - this.borderWidth * 2) * percentage,this.h - this.borderWidth * 2);
 	}
 }
-
 RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 	this.x = x;
 	this.y = y;
@@ -78,7 +74,6 @@ RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 	this.backgroundColor = "hsla(161, 12%, 33%, 0.54)";
 	this.whenCompleteAction = function(){}
 	this.update = function(color, percentage) {
-		
 		ctx.beginPath()
 		ctx.arc(this.x,this.y,this.r, 0 * Math.PI,(2 * Math.PI) * percentage,true);
 		ctx.font = "15px Arial";
