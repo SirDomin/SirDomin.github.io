@@ -48,7 +48,6 @@ Weapon0 = function(x,y){
 	this.reloadStart = now - this.reloadTime;
 	this.img = new Image();
 	this.img.src = "img/gun.png";
-	
 	this.render = function() {
 		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
 	}
