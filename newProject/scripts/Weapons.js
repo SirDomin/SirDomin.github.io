@@ -1,10 +1,12 @@
-Bullet = function(x,y,w,h,speed,src){
+Bullet = function(x,y,w,h,speed,id,src){
 	this.x = x;
 	this.y = y - h / 1.8;
 	this.w = w;
 	this.h = h;
 	this.speed = speed;
-
+	this.id = id;
+	console.log(id)
+	
 	this.target = {
 		x : mouse.x,
 		y : mouse.y,
@@ -16,6 +18,12 @@ Bullet = function(x,y,w,h,speed,src){
     this.update = function() {
     	this.x += this.speed * this.xVelocity;
     	this.y += this.speed * this.yVelocity;
+
+    	if(this.x<0||this.y<0||this.y>canvas.h||this.x>canvas.w){
+    		
+    		delete player.weapon.bullets[this.id];
+    	}
+
     }
 
 	this.render = function() {
@@ -37,21 +45,41 @@ Weapon0 = function(x,y){
 	this.w = 100;
 	this.h = 20;
 	this.bullets = [];
-	this.magazineSize = 100;
+	this.lastShot = now-1500;
+	this.magazineSize = 7;
+	this.magazine = 0;
 	//bulletMS - difference between shots (ms)
-	this.bulletMS = 400;
+	this.bulletMS = 140;
+	this.reloadTime = 5000;
+	this.reloading = false;
 	this.length = 60;
 	this.speed = 5;
+	this.reloadStart = now - this.reloadTime;
 	this.img = new Image();
 	this.img.src = "img/gun.png";
+	
 	this.render = function() {
 		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
 	}
 	this.shot = function(x,y) {
-		if(this.bullets.length < this.magazineSize) {
-			this.bullets.push(new Bullet(x,y,10,5,5,"t"));
-
+		if(this.magazine > 0 && now - this.lastShot > this.bulletMS ) {
+			for(var i = 0; i < this.magazineSize; i++)
+			{
+				if(!this.bullets[i]){
+					this.bullets[i] = new Bullet(x,y,10,5,5,i);
+					this.magazine--;
+					this.lastShot = now;
+					break; 
+				}
+			}
+		}else {
+			if(!this.reloading)
+			{
+				this.reloading = true;
+				this.reloadStart = now;
+			}
 		}
 	}
+
 
 }

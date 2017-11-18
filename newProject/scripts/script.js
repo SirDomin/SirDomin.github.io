@@ -4,6 +4,8 @@ canvas = {
 	w : 640,
 	h : 480, 
 }
+d = new Date();
+now = d.getTime();
 document.createElement("canvas");
 Canvas = document.getElementById("canvas");
 Canvas.width = canvas.w;
@@ -21,15 +23,30 @@ Canvas.addEventListener("mousemove", function(e){
     mouse.y=e.pageY-Canvas.offsetTop;
 });
 
+//create player
 player = new Player();
 
 Canvas.addEventListener("mousedown", function(e){
 	player.shot();
 });
-//create player
 
+enemies = [];
+
+getDecimalValue = function(curr,max) {
+	return curr/max;
+}
+
+maximum = function(min,curr,max) {
+	if(curr < min)return min;
+		else if(curr > max)return max;
+	return curr;
+}
 
 main = function() {
+
+ 	d = new Date();
+  	now = d.getTime();
+
 	update();
 	render();
 
