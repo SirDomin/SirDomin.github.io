@@ -4,6 +4,7 @@ canvas = {
 	w : 640,
 	h : 480, 
 }
+volume = 0.05;
 //declare time in game
 d = new Date();
 //create canvas
@@ -30,6 +31,8 @@ Canvas.addEventListener("mousedown", function(e){
 	player.shot();
 });
 enemies = [];
+buttons = [];
+hitmarks = [];
 //returns decimal value out of division 2 numbers
 getDecimalValue = function(curr,max) {
 	return curr/max;

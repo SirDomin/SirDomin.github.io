@@ -4,6 +4,13 @@ Player = function(){
 	this.x = 0;
 	this.y = canvas.h/2 - this.w/2;
 	this.eowX,this.eowY;
+	this.background = new Image();
+	this.background.src = "img/background.png";
+	this.guiTop = new Image();
+	this.guiTop.src = "img/guiTop.png"
+	this.base = new Image();
+	this.base.src = "img/base.png";
+	this.baseWidth = 100;
     this.handle = new Image();
     this.handle.src = "img/handle.png";
     this.bodyImg=new Image(this.w,this.h);
@@ -27,6 +34,9 @@ Player = function(){
 		}
 	}
 	this.render = function() {
+		ctx.drawImage(this.background,0,0,canvas.w,canvas.h);
+		ctx.drawImage(this.base,0,50,this.baseWidth,canvas.h);
+		ctx.drawImage(this.guiTop,0,0,canvas.w,50);
 		//rotate turret to follow mouse angle
 		ctx.drawImage(this.bodyImg,this.x,this.y,this.w,this.h);
         ctx.save();
@@ -42,12 +52,15 @@ Player = function(){
 			this.weapon.bullets[i].render();
 			this.weapon.bullets[i].update();
 		}
+
+		for(var i in hitmarks) {
+			hitmarks[i].render();
+		}
 		ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,50);
 	}
 	this.shot = function() {
 		this.weapon.shot(this.eowX,this.eowY);
 	}
-
 }
 
 LoadingBar = function(x,y,w,h) {
@@ -69,11 +82,12 @@ RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 	this.y = y;
 	this.r = r;
 	this.borderWidth = 20;
-	this.backgroundColor = "hsla(161, 12%, 33%, 0.54)";
+	this.backgroundColor = "hsla(258, 1%, 53%, 0.81)";
 	this.whenCompleteAction = function(){}
 	this.update = function(color, percentage) {
 		ctx.beginPath()
 		ctx.arc(this.x,this.y,this.r, 0 * Math.PI,(2 * Math.PI) * percentage,true);
+		ctx.fillStyle = "lime";
 		ctx.font = "15px Arial";
 		ctx.fillText("Reloading",this.x-this.r+15,this.y)
 		ctx.lineWidth = this.borderWidth;

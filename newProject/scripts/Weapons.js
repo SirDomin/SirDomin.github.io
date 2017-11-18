@@ -3,6 +3,8 @@ Bullet = function(x,y,w,h,speed,id,src){
 	this.y = y - h / 1.8;
 	this.w = w;
 	this.h = h;
+	this.img = new Image();
+	this.img.src = src;
 	this.speed = speed;
 	this.id = id;
 	this.target = {
@@ -16,6 +18,14 @@ Bullet = function(x,y,w,h,speed,id,src){
     	this.x += this.speed * this.xVelocity;
     	this.y += this.speed * this.yVelocity;
     	if(this.x<0||this.y<0||this.y>canvas.h||this.x>canvas.w){
+    		
+    		for(var i = 0; i <= 10; i ++)
+    		{
+    			if(!hitmarks[i]) {
+    				hitmarks[i]=new Hitmark(this.x,this.y,i)
+    				break;
+    			}
+    		}
     		delete player.weapon.bullets[this.id];
     	}
     }
@@ -25,10 +35,30 @@ Bullet = function(x,y,w,h,speed,id,src){
 		ctx.translate(this.x + this.w / 2,this.y + this.h / 2);
         ctx.rotate(-Math.atan2((this.y + this.h / 2) - this.target.y, this.target.x - (this.x + this.w / 2)));
         ctx.translate( -(this.x + this.w / 2), - (this.y + this.h / 2));
-		ctx.fillRect(this.x,this.y,this.w,this.h);
+		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
 		ctx.restore();
 	}
 }
+Hitmark = function(x,y,id) {
+	this.x = x - 10;
+	this.y = y - 10;
+	this.w = 20;
+	this.h = 20;
+	this.id = id;
+	this.sound = new Audio("sounds/HITMARKER.mp3");
+	this.sound.volume = volume;
+	this.img = new Image();
+	this.img.src = "img/hitmark.png";
+	this.timeCreated = now;
+	this.sound.play();
+	this.render = function(){
+		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
+		if(now - this.timeCreated > 200)delete hitmarks[this.id];
+	}
+
+
+}
+
 Weapon0 = function(x,y){
 //30,295
 	this.x = x;
@@ -38,16 +68,17 @@ Weapon0 = function(x,y){
 	this.bullets = [];
 	this.lastShot = now-1500;
 	this.magazineSize = 7;
-	this.magazine = 0;
+	this.magazine = this.magazineSize;
 	//bulletMS - difference between shots (ms)
 	this.bulletMS = 140;
-	this.reloadTime = 5000;
+	this.reloadTime = 1000;
 	this.reloading = false;
 	this.length = 60;
 	this.speed = 5;
 	this.reloadStart = now - this.reloadTime;
 	this.img = new Image();
 	this.img.src = "img/gun.png";
+	this.bulletImgSrc = "img/bullet.png";
 	this.render = function() {
 		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
 	}
@@ -56,7 +87,7 @@ Weapon0 = function(x,y){
 			for(var i = 0; i < this.magazineSize; i++)
 			{
 				if(!this.bullets[i]){
-					this.bullets[i] = new Bullet(x,y,10,5,5,i);
+					this.bullets[i] = new Bullet(x,y,20,10,5,i,this.bulletImgSrc);
 					this.magazine--;
 					this.lastShot = now;
 					break; 
