@@ -1,5 +1,4 @@
 Player = function(){
-
 	this.w = 75;
 	this.h = 75	;
 	this.x = 0;
@@ -59,7 +58,6 @@ LoadingBar = function(x,y,w,h) {
 	this.borderWidth = 2;
 	this.backgroundColor = "black";
 	this.update = function(color, percentage) {
-	
 		ctx.fillStyle = this.backgroundColor;
 		ctx.fillRect(this.x,this.y,this.w,this.h);
 		ctx.fillStyle = color;
