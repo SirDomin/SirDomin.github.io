@@ -1,0 +1,13 @@
+/*
+defender
+zombies / humans per 10 lvls
+normal + some mlg assets
+bait -- zombies that get focused by human inviders
+grenades system
+outpost - player has to defend his outpost
+future times - radioactive/zombies
+player is a turret 
+
+
+
+*/
