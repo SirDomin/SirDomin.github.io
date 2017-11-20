@@ -4,6 +4,13 @@ Player = function(){
 	this.x = 0;
 	this.y = canvas.h/2 - this.w/2;
 	this.eowX,this.eowY;
+	this.currHp = 100;
+	this.maxHp = 100;
+	this.maxCash = 99999;
+	this.currCash = 100;
+	this.hpBar = new LoadingBar(5,5,100,20);
+	this.hpIcon = new Image();
+	this.hpIcon.src = "img/hpIcon.png";
 	this.background = new Image();
 	this.background.src = "img/background.png";
 	this.guiTop = new Image();
@@ -23,22 +30,44 @@ Player = function(){
     	player.weapon.reloading = false;
     }
 	this.update = function() {
+		this.hpBar.update("hsla(" + 124 * maximum(0,getDecimalValue(this.currHp,this.maxHp),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(this.currHp,this.maxHp),1));
+		ctx.drawImage(this.hpIcon,45,7,16,16);
 		//end of weapon (shot start);
 		//eowX -- end of weapon X axis
 		//eowY -- end of weapon Y axis
-		this.eowX = this.x+this.w/2 + this.weapon.length * Math.cos(-Math.atan2((this.y + this.w / 2) - mouse.y, mouse.x - (this.x+this.w/2)));
+		this.eowX = this.x+this.w/2 + this.weapon.length * Math.cos(-Math.atan2((this.y + this.w / 2) - mouse.y, mouse.x - (this.x+this.w/2))) - this.weapon.bulletW/2;
 		this.eowY = this.y+this.h/2 + this.weapon.length * Math.sin(-Math.atan2((this.y + this.w / 2) - mouse.y, mouse.x - (this.x+this.w/2)));	
-		this.bulletMS.update("green",maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1));	
+		this.bulletMS.update("hsla(185, 100%, 48%, 1)",maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1));	
 		if(player.weapon.reloading){
+
 			this.reloadingTime.update("lime",maximum(0,getDecimalValue(now - this.weapon.reloadStart,this.weapon.reloadTime),1));
+		}else if(mouse.down && this.weapon.autofire){
+			this.shot();
 		}
+		
+
 	}
 	this.render = function() {
 		ctx.drawImage(this.background,0,0,canvas.w,canvas.h);
 		ctx.drawImage(this.base,0,50,this.baseWidth,canvas.h);
+		ctx.shadowColor = "black";
+		setShadow(0,2);
 		ctx.drawImage(this.guiTop,0,0,canvas.w,50);
+		setShadow(2,2);
+		ctx.font = "20px Arial";
+		ctx.fillStyle = "#81c332";
+		ctx.fillText("$ " + player.currCash,120,22);
+		setShadow(0,0);
+		ctx.fillStyle = "lime";
+		ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,player.y + player.h * 1.5);
 		//rotate turret to follow mouse angle
 		ctx.drawImage(this.bodyImg,this.x,this.y,this.w,this.h);
+
+        //render active bullets
+		for(var i in this.weapon.bullets) {
+			this.weapon.bullets[i].render();
+			this.weapon.bullets[i].update();
+		}
         ctx.save();
         ctx.translate(this.x+this.w/2,this.y+this.h/2);
         ctx.rotate(-Math.atan2((this.y+this.h/2) - mouse.y, mouse.x - (this.x+this.w/2)));
@@ -47,19 +76,17 @@ Player = function(){
         this.weapon.render();
         ctx.drawImage(this.handle,this.x,this.y,this.w,this.h);
         ctx.restore();
-        //render active bullets
-        for(var i in this.weapon.bullets) {
-			this.weapon.bullets[i].render();
-			this.weapon.bullets[i].update();
-		}
+        
 
 		for(var i in hitmarks) {
 			hitmarks[i].render();
 		}
-		ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,50);
+		
 	}
 	this.shot = function() {
-		this.weapon.shot(this.eowX,this.eowY);
+		
+		if(mouse.y > 50 && getDistanceBetweenPoints(mouse.x,mouse.y,this.x+this.w / 2,this.y + this.h / 2)>this.weapon.length)
+			this.weapon.shot(this.eowX,this.eowY);
 	}
 }
 
@@ -93,6 +120,6 @@ RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 		ctx.lineWidth = this.borderWidth;
 		ctx.strokeStyle = this.backgroundColor;
 		ctx.stroke();
-		if(percentage > 0.99)this.whenCompleteAction();
+		if(percentage > 0.97)this.whenCompleteAction();
 	}
 }

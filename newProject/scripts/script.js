@@ -4,7 +4,8 @@ canvas = {
 	w : 640,
 	h : 480, 
 }
-volume = 0.05;
+defVolume = 0.02;
+volume = defVolume;
 //declare time in game
 d = new Date();
 //create canvas
@@ -19,7 +20,9 @@ ctx = Canvas.getContext("2d");
 mouse = {
 	x : 0,
 	y : 0,
+	down : false,
 }
+
 //update mouse coords
 Canvas.addEventListener("mousemove", function(e){
 	mouse.x=e.pageX-Canvas.offsetLeft;
@@ -28,11 +31,60 @@ Canvas.addEventListener("mousemove", function(e){
 //create player
 player = new Player();
 Canvas.addEventListener("mousedown", function(e){
+	for(var i in buttons) {
+		if(mouse.x > buttons[i].x && mouse.x < buttons[i].x + buttons[i].w && mouse.y > buttons[i].y && mouse.y < buttons[i].y + buttons[i].h) {
+			buttons[i].onclick();
+		}
+	}
+
 	player.shot();
+	mouse.down = true;
+});
+Canvas.addEventListener("mouseup",function(e){
+	mouse.down = false;
 });
 enemies = [];
 buttons = [];
 hitmarks = [];
+//
+
+buttons[buttons.length] = new Button(canvas.w - 50, 10, 30, 30, "img/settingsIcon.png");
+buttons[buttons.length] = new Button(canvas.w - 90, 10, 30, 30, "img/volume.png");
+var x = buttons.length -1;
+buttons[x].onclick = function(){
+	if(mute())
+	{
+		this.img.src = "img/volume.png";
+	}else {
+		this.img.src = "img/novolume.png";
+	}
+	
+};
+
+random = function(min,max) {
+	return Math.random() * (max - min) + min;
+}
+setShadow = function(xOffset,yOffset) {
+	ctx.shadowOffsetX = xOffset; 
+	ctx.shadowOffsetY = yOffset;
+}
+mute = function() {
+	if(volume == 0) {
+		volume = defVolume;
+		return true
+	}else {
+		volume = 0;
+		return false;
+	}
+}
+changeVolume = function(value) {
+	volume = value;
+}
+
+getDistanceBetweenPoints = function(x1,y1,x2,y2) {
+	return (Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)));
+}
+
 //returns decimal value out of division 2 numbers
 getDecimalValue = function(curr,max) {
 	return curr/max;
@@ -57,6 +109,9 @@ render = function() {
 	ctx.clearRect(0,0,canvas.w,canvas.h);
 	player.render();
 	player.update();
+	for(var i in buttons) {
+		buttons[i].render();
+	}
 }
 main();
 
