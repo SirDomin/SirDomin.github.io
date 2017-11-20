@@ -9,7 +9,7 @@ Bullet = function(x,y,w,h,speed,id,src){
 	this.id = id;
 	this.target = {
 		x : mouse.x ,
-		y : mouse.y + random(-player.weapon.dispersion,player.weapon.dispersion),
+		y : mouse.y + random(-player.weapon.dispersion,player.weapon.dispersion) * getDistanceBetweenPoints(mouse.x,mouse.y,this.x,this.y)/500,
 	}
 	//speed x and y calculated on target x,y and start point
 	this.xVelocity = Math.cos(Math.atan2((this.y + this.h / 2) - (this.target.y), this.target.x - (this.x + this.w / 2)));
@@ -68,11 +68,11 @@ Weapon0 = function(x,y){
 	this.lastShot = now-1500;
 	this.magazineSize = 700;
 	this.magazine = this.magazineSize;
-	this.dispersion = 20;
+	this.dispersion = 50;
 	//auto shot when mousedown
 	this.autofire = true;
 	//bulletMS - difference between shots (ms)
-	this.bulletMS = 100;
+	this.bulletMS = 50;
 	this.reloadTime = 1000;
 	this.reloading = false;
 	this.length = 60;

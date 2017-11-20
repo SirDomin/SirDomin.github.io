@@ -9,22 +9,30 @@ Player = function(){
 	this.maxCash = 99999;
 	this.currCash = 100;
 	this.hpBar = new LoadingBar(5,5,100,20);
-	this.hpIcon = new Image();
-	this.hpIcon.src = "img/hpIcon.png";
-	this.background = new Image();
-	this.background.src = "img/background.png";
-	this.guiTop = new Image();
-	this.guiTop.src = "img/guiTop.png"
-	this.base = new Image();
-	this.base.src = "img/base.png";
 	this.baseWidth = 100;
+	//loading gui icons
+	this.hpIcon = new Image();
+	this.background = new Image();
+	this.guiTop = new Image();
+	this.base = new Image();
     this.handle = new Image();
+    this.bodyImg = new Image(this.w,this.h);
+    this.bulletIcon = new Image();
+	this.hpIcon.src = "img/hpIcon.png";
+	this.background.src = "img/background.png";
+	this.guiTop.src = "img/guiTop.png"
+	this.base.src = "img/base.png";
     this.handle.src = "img/handle.png";
-    this.bodyImg=new Image(this.w,this.h);
     this.bodyImg.src="img/body.png";
+    this.bulletIcon.src = "img/bulletIcon.png";
     this.weapon = new Weapon0(this.x,this.y+this.h/2-10);
     this.bulletMS = new LoadingBar(this.x,this.y-40,this.w,20);
     this.reloadingTime = new RoundedLoadingBar(canvas.w/2,canvas.h/2,50);
+    this.ammoBar = new RoundedLoadingBar(37,this.y + this.h * 1.6,35);
+    this.ammoBar.borderWidth = 5;
+    this.ammoBar.counterClockwise = false;
+    this.ammoBar.textX += 10;
+    this.ammoBar.textY += 5;
     this.reloadingTime.whenCompleteAction = function(){
     	player.weapon.magazine = player.weapon.magazineSize;
     	player.weapon.reloading = false;
@@ -40,7 +48,7 @@ Player = function(){
 		this.bulletMS.update("hsla(185, 100%, 48%, 1)",maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1));	
 		if(player.weapon.reloading){
 
-			this.reloadingTime.update("lime",maximum(0,getDecimalValue(now - this.weapon.reloadStart,this.weapon.reloadTime),1));
+			this.reloadingTime.update("hsla(258, 1%, 53%, 0.81)",maximum(0,getDecimalValue(now - this.weapon.reloadStart,this.weapon.reloadTime),1),"Reloading","lime",15);
 		}else if(mouse.down && this.weapon.autofire){
 			this.shot();
 		}
@@ -59,10 +67,11 @@ Player = function(){
 		ctx.fillText("$ " + player.currCash,120,22);
 		setShadow(0,0);
 		ctx.fillStyle = "lime";
-		ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,player.y + player.h * 1.5);
+		this.ammoBar.update("hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1),this.weapon.magazine,"black",20);
+		//ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,player.y + player.h * 1.5 + 100);
 		//rotate turret to follow mouse angle
 		ctx.drawImage(this.bodyImg,this.x,this.y,this.w,this.h);
-
+		ctx.drawImage(this.bulletIcon,5,this.y + this.h * 1.35,30,30)
         //render active bullets
 		for(var i in this.weapon.bullets) {
 			this.weapon.bullets[i].render();
@@ -108,17 +117,21 @@ RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 	this.x = x;
 	this.y = y;
 	this.r = r;
+	this.textX = this.x-this.r+15;
+	this.textY = this.y;
 	this.borderWidth = 20;
 	this.backgroundColor = "hsla(258, 1%, 53%, 0.81)";
+	this.counterClockwise = true;
 	this.whenCompleteAction = function(){}
-	this.update = function(color, percentage) {
+	this.update = function(color, percentage,text,textColor,fSize) {
+		
 		ctx.beginPath()
-		ctx.arc(this.x,this.y,this.r, 0 * Math.PI,(2 * Math.PI) * percentage,true);
-		ctx.fillStyle = "lime";
-		ctx.font = "15px Arial";
-		ctx.fillText("Reloading",this.x-this.r+15,this.y)
+		ctx.arc(this.x,this.y,this.r, 0 * Math.PI,(2 * Math.PI) * percentage,this.counterClockwise);
+		ctx.fillStyle = textColor;
+		ctx.font = fSize + "px Arial";
+		ctx.fillText(text,this.textX,this.textY);
 		ctx.lineWidth = this.borderWidth;
-		ctx.strokeStyle = this.backgroundColor;
+		ctx.strokeStyle = color;
 		ctx.stroke();
 		if(percentage > 0.97)this.whenCompleteAction();
 	}
