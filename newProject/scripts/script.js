@@ -48,7 +48,8 @@ mouse = {
 shop = new Shop();
 
 //keyboard events
-window.addEventListener("keydown",function(e){
+document.addEventListener("keydown",function(e){
+	console.log(e.key);
 	if(e.key == "r"){
 		player.weapon.magazine = 0;
 		player.weapon.shot();
