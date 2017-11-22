@@ -25,7 +25,7 @@ Player = function(){
     this.handle.src = "img/handle.png";
     this.bodyImg.src="img/body.png";
     this.bulletIcon.src = "img/bulletIcon.png";
-    this.weapon = new Weapon0(this.x,this.y+this.h/2-10);
+    this.weapon = new Weapon0(this.x,this.y);
     this.bulletMS = new LoadingBar(this.x,this.y-40,this.w,20);
     this.reloadingTime = new RoundedLoadingBar(canvas.w/2,canvas.h/2,50);
     this.ammoBar = new RoundedLoadingBar(37,this.y + this.h * 1.6,35);
@@ -45,15 +45,12 @@ Player = function(){
 		//eowY -- end of weapon Y axis
 		this.eowX = this.x+this.w/2 + this.weapon.length * Math.cos(-Math.atan2((this.y + this.w / 2) - mouse.y, mouse.x - (this.x+this.w/2))) - this.weapon.bulletW/2;
 		this.eowY = this.y+this.h/2 + this.weapon.length * Math.sin(-Math.atan2((this.y + this.w / 2) - mouse.y, mouse.x - (this.x+this.w/2)));	
-		this.bulletMS.update("hsla(185, 100%, 48%, 1)",maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1));	
+		this.bulletMS.update("hsla(" + 124 * maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(now - this.weapon.lastShot,this.weapon.bulletMS),1));	
 		if(player.weapon.reloading){
-
 			this.reloadingTime.update("hsla(258, 1%, 53%, 0.81)",maximum(0,getDecimalValue(now - this.weapon.reloadStart,this.weapon.reloadTime),1),"Reloading","lime",15);
 		}else if(mouse.down && this.weapon.autofire){
 			this.shot();
 		}
-		
-
 	}
 	this.render = function() {
 		ctx.drawImage(this.background,0,0,canvas.w,canvas.h);
@@ -67,7 +64,7 @@ Player = function(){
 		ctx.fillText("$ " + player.currCash,120,22);
 		setShadow(0,0);
 		ctx.fillStyle = "lime";
-		this.ammoBar.update("hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1),this.weapon.magazine,"black",20);
+		this.ammoBar.update("hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1),this.weapon.magazine,"hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",20);
 		//ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,player.y + player.h * 1.5 + 100);
 		//rotate turret to follow mouse angle
 		ctx.drawImage(this.bodyImg,this.x,this.y,this.w,this.h);
@@ -85,20 +82,25 @@ Player = function(){
         this.weapon.render();
         ctx.drawImage(this.handle,this.x,this.y,this.w,this.h);
         ctx.restore();
-        
-
 		for(var i in hitmarks) {
 			hitmarks[i].render();
 		}
-		
+		for(var i in splats) {
+			splats[i].render();
+		}
 	}
 	this.shot = function() {
-		
 		if(mouse.y > 50 && getDistanceBetweenPoints(mouse.x,mouse.y,this.x+this.w / 2,this.y + this.h / 2)>this.weapon.length)
 			this.weapon.shot(this.eowX,this.eowY);
 	}
-}
 
+	this.changeWeapon = function(indexOfWeapon) {
+		if(this.weapon.id != indexOfWeapon && indexOfWeapon != "false"){
+			this.weapon = new window["Weapon"+indexOfWeapon](this.x,this.y);
+		}
+
+	}
+}
 LoadingBar = function(x,y,w,h) {
 	this.x = x;
 	this.y = y;
@@ -124,7 +126,6 @@ RoundedLoadingBar = function(x,y,r,whenCompleteAction) {
 	this.counterClockwise = true;
 	this.whenCompleteAction = function(){}
 	this.update = function(color, percentage,text,textColor,fSize) {
-		
 		ctx.beginPath()
 		ctx.arc(this.x,this.y,this.r, 0 * Math.PI,(2 * Math.PI) * percentage,this.counterClockwise);
 		ctx.fillStyle = textColor;
