@@ -1,6 +1,9 @@
 Player = function(){
 	this.dmgMultiplier = 2;
 	this.bgmusic = new Audio("sounds/bgmusic.mp3");
+	this.bgmusic.loadedmetadata = function() {
+		alert("loaded");
+	}
 	this.bgmusic.volume = volume * 1.5
 	this.bgmusic.play();
 	this.w = 75;

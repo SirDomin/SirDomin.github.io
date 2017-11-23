@@ -153,5 +153,37 @@ render = function() {
 }
 for(var i =0;i<20;i++)
 enemies.push(new Enemy(i))
-main();
+
+loadingStart = 0;
+loadingEnd = 10000;
+loadingBar = function(){
+	ctx.clearRect(0,0,canvas.w,canvas.h);
+	d = new Date()
+	now = d.getTime();
+  	if(!loadingStart){
+  		
+  		loadingStart = now;
+  		
+  	}
+  	now -= loadingStart
+  	
+  	percentage = maximum(0,getDecimalValue(now,loadingEnd),1)
+  		ctx.beginPath()
+		ctx.arc(canvas.w/2,canvas.h/2,100, 0 * Math.PI,(2 * Math.PI) * percentage,false);
+		ctx.fillStyle = "lime";
+		ctx.font ="13px Arial";
+		ctx.fillText("Here will be loading, wait 10s",canvas.w/2-95,canvas.h/2);
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = "black";
+		ctx.stroke();
+		if(percentage < 1){
+			
+			requestAnimationFrame(loadingBar)
+		}else {
+			main();
+		}
+
+}
+loadingBar();
+
 
