@@ -174,9 +174,9 @@ loadingBar = function(){
 		ctx.fillStyle = "lime";
 		ctx.font ="13px Arial";
 		ctx.fillText("LOADING",canvas.w/2-95,canvas.h/2)
-		ctx.fillText(loading,0,canvas.h-100);
-		ctx.fillText(loadingWeaponsSound,0,canvas.h-80);
-		ctx.fillText(imagesToLoad,0,canvas.h-60);
+		ctx.fillText("Player "+loading,0,canvas.h-100);
+		ctx.fillText("Sounds: "+loadingWeaponsSound,0,canvas.h-80);
+		ctx.fillText("Weapons: "+imagesToLoad,0,canvas.h-60);
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "black";
 		ctx.stroke();

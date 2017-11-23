@@ -13,7 +13,7 @@ Player = function(){
 	this.dmgMultiplier = 2;
 	this.bgmusic = new Audio("sounds/bgmusic.mp3");
 	this.bgmusic.volume = volume * 1.5
-	//this.bgmusic.play();
+	this.bgmusic.play();
 	this.w = 75;
 	this.h = 75	;
 	this.x = 0;
