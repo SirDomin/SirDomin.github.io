@@ -45,7 +45,7 @@ WeaponChoiceMenu = function(){
 	}
 	this.hide = function() {
 		this.started = 0;
-		this.audio.src = "sounds/WeaponChoiceLeave.mp3";
+		this.audio.src = sounds[9].src;
 		this.audio.play();
 		pause = false;
 		if(this.selectedWeapon<5)player.changeWeapon(this.selectedWeapon);
@@ -56,7 +56,7 @@ WeaponChoiceMenu = function(){
 	this.start = function() {
 		this.tmp = new Weapon0();
 		this.selectedWeapon = 0;
-		this.audio.src = "sounds/WeaponChoiceEntry.mp3";
+		this.audio.src = sounds[8].src;
 		this.audio.play();
 		this.lastWeapon = player.weapon.id;
 		this.started = 1;

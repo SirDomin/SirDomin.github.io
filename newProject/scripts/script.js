@@ -173,18 +173,30 @@ loadingBar = function(){
 		ctx.arc(canvas.w/2,canvas.h/2,100, 0 * Math.PI,(2 * Math.PI) * percentage,false);
 		ctx.fillStyle = "lime";
 		ctx.font ="13px Arial";
-		ctx.fillText(loading,canvas.w/2-95,canvas.h/2);
-		ctx.fillText(loadingWeaponsSound,canvas.w/2-95,canvas.h/2+20);
+		ctx.fillText("LOADING",canvas.w/2-95,canvas.h/2)
+		ctx.fillText(loading,0,canvas.h-100);
+		ctx.fillText(loadingWeaponsSound,0,canvas.h-80);
+		ctx.fillText(imagesToLoad,0,canvas.h-60);
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "black";
 		ctx.stroke();
-		if(percentage < 1){
+		console.log()
+		if(percentage < 1 &&( !isEmpty(loading) || !isEmpty(loadingWeaponsSound) || !isEmpty(imagesToLoad))){
 			
 			requestAnimationFrame(loadingBar)
 		}else {
 			main();
 		}
 
+}
+
+isEmpty = function(array){
+	for(var i in array)
+	{
+		
+		if(array[i])return false;
+	}
+	return true;
 }
 //main();
 loadingBar();
