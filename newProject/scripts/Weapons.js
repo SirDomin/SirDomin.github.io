@@ -45,7 +45,7 @@ pushImage("img/ak.png");
 pushImage("img/shotgun.png");
 pushImage("img/flamethrower.png");
 pushImage("img/shotgunBullet.png");
-
+pushImage("img/flame.png");
 for(var i in sounds) {
 	sounds[i].id = i;
 	loadingWeaponsSound[i] = sounds[i];
@@ -393,8 +393,8 @@ Weapon4 = function(x,y){
 	this.y = y -25;
 	this.w = 150;
 	this.h = 100;
-	this.bulletImg = new Image();
-	this.bulletImg.src = "img/flame.png";
+	this.bulletImg = images[8];
+	//this.bulletImg.src = "img/flame.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
 	this.magazineSize = 400;
