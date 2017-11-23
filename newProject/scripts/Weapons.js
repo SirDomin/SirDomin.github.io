@@ -19,11 +19,13 @@ sounds = [
 	new Audio("sounds/WeaponChoiceEntry.mp3"),
 	//weaponchoiceleave
 	new Audio("sounds/WeaponChoiceLeave.mp3"),
+	new Audio("sounds/machineGun.mp3"),
+	new Audio("sounds/rayGun.mp3")
 
 ];
 
 pushImage = function(src) {
-	for(var i=0;i<10;i++) {
+	for(var i=0;i<12;i++) {
 		if(!images[i]){
 			images[i] = new Image();
 			images[i].src = src;
@@ -46,6 +48,9 @@ pushImage("img/shotgun.png");
 pushImage("img/flamethrower.png");
 pushImage("img/shotgunBullet.png");
 pushImage("img/flame.png");
+pushImage("img/machineGun.png");
+pushImage("img/laserGun.png");
+pushImage("img/laser.png");
 for(var i in sounds) {
 	sounds[i].id = i;
 	loadingWeaponsSound[i] = sounds[i];
@@ -209,7 +214,7 @@ Weapon1 = function(x,y){
 	this.autofire = true;
 	//bulletMS - difference between shots (ms)
 	this.bulletMS = 70;
-	this.reloadTime = 3000;
+	this.reloadTime = 1000;
 	this.reloading = false;
 	this.length = 50;
 	this.bulletSpeed = 6;
@@ -262,12 +267,16 @@ Weapon2 = function(x,y){
 	//this.bulletImg.src = "img/bullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
-	this.magazineSize = 350;
+	this.magazineSize = 35;
 	this.magazine = this.magazineSize;
 	this.dispersion = 30;
-	this.audio = [sounds[3],sounds[3]];
+	this.audio = [sounds[3],sounds[3],sounds[3],sounds[3],sounds[3],sounds[3]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
+	this.audio[2].volume = volume;
+	this.audio[3].volume = volume;
+	this.audio[4].volume = volume;
+	this.audio[5].volume = volume;
 	this.lastBulletId = 0;
 	//auto shot when mousedown
 	this.autofire = true;
@@ -289,7 +298,8 @@ Weapon2 = function(x,y){
 	}
 	this.shot = function(x,y) {
 		if(this.magazine > 0 && now - this.lastShot > this.bulletMS ) {
-			var tmp = this.lastBulletId%2
+			var tmp = this.lastBulletId%4
+
 				this.audio[tmp].src = this.audio[tmp].src;
 				this.audio[tmp].play();
 		
@@ -316,7 +326,7 @@ Weapon2 = function(x,y){
 }
 //shotgn
 Weapon3 = function(x,y){
-	this.dmg = 10;
+	this.dmg = 20;
 	this.name = "Shotgun";
 	this.id = 3;
 	this.x = x - 30;
@@ -484,5 +494,164 @@ Weapon4 = function(x,y){
 			}
 		}
 
+	}
+}
+//mg
+Weapon5 = function(x,y){
+	this.dmg = 6;
+	this.name = "Machine Gun";
+	this.id = 5;
+	this.x = x - 30;
+	this.y = y -18;
+	this.w = 150;
+	this.h = 120;
+	this.bulletImg = images[1];
+	//this.bulletImg.src = "img/bullet.png";
+	this.bullets = [];
+	this.lastShot = now-1500;
+	this.magazineSize = 550;
+	this.magazine = this.magazineSize;
+	this.dispersion = 30;
+	this.audio = [sounds[10],sounds[10],sounds[10],sounds[10],sounds[10],sounds[10],sounds[10],sounds[10],sounds[10],sounds[10]];
+	this.audio[0].volume = volume;
+	this.audio[1].volume = volume;
+	this.audio[2].volume = volume;
+	this.audio[3].volume = volume;
+	this.audio[4].volume = volume;
+	this.audio[5].volume = volume;
+	this.audio[6].volume = volume;
+	this.audio[7].volume = volume;
+	this.audio[8].volume = volume;
+	this.audio[9].volume = volume;
+	this.lastBulletId = 0;
+	//auto shot when mousedown
+	this.autofire = true;
+	//bulletMS - difference between shots (ms)
+	this.bulletMS = 50;
+	this.reloadTime = 3000;
+	this.reloading = false;
+	this.length = 90;
+	this.bulletSpeed = 10;
+	this.reloadStart = now - this.reloadTime;
+	this.img = images[9];
+	//this.img.src = "img/ak.png";
+	
+	this.bulletW = 20;
+	this.bulletH = 10;
+	this.onStop = function(){}
+	this.render = function() {
+		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
+	}
+	this.shot = function(x,y) {
+		if(this.magazine > 0 && now - this.lastShot > this.bulletMS ) {
+			var tmp = this.lastBulletId%10
+
+				this.audio[tmp].src = this.audio[tmp].src;
+				this.audio[tmp].play();
+		
+			
+			for(var i = 0; i < this.magazineSize; i++)
+			{
+				if(!player.bullets[i]){
+					this.lastBulletId = i;
+					player.bullets[i] = new Bullet(x,y,this.bulletW,this.bulletH,this.bulletSpeed,i,this.bulletImg);
+					this.magazine--;
+					this.lastShot = now;
+				
+					break; 
+				}
+			}
+		}
+		else {
+			if(!this.reloading && this.magazine == 0)
+			{
+				this.reloading = true;
+				this.reloadStart = now;
+			}
+		}
+	}
+}
+//
+Weapon6 = function(x,y){
+	this.dmg = 10;
+	this.name = "RayGun";
+	this.id = 6;
+	this.x = x -20;
+	this.y = y -22;
+	this.w = 150;
+	this.h = 120;
+	this.bulletImg = images[11];
+	//this.bulletImg.src = "img/bullet.png";
+	this.bullets = [];
+	this.lastShot = now-1500;
+	this.magazineSize = 20;
+	this.magazine = this.magazineSize;
+	this.dispersion = 0;
+	this.audio = [sounds[11],sounds[11],sounds[11],sounds[11]];
+	this.audio[0].volume = volume;
+	this.audio[1].volume = volume;
+	this.audio[2].volume = volume;
+	this.audio[3].volume = volume;
+	this.lastBulletId = 0;
+	//auto shot when mousedown
+	this.autofire = true;
+	//bulletMS - difference between shots (ms)
+	this.bulletMS = 350;
+	this.reloadTime = 3000;
+	this.reloading = false;
+	this.length = 90;
+	this.bulletSpeed = 10;
+	this.reloadStart = now - this.reloadTime;
+	this.img = images[10];
+	//this.img.src = "img/ak.png";
+	
+	this.bulletW = 20;
+	this.bulletH = 5;
+	this.onStop = function(){}
+	this.render = function() {
+		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
+	}
+	this.shot = function(x,y) {
+		if(this.magazine > 0 && now - this.lastShot > this.bulletMS ) {
+			var tmp = this.lastBulletId%4
+
+				this.audio[tmp].src = this.audio[tmp].src;
+				this.audio[tmp].play();
+		
+			
+			for(var i = 0; i < this.magazineSize; i++)
+			{
+				if(!player.bullets[i]){
+					this.lastBulletId = i;
+					player.bullets[i] = new Bullet(x,y,this.bulletW,this.bulletH,this.bulletSpeed,i,this.bulletImg);
+					this.magazine--;
+					this.lastShot = now;
+					player.bullets[i].onHit = function(target){
+						if(target){
+							for(var i = 0; i <= 10; i ++)
+    						{
+    							if(!hitmarks[i]) {
+    								hitmarks[i]=new Hitmark(this.x,this.y,i)
+    								break;
+    							}
+    						}
+							target.currHp-=this.dmg*player.dmgMultiplier;
+							this.dmg *=0.8;
+							//target.startBurning(player.weapon.burningTime,player.weapon.burnDmg)
+						}else{
+							delete player.bullets[this.id]
+						}
+					}
+					break; 
+				}
+			}
+		}
+		else {
+			if(!this.reloading && this.magazine == 0)
+			{
+				this.reloading = true;
+				this.reloadStart = now;
+			}
+		}
 	}
 }

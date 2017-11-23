@@ -38,17 +38,20 @@ WeaponChoiceMenu = function(){
 	this.weaponImages.push(new WeaponChoiceButton(canvas.w/2-110,canvas.h/2+ 115,90,50,"img/akSide.png"));
 	this.weaponImages.push(new WeaponChoiceButton(canvas.w/2-150,canvas.h/2,30,110,"img/shotgunSide.png"));
 	this.weaponImages.push(new WeaponChoiceButton(canvas.w/2-150,canvas.h/2-115,30,110,"img/flamethrowerSide.png"));
+	this.weaponImages.push(new WeaponChoiceButton(canvas.w/2-120,canvas.h/2-180,110,90,"img/machineGun.png"));
+	this.weaponImages.push(new WeaponChoiceButton(canvas.w/2,canvas.h/2-180,110,90,"img/laserGun.png"));
 	this.handle = function() {
 		if(!this.started) {
 			this.start();
 		}
 	}
 	this.hide = function() {
+		mouse.down = false;
 		this.started = 0;
 		this.audio.src = sounds[9].src;
 		this.audio.play();
 		pause = false;
-		if(this.selectedWeapon<5)player.changeWeapon(this.selectedWeapon);
+		if(this.selectedWeapon<7)player.changeWeapon(this.selectedWeapon);
 		document.getElementById("WeaponChoice").style.visibility = "hidden";
 		this.blur = 0
 		Canvas.style.webkitFilter = "blur(0px)";
@@ -99,7 +102,7 @@ WeaponChoiceMenu = function(){
         WCtx.fillStyle = 'hsla(291, 11%, 77%, 0.36)';
 	 	this.drawSegments();
    //console.log(this.selectedWeapon)
-		if(this.selectedWeapon!==false&&this.selectedWeapon<5){
+		if(this.selectedWeapon!==false&&this.selectedWeapon<7){
 			if(this.tmp.id != this.selectedWeapon) {
 				try{
 					this.tmp = new window["Weapon"+this.selectedWeapon]();
