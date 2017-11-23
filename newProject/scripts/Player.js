@@ -1,11 +1,19 @@
 Player = function(){
+	this.elementsToLoad = [
+	"bgmusic",
+	"hpIcon",
+	"background",
+	"guiTop",
+	"base",
+    "handle",
+    "bodyImg",
+    "bulletIcon",
+	];
+
 	this.dmgMultiplier = 2;
 	this.bgmusic = new Audio("sounds/bgmusic.mp3");
-	this.bgmusic.loadedmetadata = function() {
-		alert("loaded");
-	}
 	this.bgmusic.volume = volume * 1.5
-	this.bgmusic.play();
+	//this.bgmusic.play();
 	this.w = 75;
 	this.h = 75	;
 	this.x = 0;
@@ -42,6 +50,20 @@ Player = function(){
     this.ammoBar.textX += 10;
     this.ammoBar.textY += 5;
     this.bullets = [];
+    for(var i in this.elementsToLoad)
+    {
+    	this[this.elementsToLoad[i]].id = i;
+   		loading[i] = this.elementsToLoad[i];
+    	this[this.elementsToLoad[i]].onload = function() {
+    		delete loading[this.id]
+    		
+    	}
+		this[this.elementsToLoad[i]].onloadeddata = function() {
+			
+			delete loading[this.id]
+			
+		}
+    }
     this.reloadingTime.whenCompleteAction = function(){
     	player.weapon.magazine = player.weapon.magazineSize;
     	player.weapon.reloading = false;

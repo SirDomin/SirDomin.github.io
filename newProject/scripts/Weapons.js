@@ -1,3 +1,36 @@
+sounds = [
+	//hitmarker
+	new Audio("sounds/HITMARKER.mp3"),
+	//colt
+	new Audio("sounds/colt.mp3"),
+	//uzi
+	new Audio("sounds/uzi.mp3"),
+	//ak
+	new Audio("sounds/ak.mp3"),
+	//shotgun
+	new Audio("sounds/shotgun.mp3"),
+	//flamethrowerStart
+	new Audio("sounds/flamethrowerStart.mp3"),
+	//flamethrowerShot
+	new Audio("sounds/flamethrower.mp3"),
+	//flamethrowerEnd
+	new Audio("sounds/flamethrowerEnd.mp3"),
+
+];
+images = [
+	
+]
+
+for(var i in sounds) {
+	sounds[i].id = i;
+	loadingWeaponsSound[i] = sounds[i];
+	sounds[i].onloadeddata = function() {
+		delete loadingWeaponsSound[this.id]
+	}
+
+}
+
+
 Bullet = function(x,y,w,h,speed,id,img){
 	this.x = x;
 	this.y = y - h / 1.8;
@@ -50,7 +83,7 @@ Hitmark = function(x,y,id) {
 	this.w = 20;
 	this.h = 20;
 	this.id = id;
-	this.sound = new Audio("sounds/HITMARKER.mp3");
+	this.sound = sounds[0];
 	this.sound.volume = volume * 2;
 	this.img = new Image();
 	this.img.src = "img/hitmark.png";
@@ -79,7 +112,7 @@ Weapon0 = function(x,y){
 	//auto shot when mousedown
 	this.autofire = false;
 	//bulletMS - difference between shots (ms)
-	this.audio = [new Audio("sounds/colt.mp3"),new Audio("sounds/colt.mp3")];
+	this.audio = [sounds[1],sounds[1]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
 	this.lastBulletId = 0;
@@ -141,7 +174,7 @@ Weapon1 = function(x,y){
 	this.magazine = this.magazineSize;
 	this.dispersion = 100;
 	//sound
-	this.audio = [new Audio("sounds/uzi.mp3"),new Audio("sounds/uzi.mp3"),new Audio("sounds/uzi.mp3"),new Audio("sounds/uzi.mp3")];
+	this.audio = [sounds[2],sounds[2],sounds[2],sounds[2]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
 	this.audio[2].volume = volume;
@@ -207,7 +240,7 @@ Weapon2 = function(x,y){
 	this.magazineSize = 350;
 	this.magazine = this.magazineSize;
 	this.dispersion = 30;
-	this.audio = [new Audio("sounds/ak.mp3"),new Audio("sounds/ak.mp3")];
+	this.audio = [sounds[3],sounds[3]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
 	this.lastBulletId = 0;
@@ -272,7 +305,7 @@ Weapon3 = function(x,y){
 	this.magazineSize = 4;
 	this.magazine = this.magazineSize;
 	this.dispersion = 100;
-	this.audio = [new Audio("sounds/shotgun.mp3"),new Audio("sounds/shotgun.mp3")];
+	this.audio = [sounds[4],sounds[4]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
 	this.lastBulletId = 0;
@@ -342,7 +375,7 @@ Weapon4 = function(x,y){
 	this.magazineSize = 400;
 	this.magazine = this.magazineSize;
 	this.dispersion = 100;
-	this.audio = [new Audio("sounds/flamethrowerStart.mp3"),new Audio("sounds/flamethrower.mp3"),new Audio("sounds/flamethrowerEnd.mp3")];
+	this.audio = [sounds[5],sounds[6],sounds[7]];
 	this.audio[0].volume = volume;
 	this.audio[1].volume = volume;
 	this.audio[2].volume = volume;

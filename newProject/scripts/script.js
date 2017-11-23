@@ -1,6 +1,7 @@
 defVolume = 0.02;
 volume = defVolume;
 pause = false;
+
 //declare time in game
 d = new Date();
 now = d.getTime();
@@ -172,7 +173,8 @@ loadingBar = function(){
 		ctx.arc(canvas.w/2,canvas.h/2,100, 0 * Math.PI,(2 * Math.PI) * percentage,false);
 		ctx.fillStyle = "lime";
 		ctx.font ="13px Arial";
-		ctx.fillText("Here will be loading, wait 10s",canvas.w/2-95,canvas.h/2);
+		ctx.fillText(loading,canvas.w/2-95,canvas.h/2);
+		ctx.fillText(loadingWeaponsSound,canvas.w/2-95,canvas.h/2+20);
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "black";
 		ctx.stroke();
@@ -184,6 +186,7 @@ loadingBar = function(){
 		}
 
 }
+//main();
 loadingBar();
 
 
