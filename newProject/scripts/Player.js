@@ -1,4 +1,8 @@
 Player = function(){
+	this.dmgMultiplier = 2;
+	this.bgmusic = new Audio("sounds/bgmusic.mp3");
+	this.bgmusic.volume = volume * 1.5
+	this.bgmusic.play();
 	this.w = 75;
 	this.h = 75	;
 	this.x = 0;
@@ -10,6 +14,7 @@ Player = function(){
 	this.currCash = 100;
 	this.hpBar = new LoadingBar(5,5,100,20);
 	this.baseWidth = 100;
+	this.weaponsAmmo = [];
 	//loading gui icons
 	this.hpIcon = new Image();
 	this.background = new Image();
@@ -33,6 +38,7 @@ Player = function(){
     this.ammoBar.counterClockwise = false;
     this.ammoBar.textX += 10;
     this.ammoBar.textY += 5;
+    this.bullets = [];
     this.reloadingTime.whenCompleteAction = function(){
     	player.weapon.magazine = player.weapon.magazineSize;
     	player.weapon.reloading = false;
@@ -52,7 +58,7 @@ Player = function(){
 			this.shot();
 		}
 	}
-	this.render = function() {
+	this.backgroundUpdate = function() {
 		ctx.drawImage(this.background,0,0,canvas.w,canvas.h);
 		ctx.drawImage(this.base,0,50,this.baseWidth,canvas.h);
 		ctx.shadowColor = "black";
@@ -63,6 +69,8 @@ Player = function(){
 		ctx.fillStyle = "#81c332";
 		ctx.fillText("$ " + player.currCash,120,22);
 		setShadow(0,0);
+	}
+	this.render = function() {
 		ctx.fillStyle = "lime";
 		this.ammoBar.update("hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1),this.weapon.magazine,"hsla(" + 124 * maximum(0,getDecimalValue(this.weapon.magazine,this.weapon.magazineSize),1)  + ", 100%, 45%, 1)",20);
 		//ctx.fillText(player.weapon.magazine + " / " +player.weapon.magazineSize,10,player.y + player.h * 1.5 + 100);
@@ -70,9 +78,9 @@ Player = function(){
 		ctx.drawImage(this.bodyImg,this.x,this.y,this.w,this.h);
 		ctx.drawImage(this.bulletIcon,5,this.y + this.h * 1.35,30,30)
         //render active bullets
-		for(var i in this.weapon.bullets) {
-			this.weapon.bullets[i].render();
-			this.weapon.bullets[i].update();
+		for(var i in this.bullets) {
+			this.bullets[i].render();
+			this.bullets[i].update();
 		}
         ctx.save();
         ctx.translate(this.x+this.w/2,this.y+this.h/2);
@@ -93,12 +101,24 @@ Player = function(){
 		if(mouse.y > 50 && getDistanceBetweenPoints(mouse.x,mouse.y,this.x+this.w / 2,this.y + this.h / 2)>this.weapon.length)
 			this.weapon.shot(this.eowX,this.eowY);
 	}
-
 	this.changeWeapon = function(indexOfWeapon) {
-		if(this.weapon.id != indexOfWeapon && indexOfWeapon != "false"){
+		if(this.weapon.id != indexOfWeapon && indexOfWeapon !== false){
+			this.weaponsAmmo[this.weapon.id] = this.weapon.magazine;
 			this.weapon = new window["Weapon"+indexOfWeapon](this.x,this.y);
+			if(this.weaponsAmmo[indexOfWeapon] != undefined) {
+				this.weapon.magazine = this.weaponsAmmo[indexOfWeapon];
+			}
 		}
-
+	}
+	this.mute = function(){
+		this.bgmusic.volume = 0;
+		for(var i in this.weapon.audio)
+			this.weapon.audio[i].volume = 0;
+	}
+	this.unmute = function() {
+		this.bgmusic.volume = defVolume;
+		for(var i in this.weapon.audio)
+			this.weapon.audio[i].volume = defVolume;
 	}
 }
 LoadingBar = function(x,y,w,h) {

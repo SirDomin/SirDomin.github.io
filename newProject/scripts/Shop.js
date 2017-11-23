@@ -4,8 +4,6 @@ ShopItem = function(name,price,desc,magazine){
 	this.desc = desc;
 	this.magazine = magazine;
 }
-
-
 var Shop = function(){
 	this.x = 0;
 	this.y = 52;
@@ -21,7 +19,6 @@ var Shop = function(){
 		this.active = true;
 		this.loadSpeed = 50;
 		this.buttons = buttons.length;
-
 	}
 	this.render = function() {
 		ctx.fillStyle = "rgb(77,77,77)";
