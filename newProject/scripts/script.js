@@ -92,6 +92,15 @@ buttons[x].onclick = function(){
 		this.img.src = "img/novolume.png";
 	}
 };
+buttons[0].onclick = function(){
+    
+};
+buttons.push(new Button(canvas.w-300,5,40,41));
+buttons[2].img = images[13];
+buttons[2].onclick = function() {
+    player.newRound(2);
+}
+
 random = function(min,max) {
 	return Math.random() * (max - min) + min;
 }
@@ -151,12 +160,13 @@ render = function() {
 	}
 	player.render();
 	player.update();
+    if(shop.active)shop.render();
 }
-for(var i =0;i<20;i++)
-enemies.push(new Enemy(i))
+
 
 loadingStart = 0;
-loadingEnd = 10000;
+loadingEnd = imagesToLoad.length + loadingWeaponsSound.length - 2;
+
 loadingBar = function(){
 	ctx.clearRect(0,0,canvas.w,canvas.h);
 	d = new Date()
@@ -168,10 +178,13 @@ loadingBar = function(){
   	}
   	now -= loadingStart
   	
-  	percentage = maximum(0,getDecimalValue(now,loadingEnd),1)
+  	percentage = maximum(0,getDecimalValue(imagesToLoad.length + loadingWeaponsSound.length - 2,loadingEnd),1)
   		ctx.beginPath()
 		ctx.arc(canvas.w/2,canvas.h/2,100, 0 * Math.PI,(2 * Math.PI) * percentage,false);
+        ctx.fillStyle = "rgb(77,77,77)";
+        ctx.fillRect(0,0,canvas.w,canvas.h);
 		ctx.fillStyle = "lime";
+    
 		ctx.font ="13px Arial";
 		ctx.fillText("LOADING",canvas.w/2-95,canvas.h/2)
 		ctx.fillText("Player "+loading,0,canvas.h-100);

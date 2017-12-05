@@ -7,8 +7,8 @@ var Button = function(x,y,w,h,imgsrc) {
 	this.img.src = imgsrc || "img/button.png";
 	this.clicked = false;
 	this.render = function() {
-		ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
-	}
+        ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
+    }
 	this.onclick = function() {}
 }
 var WeaponChoiceButton = function(x,y,w,h,imgsrc) { 
@@ -89,7 +89,7 @@ WeaponChoiceMenu = function(){
     	//middle arc
     	WCtx.beginPath()
 		WCtx.arc(canvas.w/2,canvas.h/2,canvas.h/4, 0 * Math.PI,2 * Math.PI);
-		WCtx.fillStyle = "black";
+		WCtx.fillStyle = "rgb(77,77,77)";
 		WCtx.fill();
 		WCtx.stroke();
 		WCtx.fillStyle = "lime";
@@ -101,7 +101,6 @@ WeaponChoiceMenu = function(){
 		WCtx.lineWidth = 1;
         WCtx.fillStyle = 'hsla(291, 11%, 77%, 0.36)';
 	 	this.drawSegments();
-   //console.log(this.selectedWeapon)
 		if(this.selectedWeapon!==false&&this.selectedWeapon<7){
 			if(this.tmp.id != this.selectedWeapon) {
 				try{
@@ -126,6 +125,9 @@ WeaponChoiceMenu = function(){
 			this.weaponImages[i].render();
 		}
 	}
-		
 }
 weaponChoiceMenu = new WeaponChoiceMenu();
+
+Sprite = function() {
+	
+}

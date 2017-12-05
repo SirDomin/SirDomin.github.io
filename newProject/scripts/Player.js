@@ -1,19 +1,9 @@
 Player = function(){
-	this.elementsToLoad = [
-	"bgmusic",
-	"hpIcon",
-	"background",
-	"guiTop",
-	"base",
-    "handle",
-    "bodyImg",
-    "bulletIcon",
-	];
-
 	this.dmgMultiplier = 2;
 	this.bgmusic = new Audio("sounds/bgmusic.mp3");
 	this.bgmusic.volume = volume * 1.5
-	this.bgmusic.play();
+	//this.bgmusic.play();
+    this.days = 0;
 	this.w = 75;
 	this.h = 75	;
 	this.x = 0;
@@ -27,20 +17,14 @@ Player = function(){
 	this.baseWidth = 100;
 	this.weaponsAmmo = [];
 	//loading gui icons
-	this.hpIcon = new Image();
-	this.background = new Image();
-	this.guiTop = new Image();
-	this.base = new Image();
-    this.handle = new Image();
-    this.bodyImg = new Image(this.w,this.h);
-    this.bulletIcon = new Image();
-	this.hpIcon.src = "img/hpIcon.png";
-	this.background.src = "img/background.png";
-	this.guiTop.src = "img/guiTop.png"
-	this.base.src = "img/base.png";
-    this.handle.src = "img/handle.png";
-    this.bodyImg.src="img/body.png";
-    this.bulletIcon.src = "img/bulletIcon.png";
+	this.hpIcon = getImage("hpIcon");
+	this.background = getImage("background");
+	this.guiTop = getImage("guiTop");
+	this.base = getImage("base");
+    this.handle = getImage("handle");
+    this.bodyImg = getImage("body");
+    this.bulletIcon = getImage("bulletIcon");
+
     this.weapon = new Weapon0(this.x,this.y);
     this.bulletMS = new LoadingBar(this.x,this.y-40,this.w,20);
     this.reloadingTime = new RoundedLoadingBar(canvas.w/2,canvas.h/2,50);
@@ -50,20 +34,7 @@ Player = function(){
     this.ammoBar.textX += 10;
     this.ammoBar.textY += 5;
     this.bullets = [];
-    for(var i in this.elementsToLoad)
-    {
-    	this[this.elementsToLoad[i]].id = i;
-   		loading[i] = this.elementsToLoad[i];
-    	this[this.elementsToLoad[i]].onload = function() {
-    		delete loading[this.id]
-    		
-    	}
-		this[this.elementsToLoad[i]].onloadeddata = function() {
-			
-			delete loading[this.id]
-			
-		}
-    }
+
     this.reloadingTime.whenCompleteAction = function(){
     	player.weapon.magazine = player.weapon.magazineSize;
     	player.weapon.reloading = false;
@@ -93,6 +64,7 @@ Player = function(){
 		ctx.font = "20px Arial";
 		ctx.fillStyle = "#81c332";
 		ctx.fillText("$ " + player.currCash,120,22);
+        ctx.fillText("Day #"+this.days,220,22);
 		setShadow(0,0);
 	}
 	this.render = function() {
@@ -145,6 +117,11 @@ Player = function(){
 		for(var i in this.weapon.audio)
 			this.weapon.audio[i].volume = defVolume;
 	}
+    this.newRound = function(idOfButton) {
+        buttons[idOfButton].w = 0;
+        buttons[idOfButton].h = 0;
+        this.days++;
+    }
 }
 LoadingBar = function(x,y,w,h) {
 	this.x = x;

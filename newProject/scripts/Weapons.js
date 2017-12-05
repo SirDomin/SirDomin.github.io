@@ -23,13 +23,19 @@ sounds = [
 	new Audio("sounds/rayGun.mp3")
 
 ];
-
-pushImage = function(src) {
-	for(var i=0;i<12;i++) {
+getImage = function(name) {
+    for(var i in images) {
+        if(images[i].name == name) return images[i];
+    }
+    return false;
+}
+pushImage = function(src,name) {
+	for(var i=0;i<50;i++) {
 		if(!images[i]){
 			images[i] = new Image();
 			images[i].src = src;
 			images[i].id = i;
+			images[i].name = name;
 			imagesToLoad[i] = images[i].src;
 			images[i].onload = function(){
 				delete imagesToLoad[this.id];
@@ -39,18 +45,31 @@ pushImage = function(src) {
 	}
 }
 //
-pushImage("img/hitmark.png");
-pushImage("img/bullet.png");
-pushImage("img/colt.png");
-pushImage("img/uzi.png");
-pushImage("img/ak.png");
-pushImage("img/shotgun.png");
-pushImage("img/flamethrower.png");
-pushImage("img/shotgunBullet.png");
-pushImage("img/flame.png");
-pushImage("img/machineGun.png");
-pushImage("img/laserGun.png");
-pushImage("img/laser.png");
+pushImage("img/hitmark.png","hitmark");
+pushImage("img/bullet.png","bullet");
+pushImage("img/colt.png","colt");
+pushImage("img/uzi.png","uzi");
+pushImage("img/ak.png","ak");
+pushImage("img/shotgun.png","shotgun");
+pushImage("img/flamethrower.png","flamethrower");
+pushImage("img/shotgunBullet.png","shotgunBullet");
+pushImage("img/flame.png","flame");
+pushImage("img/machineGun.png","machineGun");
+pushImage("img/laserGun.png","rayGun");
+pushImage("img/laser.png","ray");
+pushImage("img/exit.png","exitButton");
+pushImage("img/button_go.png","goButton");
+pushImage("img/hpIcon.png","hpIcon");
+pushImage("img/background.png","background");
+pushImage("img/guiTop.png","guiTop");
+pushImage("img/base.png","base");
+pushImage("img/handle.png","handle");
+pushImage("img/body.png","body");
+pushImage("img/bulletIcon.png","bulletIcon");
+//playerImages
+
+
+
 for(var i in sounds) {
 	sounds[i].id = i;
 	loadingWeaponsSound[i] = sounds[i];
@@ -66,7 +85,6 @@ Bullet = function(x,y,w,h,speed,id,img){
 	this.y = y - h / 1.8;
 	this.w = w;
 	this.h = h;
-
 	this.img = img;
 	this.speed = speed;
 	this.id = id;
@@ -115,7 +133,7 @@ Hitmark = function(x,y,id) {
 	this.id = id;
 	this.sound = sounds[0];
 	this.sound.volume = volume * 2;
-	this.img = images[0];
+	this.img = getImage("hitmark");
 	//this.img.src = ;
 	this.timeCreated = now;
 	this.sound.play();
@@ -132,7 +150,7 @@ Weapon0 = function(x,y){
 	this.y = y + 32;
 	this.w = 40;
 	this.h = 10;
-	this.bulletImg = images[1];
+	this.bulletImg = getImage("bullet");
 	//this.bulletImg.src = ;
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -196,7 +214,7 @@ Weapon1 = function(x,y){
 	this.y = y + 33;
 	this.w = 50;
 	this.h = 10;
-	this.bulletImg = images[1];
+	this.bulletImg = getImage("bullet");
 	//this.bulletImg.src = "img/bullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -219,7 +237,7 @@ Weapon1 = function(x,y){
 	this.length = 50;
 	this.bulletSpeed = 6;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[3];
+	this.img = getImage("uzi");
 	//this.img.src = ;
 	
 	this.bulletW = 20;
@@ -263,7 +281,7 @@ Weapon2 = function(x,y){
 	this.y = y + 30;
 	this.w = 150;
 	this.h = 15;
-	this.bulletImg = images[1];
+	this.bulletImg = getImage("bullet");
 	//this.bulletImg.src = "img/bullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -287,7 +305,7 @@ Weapon2 = function(x,y){
 	this.length = 90;
 	this.bulletSpeed = 8;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[4];
+	this.img = getImage("ak");
 	//this.img.src = "img/ak.png";
 	
 	this.bulletW = 20;
@@ -333,7 +351,7 @@ Weapon3 = function(x,y){
 	this.y = y +13;
 	this.w = 150;
 	this.h = 50;
-	this.bulletImg = images[7];
+	this.bulletImg = getImage("shotgunBullet");
 	//this.bulletImg.src = "img/shotgunBullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -353,7 +371,7 @@ Weapon3 = function(x,y){
 	this.length = 80;
 	this.bulletSpeed = 10;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[5];
+	this.img = getImage("shotgun");
 	//this.img.src = "img/shotgun.png";
 	
 	this.bulletW = 5;
@@ -403,7 +421,7 @@ Weapon4 = function(x,y){
 	this.y = y -25;
 	this.w = 150;
 	this.h = 100;
-	this.bulletImg = images[8];
+	this.bulletImg = getImage("flame");
 	//this.bulletImg.src = "img/flame.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -424,7 +442,7 @@ Weapon4 = function(x,y){
 	this.length = 90;
 	this.bulletSpeed = 10;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[6];
+	this.img = getImage("flamethrower");
 	//this.img.src = "img/flamethrower.png";
 	this.shoting = false;
 	this.bulletW = 30;
@@ -505,7 +523,7 @@ Weapon5 = function(x,y){
 	this.y = y -18;
 	this.w = 150;
 	this.h = 120;
-	this.bulletImg = images[1];
+	this.bulletImg = getImage("bullet");
 	//this.bulletImg.src = "img/bullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -533,7 +551,7 @@ Weapon5 = function(x,y){
 	this.length = 90;
 	this.bulletSpeed = 10;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[9];
+	this.img = getImage("machineGun");
 	//this.img.src = "img/ak.png";
 	
 	this.bulletW = 20;
@@ -580,7 +598,7 @@ Weapon6 = function(x,y){
 	this.y = y -22;
 	this.w = 150;
 	this.h = 120;
-	this.bulletImg = images[11];
+	this.bulletImg = getImage("ray");
 	//this.bulletImg.src = "img/bullet.png";
 	this.bullets = [];
 	this.lastShot = now-1500;
@@ -602,7 +620,7 @@ Weapon6 = function(x,y){
 	this.length = 90;
 	this.bulletSpeed = 10;
 	this.reloadStart = now - this.reloadTime;
-	this.img = images[10];
+	this.img = getImage("rayGun");
 	//this.img.src = "img/ak.png";
 	
 	this.bulletW = 20;
