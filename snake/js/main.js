@@ -8,19 +8,32 @@ var snake;
 var menu;
 var time;
 var options;
+currColorStyle = 0;
+var foodColor = ["#84107a"];
+var snakeHead = ["#81c332"];
+var segment =   ["#4d4d4d"];
+getColor = function(object){
+
+    return window[object][currColorStyle];
+
+};
+
 Map = function() {
-  this.width = 800;
-  this.height = 800;
+  this.width = 400;
+  this.height = 400;
   canvas.width = this.width;
   canvas.height = this.height;
+  this.currentDimensions = 0;
+  this.dimensions = [{w:480,h:480},{w:600,h:600},{w:720,h:720},{w:840,h:840}];
   this.changeDimensions = function(){
-      if(this.width < 800){
-          this.width += 100;
-          this.height +=100;
+
+      if(this.currentDimensions < this.dimensions.length -1){
+          this.currentDimensions++;
       }else {
-          this.width = 400;
-          this.height = 400;
+          this.currentDimensions = 0;
       }
+      this.width = this.dimensions[this.currentDimensions].w;
+      this.height = this.dimensions[this.currentDimensions].h;
       canvas.width = this.width;
       canvas.height = this.height;
   }
@@ -47,9 +60,9 @@ Settings = function(){
           this.tilesPerRow+=10;
 
       } else {
-          this.tilesPerRow = 10;
+          this.tilesPerRow = 20;
       }
-        this.tileWidth = map.width/this.tilesPerRow;
+        Math.round(this.tileWidth = map.width/this.tilesPerRow);
     };
 };
 settings = new Settings();
@@ -61,19 +74,28 @@ window.addEventListener("keydown",function(e){
 window.addEventListener("keyup",function(e){
     delete keysDown[e.keyCode];
 });
+//test function
+testDimensions = function(){
+    var x = [20,30,40];
+    for(var i in map.dimensions){
+        for(var y in x){
+            console.log("x = "+x[y]+" | mapDimensions = "+map.dimensions[i].w+" Tile Width: "+map.dimensions[i].w/x[y]);
+        }
+    }
+};
 //main character
 Snake = function() {
     this.speed = settings.tileWidth;
     //create head
-    this.segments = [new Segment(0,0,"red",0)];
+    this.segments = [new Segment(0,0,getColor("snakeHead"),0)];
     this.speedX = this.speed;
     this.speedY = 0;
     this.lastSegmentId = 1;
     this.lastUpdated = 0;
     //create first food
-    food = new Food("lime");
+    food = new Food(getColor("foodColor"));
     this.addSegment = function(){
-        this.segments.push(new Segment(this.segments[this.segments.length-1].x,this.segments[this.segments.length-1].y,"black",this.segments.length));
+        this.segments.push(new Segment(this.segments[this.segments.length-1].x,this.segments[this.segments.length-1].y,getColor("segment"),this.segments.length));
         this.lastSegmentId = this.segments.length;
     };
     //set direction
@@ -127,10 +149,13 @@ Snake = function() {
                 if(i !== this.lastSegmentId)this.segments[i].update();
             }
             iteration++;
+            //console.log(this.segments[0].x+" : "+this.segments[0].y);
+            //console.log(food.x+" : "+food.y);
+
             this.lastUpdated = time;
             //move head (direction set in checkMoves Method)
-            this.segments[0].x += this.speedX;
-            this.segments[0].y += this.speedY;
+            this.segments[0].x += Math.floor(this.speedX);
+            this.segments[0].y += Math.floor(this.speedY);
             //collision with map borders and segments
             if (this.segments[0].x > map.width || this.segments[0].x < 0 || this.segments[0].y >= map.height || this.segments[0].y < 0 || this.collisionWithSegments()) {
                 //restart the game if any collision is detected
@@ -143,13 +168,14 @@ Snake = function() {
         //collision with food
         if(this.segments[0].x === food.x && this.segments[0].y === food.y){
             this.addSegment();
-            food = new Food("Lime");
+            food = new Food(getColor("foodColor"));
         }
     }
 };
 //food constructor color arg - sets the color of food
 Food = function(color){
     this.color = color;
+    //console.log(this.color);
     this.w = settings.tileWidth;
     this.h = settings.tileWidth;
     //set random position on the map
@@ -182,9 +208,9 @@ Segment = function(x,y,color,id) {
 Menu = function(){
     this.selected = 0;
     this.rendering = true;
-    this.buttonColor = "lime";
-    this.fontColor = "white";
-    this.choiceColor = "red";
+    this.buttonColor = "hsla(322, 0%, 30%, 1)";
+    this.fontColor = "black";
+    this.choiceColor = "#81c332";
     this.fontSize = map.width/12;
     this.buttonHeight = map.height/7;
     this.buttonWidth = map.width/2;
@@ -220,19 +246,25 @@ Menu = function(){
             ctx.fillStyle=this.buttonColor;
             if(i===this.selected)ctx.fillStyle = this.choiceColor;
             ctx.fillRect(map.width/4,this.buttonHeight*2+(this.buttonHeight*2*i),this.buttonWidth,this.buttonHeight);
-            ctx.font = this.fontSize+"px Arial";
+            ctx.font = this.fontSize+"px ConcertOne-Regular";
             ctx.fillStyle = this.fontColor;
             ctx.fillText(this.buttons[i],map.width/3.5,this.buttonHeight*2+(this.buttonHeight*2*i)+this.fontSize);
         }
+        ctx.fillStyle="white";
+        ctx.fillText("SNAKE by SirDomin",map.width/6.5,this.buttonHeight*2-(this.buttonHeight*2)+this.fontSize);
+
+        ctx.fillText("steering: ",0,this.buttonHeight*5.4+this.fontSize);
+        ctx.fillText("arrow keys + enter",0,this.buttonHeight*6+this.fontSize);
     }
 };
 menu = new Menu();
-Options = function(){
-    this.selected = 0;
+Options = function(selected){
+
+    this.selected = selected || 0;
     this.rendering = false;
-    this.buttonColor = "lime";
-    this.fontColor = "white";
-    this.choiceColor = "red";
+    this.buttonColor = "hsla(322, 0%, 30%, 1)";
+    this.fontColor = "black";
+    this.choiceColor = "#81c332";
     this.fontSize = map.width/20;
     this.buttonHeight = map.height/9;
     this.buttonWidth = map.width/1.1;
@@ -240,7 +272,7 @@ Options = function(){
     this.states = [
         function(){settings.changeSpeed()},
         function(){settings.changeTiles()},
-        function(){map.changeDimensions(); options = new Options(); options.rendering = true},
+        function(){map.changeDimensions(); options = new Options(options.selected); options.rendering = true},
         function(){menu = new Menu(); options.rendering = false }
     ];
     this.checkKeys = function(){
@@ -269,7 +301,7 @@ Options = function(){
             ctx.fillStyle=this.buttonColor;
             if(i===this.selected)ctx.fillStyle = this.choiceColor;
             ctx.fillRect(map.width/20,this.buttonHeight+(this.buttonHeight*1.5*i),this.buttonWidth,this.buttonHeight);
-            ctx.font = this.fontSize+"px Arial";
+            ctx.font = this.fontSize+"px ConcertOne-Regular";
             ctx.fillStyle = this.fontColor;
             ctx.fillText(this.buttons[i],map.width/20,this.buttonHeight*1.2+(this.buttonHeight*1.5*i)+this.fontSize);
         }
@@ -283,7 +315,9 @@ main = function() {
     time = new Date();
     time = time.getTime();
     ctx.clearRect(0,0,map.width,map.height);
-    ctx.fillStyle = "cyan";
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,map.width,map.height);
+
     if(menu.rendering){
         menu.render();
     }else if(options.rendering){
@@ -292,10 +326,12 @@ main = function() {
     }
     else{
 
-        //draw score
-        ctx.fillText("Score: " + (snake.segments.length - 1),5,menu.fontSize);
         food.render();
         snake.render();
+        //draw score
+        ctx.fillStyle = "#253474";
+        if(snake)
+            ctx.fillText("Score: " + (snake.segments.length - 1),5,menu.fontSize);
     }
 
     requestAnimationFrame(main);
