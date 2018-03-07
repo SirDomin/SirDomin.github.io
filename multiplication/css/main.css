@@ -98,18 +98,19 @@ textarea {
    ========================================================================== */
 
 canvas {
-    border: solid 1px black;
-    border-top:solid 0px black;
-    //float:left;
+
+    border-bottom:solid 1px black;
+
 
 }
 .gui{
-    border:solid 1px black;
+    border-bottom:solid 1px black;
+    border-top:solid 1px black;
     width: 100%;
     float:left;
     height:150px;
     padding: 20px;
-    border-left: solid 0px black;
+
 }
 
 .slider {

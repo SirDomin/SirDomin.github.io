@@ -1,9 +1,11 @@
 var canvas = document.getElementById("canvas");
-canvas.width = 500;
-canvas.height = 500;
+if(window.innerWidth < 500) canvas.width = window.innerWidth;
+else canvas.width = 500;
 
-canvas.w = 500;
-canvas.h = 500;
+canvas.height = canvas.width;
+
+canvas.w = canvas.width;
+canvas.h = canvas.width;
 var ctx = canvas.getContext("2d");
 r = canvas.h / 2.1;
 
