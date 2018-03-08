@@ -115,7 +115,7 @@ canvas {
 
 .slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 98%;
     height: 25px;
     background: #d3d3d3;
     outline: none;
@@ -142,10 +142,6 @@ canvas {
 .slider:focus{
     background:#858c73;
 }
-
-
-
-
 body{
     font-family: 'Rammetto One', cursive;
 }
