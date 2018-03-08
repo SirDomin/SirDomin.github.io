@@ -27,12 +27,13 @@
 
         <div class = "gui">
 
-            Elements: <input type="text" id="elements" value = 10 /><input type="range" min="1" max="2137" value="10" class="slider" id="elementsSlider"><br/>
+            Elements: <input type="text" id="elements" value = 10 /> Render dots: <input class="chbx" type="checkbox" id="renderdots" checked = "true"/>  Transparent (img):<input class="chbx" type="checkbox" id="transparent" /><input type="range" min="1" max="2137" value="10" class="slider" id="elementsSlider"><br/>
             <hr/>
             Multiplier: <input type="text" id="multiplier" value = 2 /><input type="range" min="1" max="1000" value="2" class="slider" id="multiplierSlider">
 
         </div>
         <center><canvas id="canvas"></canvas></center>
+        <center><a id="download">DOWNLOAD</a></center>
         <center><h4>Created by <a href="https://github.com/sirdomin">SirDomin</a></h4></center>
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

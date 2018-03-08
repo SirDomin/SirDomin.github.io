@@ -153,13 +153,15 @@ body{
 a{
     text-decoration: none;
     color:black;
+    width: 100px;
 }
 a:hover{
     color: #81c332;
+    cursor: pointer;
 }
-
-
-
+#download{
+    width: 100px;
+}
 
 /* ==========================================================================
    Helper classes
