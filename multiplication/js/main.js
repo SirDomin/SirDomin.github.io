@@ -4,6 +4,8 @@ else canvas.width = 500;
 
 canvas.height = canvas.width;
 
+colors = ["lime","pink","cyan","yellow"];
+colorsPointer = 0;
 canvas.w = canvas.width;
 canvas.h = canvas.width;
 var ctx = canvas.getContext("2d");
@@ -13,6 +15,7 @@ x = canvas.w / 2;
 y = canvas.h / 2;
 elements = 10;
 var multiplier = 2;
+var color = "green";
 angle = 360/elements;
 var renderDots = 1;
 var transparent = false;
@@ -25,12 +28,12 @@ document.getElementById("transparent").onchange = function(){
   refresh();
 };
 document.getElementById("multiplierSlider").oninput = function(){
-    document.getElementById("multiplier").value = this.value
-    multiplier = parseInt(this.value) ;
+    document.getElementById("multiplier").value = this.value;
+    multiplier = parseFloat(this.value) ;
     refresh();
 };
 document.getElementById("elementsSlider").oninput = function(){
-    document.getElementById("elements").value = this.value
+    document.getElementById("elements").value = this.value;
     elements = parseInt(this.value) ;
     refresh();
 };
@@ -66,13 +69,14 @@ var refresh = function(){
         lastY = y + r * Math.sin(i * 2 * Math.PI / elements)-2;
         ctx.fillStyle = "red";
         if(renderDots)ctx.fillRect(points[i].x-1,points[i].y-1,2,2);
-        ctx.lineWidth = 0.5;
-        ctx.strokeStyle = 'black';
+        ctx.lineWidth = (((2137/elements)*0.1) > 1.1)? 1.1 : (2137/elements)*0.1;
+        ctx.strokeStyle = color;
         ctx.stroke();
     }
     ctx.moveTo(points[0].x,points[0].y);
     ctx.beginPath();
     for(var p = 0; p < points.length; p++){
+
         ctx.moveTo(points[p].x,points[p].y);
         ctx.lineTo(points[(p * multiplier )% (points.length)].x,points[(p * multiplier )% (points.length)].y);
     }
