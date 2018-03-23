@@ -10,7 +10,7 @@ function random(min,max){
 function setup() {
     bestPhrase = document.getElementsByClassName("best")[0];
     target = "To be or not to be.";
-    popmax = 300;
+    popmax = 200;
     mutationRate = 0.01;
 
     document.getElementsByClassName("target")[0].innerHTML = target;
@@ -38,4 +38,4 @@ function displayInfo(){
     }
 }
 setup();
-interval = setInterval(draw,200);
+interval = setInterval(draw,100);
