@@ -115,7 +115,9 @@ body{
 .target{
     font-size: 50px;
 }
-
+#canvas{
+    float:left;
+}
 
 
 
