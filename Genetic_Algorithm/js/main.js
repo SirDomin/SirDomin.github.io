@@ -11,8 +11,8 @@ function random(min,max){
 function setup() {
     createCanvas();
     bestPhrase = document.getElementsByClassName("best")[0];
-    target = "To be or not to be.";
-    popmax = 200;
+    target = "Genetic algorithm";
+    popmax = 100;
     mutationRate = 0.01;
 
     document.getElementsByClassName("target")[0].innerHTML = target;
@@ -99,4 +99,4 @@ function displayInfo(){
 
 }
 setup();
-interval = setInterval(draw,100);
+interval = setInterval(draw,1);
