@@ -7,19 +7,19 @@ var populations = 0;
 var displayBest;
 var displayAvg;
 popmax = 500;
-var mutationRate = 0.01;
+var mutationRate = 0.02;
 var currentBestPath;
 var order;
 var shortestDistance;
 var bestPath;
 var recordDistance = Infinity;
 function setup(){
-    createCanvas(1000,600);
+    createCanvas(1200,600);
     displayBest = document.getElementById("best");
     //displayAvg = document.getElementById("avg");
     order = [];
     for(var i = 0; i < totalDots; i++){
-        var v = createVector(random(width),random(height/2));
+        var v = createVector(random(width),random(height/3));
         dots[i] = v;
         order[i] = i;
     }
@@ -39,6 +39,10 @@ function draw(){
     calcFitness();
     normalizeFitness();
     nextGeneration();
+    textSize(32);
+    fill(255);
+    text("Best of current generation \\/",10,height/2);
+    text("Best ever /\\ ",width/2,height/2);
 
     noFill();
     for(var i = 0; i < dots.length; i++){
@@ -54,7 +58,7 @@ function draw(){
     }
     endShape();
 
-    translate(0,height/2);
+    translate(0,height/1.5);
     noFill();
     for(var i = 0; i < dots.length; i++){
         ellipse(dots[i].x,dots[i].y,8,8);
