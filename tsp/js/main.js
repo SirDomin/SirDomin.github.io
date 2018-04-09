@@ -1,5 +1,5 @@
 var dots = [];
-var totalDots = 12;
+var totalDots = 20;
 var avgDistance = 0;
 var population = [];
 fitness = [];

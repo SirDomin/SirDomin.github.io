@@ -32,8 +32,8 @@ function nextGeneration(){
     var newPopulation = [];
     for(var i = 0; i < population.length; i++){
         var orderA = pickOne(population,fitness);
-        var orderB = pickOne(population,fitness);
-        var order = crossOver(orderA,orderB);
+        var order = pickOne(population,fitness);
+        //var order = crossOver(orderA,orderB);
         mutate(order,mutationRate);
         newPopulation[i] = order;
     }
@@ -58,16 +58,4 @@ function mutate(order,mutationRate){
         }
     }
 }
-function crossOver(orderA, orderB){
-    var start = floor(random(orderA.length));
-    var end = floor(random(start + 1,orderA.length));
-    var newOrder = orderA.slice(start, end);
-    var left = totalDots - newOrder.length;
-    for(var i = 0; i < orderB.length; i++){
-        var dot = orderB[i];
-        if(!newOrder.includes(dot)){
-            newOrder.push(dot);
-        }
-    }
-    return newOrder;
-}
+
