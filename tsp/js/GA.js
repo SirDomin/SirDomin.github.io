@@ -10,6 +10,7 @@ function calcFitness(){
         }
         if(d < currentRecord){
             currentRecord = d;
+            currentShortest = d;
             currentBestPath = population[i];
         }
         fitness[i] = 1/(d + 1);

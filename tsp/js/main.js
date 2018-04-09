@@ -4,8 +4,9 @@ var avgDistance = 0;
 var population = [];
 fitness = [];
 var populations = 0;
+var currentShortest = Infinity;
 var displayBest;
-var displayAvg;
+var displayBestCurr;
 popmax = 500;
 var mutationRate = 0.02;
 var currentBestPath;
@@ -15,7 +16,9 @@ var bestPath;
 var recordDistance = Infinity;
 function setup(){
     createCanvas(1200,600);
+
     displayBest = document.getElementById("best");
+    displayBestCurr = document.getElementById("bestCurr");
     //displayAvg = document.getElementById("avg");
     order = [];
     for(var i = 0; i < totalDots; i++){
@@ -40,16 +43,16 @@ function draw(){
     normalizeFitness();
     nextGeneration();
     textSize(32);
-    fill(255);
+    fill(150, 171, 176);
+    stroke(150, 171, 176);
     text("Best of current generation \\/",10,height/2);
     text("Best ever /\\ ",width/2,height/2);
-
     noFill();
     for(var i = 0; i < dots.length; i++){
         ellipse(dots[i].x,dots[i].y,8,8);
     }
 
-    stroke(255);
+    stroke(125,255,0);
     strokeWeight(2);
     noFill();
     beginShape();
@@ -60,19 +63,21 @@ function draw(){
 
     translate(0,height/1.5);
     noFill();
+    stroke(150, 171, 176);
     for(var i = 0; i < dots.length; i++){
         ellipse(dots[i].x,dots[i].y,8,8);
     }
-    stroke(255);
     strokeWeight(2);
     noFill();
+    stroke(0, 204, 255);
     beginShape();
     for(var i = 0; i < currentBestPath.length; i++){
         vertex(dots[currentBestPath[i]].x,dots[currentBestPath[i]].y);
     }
     endShape();
 
-    displayBest.innerHTML="Shortest distance: "+recordDistance;
+    displayBest.innerHTML="Shortest distance: "+floor(recordDistance);
+    displayBestCurr.innerHTML="Shortest distance in current generation: "+floor(currentShortest);
     //displayAvg.innerHTML="Average distance: "+avgDistance;
 }
 
