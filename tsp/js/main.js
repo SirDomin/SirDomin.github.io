@@ -8,7 +8,7 @@ var currentShortest = Infinity;
 var displayBest;
 var displayBestCurr;
 popmax = 500;
-var mutationRate = 0.02;
+var mutationRate = 0.01;
 var currentBestPath;
 var order;
 var shortestDistance;

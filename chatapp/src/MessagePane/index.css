@@ -1,0 +1,12 @@
+.messagePane{
+    border: solid 1px black;
+    overflow-y: auto;
+    height: 500px;
+    padding: 50px;
+    width: auto;
+    -webkit-overflow-scrolling:touch;
+}
+.message{
+    word-wrap: break-word;
+    overflow-y: visible;
+}
