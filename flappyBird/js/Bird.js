@@ -72,7 +72,7 @@ function Bird( brain ){
     }
 
     this.mutate = function(){
-        this.brain.mutate(0.1);
+        this.brain.mutate(0.08);
     }
 
 }
