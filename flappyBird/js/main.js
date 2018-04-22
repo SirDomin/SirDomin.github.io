@@ -44,7 +44,7 @@ function setup(){
 function draw(){
 
 for(var c =0; c< cycles; c++) {
-    if (counter % 120 == 0) {
+    if (counter % 160 == 0) {
         pipes.push(new Pipe());
 
     }
@@ -102,6 +102,7 @@ for(var c =0; c< cycles; c++) {
 
     for (var i in birds) {
         birds[i].show();
+        birds[0].showInputs();
     }
     for (var i in pipes) {
         pipes[i].show();

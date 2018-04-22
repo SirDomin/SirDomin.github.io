@@ -1,5 +1,5 @@
 var Pipe = function(){
-    this.spaceBetween = 150;
+    this.spaceBetween = 50;
     this.top = random((height - 100)-this.spaceBetween);
     this.bottom = this.top + this.spaceBetween;
     this.w = 70;
