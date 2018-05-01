@@ -44,15 +44,15 @@ firstMapBossLevel = function(inpenemies,cashMultiplier,hpMultiplier,speed) {
     this.init = function() {
         this.enemies = this.maxEnemies;
     //console.log(this.enemies)
-        for(var i = this.maxEnemies; i >= 0; i--) {
+        for(var i = this.maxEnemies -1; i >= 0; i--) {
             enemies[i] = new Enemy(i,Math.round(Math.sqrt(this.hpMultiplier) * 10),0.5 );
             var x = this.bossX - 200 + (Math.floor(i/10) * 100);
             var y = (i + 2) * (enemies[i].h + 10) - (Math.floor(i/10) * 400);
             enemies[i].setPosition(x,y);
         }
 
-        this.bossId = this.maxEnemies;
-        enemies[this.bossId] = new Enemy(this.maxEnemies,100,0.5);
+        this.bossId = this.maxEnemies-1;
+        enemies[this.bossId] = new Enemy(this.maxEnemies-1,100,0.5);
         enemies[this.bossId].x = this.bossX;
         enemies[this.bossId].y = this.bossY;
         enemies[this.bossId].setDimensions(100,100);
@@ -75,13 +75,15 @@ firstMapBossLevel = function(inpenemies,cashMultiplier,hpMultiplier,speed) {
 };
 
 //inpenemies,cashMultiplier per kill, hp multiplier (difficulity), speed
-level[0].push(new firstMapBossLevel(20,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
-level[0].push(new testLevel(2,1,0.5,2.1));
+level[0].push(new testLevel(10,1,0.5,0.6));
+level[0].push(new testLevel(12,1,0.5,0.6));
+level[0].push(new testLevel(14,1,0.5,0.6));
+level[0].push(new testLevel(15,1,0.5,0.6));
+level[0].push(new firstMapBossLevel(15,1.4,1,1.0));
+
+level[0].push(new testLevel(15,1,1.2,1.0));
+level[0].push(new testLevel(16,1,1.2,1.0));
+level[0].push(new testLevel(17,1,1.2,1.0));
+level[0].push(new testLevel(18,1,1.2,1.0));
+level[0].push(new firstMapBossLevel(20,2,1.4,1.7));
+//

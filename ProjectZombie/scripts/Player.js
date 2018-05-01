@@ -141,7 +141,7 @@ Player = function(){
 		}
 		return("All weapons unlocked, have fun!");
 	}
-	this.unlockAllWeapons();
+	//this.unlockAllWeapons();
 }
 LoadingBar = function(x,y,w,h) {
 	this.x = x;

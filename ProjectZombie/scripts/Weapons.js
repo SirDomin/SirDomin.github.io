@@ -234,7 +234,7 @@ Weapon0 = function(x,y){
 }
 //weapon 1
 Weapon1 = function(x,y){
-    this.price = 10000;
+    this.price = 450;
 	this.dmg = 4;
 	this.name = "UZI";
 	this.id = 1;
@@ -303,7 +303,7 @@ Weapon1 = function(x,y){
 //ak
 
 Weapon2 = function(x,y){
-    this.price = 50000;
+    this.price = 800;
 	this.dmg = 6;
 	this.name = "AK";
 	this.id = 2;
@@ -375,7 +375,7 @@ Weapon2 = function(x,y){
 }
 //shotgn
 Weapon3 = function(x,y){
-    this.price = 30000;
+    this.price = 1200;
 	this.dmg = 20;
 	this.name = "Shotgun";
 	this.id = 3;
@@ -447,7 +447,7 @@ Weapon3 = function(x,y){
 }
 //flamethrower
 Weapon4 = function(x,y){
-    this.price = 50000;
+    this.price = 2000;
 	this.dmg = 0;
 	this.name = "Flamethrower";
 	this.id = 4;
@@ -552,7 +552,7 @@ Weapon4 = function(x,y){
 }
 //mg
 Weapon5 = function(x,y){
-    this.price = 60000;
+    this.price = 2500;
 	this.dmg = 6;
 	this.name = "Machine Gun";
 	this.id = 5;
@@ -629,7 +629,7 @@ Weapon5 = function(x,y){
 }
 //
 Weapon6 = function(x,y){
-    this.price = 80000;
+    this.price = 3000;
 	this.dmg = 10;
 	this.name = "RayGun";
 	this.id = 6;
@@ -716,7 +716,7 @@ Weapon6 = function(x,y){
 }
 //iceGun
 Weapon7 = function(x,y){
-    this.price = 90000;
+    this.price = 4200;
 	this.dmg = 10;
 	this.name = "Ice Gun";
 	this.id = 7;
