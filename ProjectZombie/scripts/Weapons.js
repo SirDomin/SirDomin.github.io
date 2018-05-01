@@ -123,7 +123,7 @@ Bullet = function(x,y,w,h,speed,id,img){
     this.update = function() {
     	this.x += this.speed * this.xVelocity;
     	this.y += this.speed * this.yVelocity;
-    	if(this.x<-this.speed||this.y<50 + this.speed / 2||this.y>canvas.h-this.speed * 0.5||this.x>canvas.w-this.speed * 1.7){
+    	if(this.x<-this.speed||this.y<50 + this.speed / 2||this.y>canvas.h-this.speed * 0.5||this.x>canvas.w-this.speed){
     		this.onHit();
     	}
     };
@@ -137,10 +137,12 @@ Bullet = function(x,y,w,h,speed,id,img){
 		ctx.restore();
 	};
 	this.onHit = function(target){
+
 			for(var i = 0; i <= 10; i ++)
     		{
     			if(!hitmarks[i]) {
-    				hitmarks[i]=new Hitmark(this.x + (this.w/2),this.y,i);
+    				hitmarks[i]=new Hitmark(this.x - this.w/2,this.y,i);
+    				if(target)hitmarks[i].x = target.x - hitmarks[i].w;
     				break;
     			}
     		}

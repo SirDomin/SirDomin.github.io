@@ -20,18 +20,23 @@ Menu = function() {
         menu.canvas.style.visibility = "hidden";
         menu.active = false;
     };
-
+    this.buttons[1] = new Button(this.buttonX,200,this.buttonW,50,getImage("button"));
+    this.buttons[1].onclick = function(){
+      alert("Not supported yet")
+    };
     this.render = function(){
         this.ctx.clearRect(0,0,canvas.w,canvas.h);
-        this.ctx.fillStyle = "hsla(104, 100%, 20%, 1)";
+        this.ctx.fillStyle = "#81c332";
         this.ctx.fillRect(0,0,canvas.w,52);
             for(var i in this.buttons){
                 this.buttons[i].render();
             }
 
-        this.ctx.font = "40px Arial";
+        this.ctx.font = "40px Skranji-Regular";
         this.ctx.fillStyle = "black";
+        this.ctx.fillText("PROJECT: Zombie", 160,40);
             this.ctx.fillText("New Game", this.buttonX + 5, 140)
+            this.ctx.fillText("Load Game", this.buttonX + 5, 240)
     };
     this.canvas.addEventListener("mousedown",function(e){
         for(var i in menu.buttons){
