@@ -3,11 +3,15 @@ nextGeneration = function(){
     generations++;
 
     calcFitness();
-
+    savedBirds[0]= bestEver;
     for(var i =0 ; i < total; i++){
         birds[i] = pickOne();
     }
     savedBirds = [];
+    if(generations > 20&& bestOfGen < 4000)mutationRate = (generations%10) / 10;
+    else {
+        mutationRate = 0.1;
+    }
 };
 
 function pickOne(){

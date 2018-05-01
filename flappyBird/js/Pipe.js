@@ -8,13 +8,8 @@ var Pipe = function(){
     this.speed = currSpeed;
     this.img = loadImage('img/pipe-green.png');
     this.show = function(){
-
         image(pipeTop, this.x, this.top - pipeTop.height,this.w,pipeTop.height);
         image(this.img, this.x, this.bottom,this.w);
-
-
-
-
         //rect(this.x,0,this.w,this.top);
         //rect(this.x,this.bottom,this.w,height - this.bottom);
     };

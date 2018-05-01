@@ -17,6 +17,8 @@ var backgroundImage;
 var pipeTop;
 var speedText = "Speed ++";
 var btnImage;
+var mutationRate = 0.1;
+var bestEver = null;
 function preload(){
     startBg = 0;
     startFloor = 0;
@@ -76,14 +78,15 @@ for(var c =0; c< cycles; c++) {
 
         birds[i].think(pipes);
         birds[i].update();
-        if(birds[0].score > bestOfGen)bestOfGen = birds[0].score;
+        if(birds[0].score > bestOfGen){
+            bestEver = birds[0];
+            bestOfGen = birds[0].score;
+        }
     }
+
     counter++;
 
 }
-
-
-
     background(0);
     fill(255);
     //console.log("rotation")
@@ -96,14 +99,10 @@ for(var c =0; c< cycles; c++) {
     }
 
     renderBg(startBg -= currSpeed/4);
-
-
-
-
     for (var i in birds) {
-        birds[i].show();
-        birds[0].showInputs();
+            birds[i].show();
     }
+    birds[0].showInputs();
     for (var i in pipes) {
         pipes[i].show();
     }
