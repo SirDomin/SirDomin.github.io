@@ -1,11 +1,13 @@
 .result{
     background: black;
     max-width:9.77%;
+    width: 9.5%;
     float:left;
     border: solid 1px rgb(238,100,42);
     color:#777777;
     overflow: hidden;
     height: 60px;
+
 }
 
 body{
@@ -15,7 +17,7 @@ body{
 }
 .main{
 
-    width: 50%;
+    width: 70%;
     text-align: center;
 }
 .results-container{
@@ -23,6 +25,8 @@ body{
     width: 100%;
     overflow: hidden;
     text-align: center;
+
+    padding: 10px;
 }
 .header-main-text{
 
