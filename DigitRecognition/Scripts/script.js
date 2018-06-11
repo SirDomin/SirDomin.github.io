@@ -71,12 +71,9 @@ pickRandomIndex = () =>{
         return arrIndex.splice(Math.floor(Math.random() * arrIndex.length), 1);
     }
 };
-async function start(){
 
-    model = await tf.loadModel('indexeddb://trainedModel');
-    //model = await tf.loadModel(
-     //   tf.io.browserFiles([modelJson, modelWeights]));
-    //console.log(model.toString());
+async function start(){
+    model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
 
     model.compile(config);
 }
