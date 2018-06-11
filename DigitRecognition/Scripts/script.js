@@ -74,7 +74,7 @@ pickRandomIndex = () =>{
 
 
 async function start(){
-    model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
+    //model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
 
     //model = await tf.loadModel('indexeddb://trainedModel');
     model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
