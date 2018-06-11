@@ -1,0 +1,100 @@
+.result{
+    background: black;
+    max-width:9.77%;
+    float:left;
+    border: solid 1px rgb(238,100,42);
+    color:#777777;
+    overflow: hidden;
+    height: 60px;
+}
+
+body{
+    text-align: center;
+    align-content: center;
+    background: #000000;
+}
+.main{
+
+    width: 50%;
+    text-align: center;
+}
+.results-container{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+.header-main-text{
+
+    color:#777777;
+    font-size: xx-large;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+canvas{
+    border:solid 1px rgb(238,100,42);
+}
+canvas:hover{
+    border:solid 1px lime;
+}
+a{
+    display: inline;
+    text-decoration: none;
+    color:rgb(238,100,42);
+    border:solid 1px black;
+}
+a:hover{
+    border-bottom:solid 1px rgb(238,100,42);
+}
+b{
+    color:rgb(166,169,171);
+}
+.button{
+    width: 20%;
+    height: 40px;
+    font-size: x-large;
+    font-family: 'Merriweather Sans', sans-serif;
+    color:rgb(166,169,171);
+    background: black;
+    border:solid 1px rgb(238,100,42);
+}
+.button:hover{
+    background:black;
+    cursor: pointer;
+    color:lime;
+    border:solid 1px lime;
+}
+.button:visited{
+    border:solid 1px rgb(238,100,42);
+}
+.footer{
+    margin-top: 50px;
+    font-size: x-large;
+    font-family: 'Merriweather Sans', sans-serif;
+    color:rgb(166,169,171);
+    width:100%;
+    margin-bottom: 25px;
+    position: fixed;
+    bottom: 0;
+
+}
+.github{
+    margin: 10px;
+    color:rgb(166,169,171);
+}
+.linkedin{
+    color:rgb(166,169,171);
+}
+.github:hover{
+    color:rgb(238,100,42);
+    border-bottom: solid 0px black;
+}
+.linkedin:hover{
+    color:rgb(238,100,42);
+    border-bottom: solid 0px black;
+}
+.canvas-header{
+    font-size: large;
+    color:rgb(166,169,171);
+    margin-bottom: 0px;
+    margin-top: -5px;
+}
