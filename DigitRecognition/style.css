@@ -1,13 +1,13 @@
 .result{
+    font-family: 'Merriweather Sans', sans-serif;
     background: black;
-    max-width:9.77%;
-    width: 9.5%;
-    float:left;
+    width: 9%;
+    font-size: 1.1pc;
     border: solid 1px rgb(238,100,42);
     color:#777777;
     overflow: hidden;
-    height: 60px;
-
+    height: 70px;
+    padding-top: 5px;
 }
 
 body{
@@ -21,11 +21,12 @@ body{
     text-align: center;
 }
 .results-container{
-    display: block;
-    width: 100%;
-    overflow: hidden;
+
     text-align: center;
 
+}
+table{
+    text-align: center;
     padding: 10px;
 }
 .header-main-text{
@@ -97,8 +98,12 @@ b{
     border-bottom: solid 0px black;
 }
 .canvas-header{
+    font-family: 'Merriweather Sans', sans-serif;
     font-size: large;
     color:rgb(166,169,171);
     margin-bottom: 0px;
     margin-top: -5px;
+}
+.versionLog{
+    font-size: small;
 }

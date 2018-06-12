@@ -8,7 +8,7 @@ drawingCanvas.id = "dctx";
 let dctx = drawingCanvas.getContext('2d');
 drawingCanvas.width = 280;
 drawingCanvas.height = 280;
-
+let version = "0.1";
 let counter = 0;
 dctx.fillStyle = "black";
 dctx.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
@@ -74,10 +74,10 @@ pickRandomIndex = () =>{
 
 
 async function start(){
-    //model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
+    model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
 
     //model = await tf.loadModel('indexeddb://trainedModel');
-    model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
+    //model = await tf.loadModel('https://sirdomin.github.io/DigitRecognition/model/my-model-1.json');
     //model = await tf.loadModel(
      //   tf.io.browserFiles([modelJson, modelWeights]));
     //console.log(model.toString());
@@ -117,7 +117,8 @@ async function predictModel(xs){
         if(outputData[i] > highestScore[0])highestScore = [outputData[i], i];
     }
     for(let i = 0 ;i < 10; i++){
-        document.getElementsByClassName("result")[i].innerText = `Guess: ${i}    chance: ${outputData[i]}`;
+        document.getElementsByClassName("result")[i].innerText = ` Guess: ${i} `;
+        document.getElementsByClassName("result")[i].innerText += ` chance: ${Math.round(Math.round(outputData[i] * 1000000) / 10000)}%`;
         if(highestScore[1] === i) {
             document.getElementsByClassName("result")[i].style.color="lime";
             document.getElementsByClassName("result")[i].style.border = 'solid 1px lime'
@@ -157,3 +158,4 @@ document.getElementById('btn').onclick = function(){
   guessImage();
 
 };
+//document.getElementsByClassName("versionLog")[0].innerHTML = "v. "+version+" ";
