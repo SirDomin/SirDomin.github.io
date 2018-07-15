@@ -72,13 +72,13 @@ b{
     border:solid 1px rgb(238,100,42);
 }
 .footer{
-    margin-top: 500px;
+    margin-top: 20px;
     font-size: x-large;
     font-family: 'Merriweather Sans', sans-serif;
     color:rgb(166,169,171);
     width:100%;
     margin-bottom: 25px;
-    position: fixed;
+    
     bottom: 0;
 
 }
