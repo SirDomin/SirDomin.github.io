@@ -198,7 +198,6 @@ class subInput{
         this.mainDiv.removeChild(document.getElementById('sub'+id));
         delete structure[id];
     }
-
     getChildData(id){
         let data = [];
         if(this.child.child){
@@ -208,7 +207,6 @@ class subInput{
                 "child": this.child.getChildData(this.child.child.id)
             });
         }else if(this.child) {
-
             data.push({
                 "Condition":this.conditionInput.value + this.conditionAnswer.value,
                 "Question": this.questionInput.value,
@@ -235,8 +233,7 @@ document.getElementById('showAsJSON').onclick = () =>{
     console.log(JSON.stringify(getJsonFromStructure()))
 };
 document.getElementById("saveButton").onclick = () => {
-
-
+    alert("saved json structure to localhost");
     localStorage.setItem("savedDataForm", JSON.stringify(getJsonFromStructure()));
 };
 document.body.onload = () => {
