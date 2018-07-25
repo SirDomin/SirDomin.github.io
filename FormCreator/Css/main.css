@@ -1,0 +1,67 @@
+#creator{
+    float:left;
+    position:absolute;
+    bottom:0;
+
+}
+.mainInput{
+    border: solid 1px black;
+    width: 40%;
+    padding: 10px;
+}
+.questionContainer{
+    margin-bottom: 10px;
+}
+.questionInput{
+    float:right;
+    height: 15px;
+}
+.typeContainer{
+
+}
+.typeInput{
+    float:right;
+    height: 22.5px;
+}
+.subInput{
+
+}
+input[type="button"]{
+    margin-top: 10px;
+}
+.mainDiv{
+    margin-top: 10px;
+}
+.mainDiv:last-child{
+    margin-bottom:30px;
+}
+.conditionInput{
+    height: 21px;
+    float:right;
+}
+.conditionAnswer {
+    height: 15px;
+    float: right;
+}
+.conditionContainer{
+    margin-bottom: 10px;
+    float:left;
+    width:100%;
+}
+#formContainer{
+    width:50%;
+    height:100%;
+    float:left;
+    position:relative;
+}
+#preview{
+    width:50%;
+    float:right;
+}
+#saveButton{
+    float:left;
+    position:absolute;
+    bottom:0;
+    margin-left:100px;
+
+}
