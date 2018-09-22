@@ -24,7 +24,7 @@ class Sequence {
       }
     }
   }
-
+  
   show(){
     let index = this.letterIndexes[this.visibleLetters];
     this.wordToShow = this.wordToShow.replaceAt(index, this.word[index])

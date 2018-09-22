@@ -12,7 +12,7 @@ class Particle{
     if(this.y > canvas.width)this.y = 0;
   }
   render(){
-    ctx.font = (5 + this.z) + "px fontP";
+    ctx.font = (10 + this.z) + "px fontP";
     ctx.fillText(this.state, this.x, this.y);
   }
 }

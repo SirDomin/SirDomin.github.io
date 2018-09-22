@@ -19,7 +19,7 @@ class Button{
   }
   render(){
     ctx.beginPath();
-    this.clicked ? ctx.fillStyle = pageColors.darkBlue : ctx.fillStyle = pageColors.blue;
+    ctx.fillStyle = this.color;
     ctx.lineWidth="4";
     ctx.strokeStyle=pageColors.white;
     ctx.fillRect(this.x, this.y, this.w, this.h);

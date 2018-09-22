@@ -6,6 +6,7 @@ canvas.height = window.innerHeight;
 let buttons = [];
 let objects = [];
 let particles = [];
+let sequences = [];
 let time;
 let mouse = {
   clicked : false,
@@ -16,7 +17,8 @@ let pageColors = {
   blue: "#064789",
   darkBlue: "#032445",
   white: "#d3e8fd",
-
+  black: "#000",
+  red: "#b30000",
 }
 date = new Date();
 time = date.getTime();
@@ -54,12 +56,16 @@ let render = function(){
   for(let i in particles){
     particles[i].render();
   }
-  for(let i in buttons){
-    buttons[i].render();
-  }
   for(let i in objects){
     objects[i].render();
   }
+  for(let i in buttons){
+    buttons[i].render();
+  }
+  for(let i in sequences){
+    sequences[i].render();
+  }
+ 
 }
 let update = function(){
   date = new Date();
@@ -69,12 +75,17 @@ let update = function(){
   for(let i in particles){
     particles[i].update();
   }
-  for(let i in buttons){
-    buttons[i].update();
-  }
   for(let i in objects){
     objects[i].update();
   }
+  
+  for(let i in buttons){
+    buttons[i].update();
+  }
+  for(let i in sequences){
+    sequences[i].update();
+  }
+ 
 }
 
 let main = function(){
@@ -85,15 +96,20 @@ let main = function(){
   requestAnimationFrame(main);
 }
 objects.push(new Terminal())
-objects.push(new Sequence(100, 100, "DOMINIK GARBULSKI", 1, 60));
-objects.push(new Sequence(100, 200, "MAIN PROJECTS:", 3, 40));
+buttons.push(new Button(1100, 300, 50, 51, pageColors.red))
+buttons[buttons.length - 1].onClickEvent = function(){
+  objects[0].clear();
+}
+sequences.push(new Sequence(1107, 350, "X", 1, 40))
+sequences.push(new Sequence(100, 100, "DOMINIK GARBULSKI", 1, 60));
+sequences.push(new Sequence(100, 200, "MAIN PROJECTS:", 3, 40));
 
 for(let i = 0; i < 25; i++){
 
   particles.push(new Particle(random(0, canvas.width), 0))
 }
-buttons.push(new Button(100, 300, 300, 100, pageColors.white))
-objects.push(new Sequence(110, 360, "Flappy Bird AI", 1, 20));
+buttons.push(new Button(100, 300, 300, 100, pageColors.blue))
+sequences.push(new Sequence(110, 360, "Flappy Bird AI", 1, 20));
 buttons[buttons.length - 1].onClickEvent = function(){
   objects[0].setLine(0, "Reconstruction of popular game Flappy Bird,");
   objects[0].setLine(1, "Connected with Neural Networks.")
@@ -104,7 +120,12 @@ buttons[buttons.length - 1].onClickEvent = function(){
   objects[0].setLine(7, "give them some time and enjoy.")
   objects[0].setLine(8, "Tags: #MachineLearning #AI FlappyBird")
   objects[0].setLine(9, "#NeuralNetworks #GeneticAlgorithm")
-  buttons.push(new Button(600, 850, 100, 50, pageColors.white))
+  objects[0].buttonId = buttons.push(new Button(1000, 850, 150, 50, pageColors.blue)) -1;
+  buttons[objects[0].buttonId].onClickEvent = function(){
+    window.open("https://sirdomin.github.io/flappyBird/", '_blank');
+  }
+  objects[0].sequenceId = sequences.push(new Sequence(1010, 890, "OPEN", 1, 30)) -1;
+  
 }
 
 
