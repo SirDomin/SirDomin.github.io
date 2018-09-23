@@ -8,6 +8,8 @@ class Button{
     this.clicked = 0;
     this.borderWidth = settings.borderWidth;
     this.rendering = true;
+    this.clickedColor = color;
+    this.active = false;
   }
   update(){
 
@@ -22,7 +24,11 @@ class Button{
   render(){
     if(this.rendering){
       ctx.beginPath();
-      ctx.fillStyle = this.color;
+      if(this.active){
+        ctx.fillStyle = this.clickedColor;
+      }else{
+        ctx.fillStyle = this.color;
+      }
       ctx.lineWidth = this.borderWidth;
       ctx.strokeStyle=pageColors.white;
       ctx.fillRect(this.x, this.y, this.w, this.h);
@@ -37,7 +43,6 @@ class Button{
       return true;
     }else{
       this.clicked = 0;
-      
       return false;
     }
 

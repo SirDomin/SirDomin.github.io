@@ -3,10 +3,12 @@ let ctx = canvas.getContext("2d");
 document.body.appendChild(canvas);
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+document.body.oncontextmenu = function() { return false; }
 let buttons = [];
 let objects = [];
 let particles = [];
 let sequences = [];
+let mainButtons = [];
 
 let time;
 let mouse = {
@@ -100,12 +102,18 @@ document.addEventListener("mousedown", (e) => {
   mouse.clicked = true;
   mouse.y = e.pageY;
   mouse.x = e.pageX;
-
+  if(windowBar.startMenu.rendering){
+    if(!windowBar.startMenu.collision(mouse.x, mouse.y) && !buttons[windowBar.startId].collision(mouse.x, mouse.y)){
+      windowBar.startMenu.close();
+      
+    }
+  }
   for(let i in buttons){
-    if(buttons[i].collision(mouse.x, mouse.y)){
+    if(buttons[i].rendering && buttons[i].collision(mouse.x, mouse.y)){
       buttons[i].onClick();
     }
   }
+  
 })
 document.addEventListener("mouseup", (e) => {
   mouse.clicked = false;
@@ -116,6 +124,7 @@ document.addEventListener("mousemove", (e) => {
 
   if(checkCollisionsWithButtons(mouse.x, mouse.y)){
     mouse.cursor.src = "hand.png";
+
   }else{
     mouse.cursor.src = "cursor.png";
   }
@@ -134,6 +143,7 @@ let render = function(){
     objects[i].render();
   }
   windowBar.render();
+  windowBar.startMenu.render();
   for(let i in buttons){
     buttons[i].render();
   }
@@ -174,6 +184,9 @@ let main = function(){
 objects.push(new Terminal())
 buttons[objects[0].exitButtonId].onClickEvent = function(){
   objects[0].clear();
+  for(let i in buttons){
+    buttons[i].active = false;
+  }
 }
 
 
@@ -184,11 +197,17 @@ for(let i = 0; i < 25; i++){
 
   particles.push(new Particle(random(0, canvas.width), 0))
 }
-buttons.push(new Button(settings.mainButton1.x, settings.mainButton1.y, settings.mainButton1.w, settings.mainButton1.h, pageColors.blue))
-
-sequences.push(new Sequence(settings.mainButton1.text.x, settings.mainButton1.text.y, "Flappy Bird AI", 1, settings.mainButton1.text.fontSize));
+mainButtons[0] = {
+  btnId: buttons.push(new Button(settings.mainButton1.x, settings.mainButton1.y, settings.mainButton1.w, settings.mainButton1.h, pageColors.blue)) -1,
+  seqId: sequences.push(new Sequence(settings.mainButton1.text.x, settings.mainButton1.text.y, "Flappy Bird AI", 1, settings.mainButton1.text.fontSize)) -1,
+}
+buttons[buttons.length-1].clickedColor = pageColors.darkBlue;
 
 buttons[buttons.length - 1].onClickEvent = function(){
+  for(let i in buttons){
+    buttons[i].active = false;
+  }
+  this.active = true;
   objects[0].clear();
   objects[0].setLine(0, "Reconstruction of popular game Flappy Bird,");
   objects[0].setLine(1, "Connected with Neural Networks.")
@@ -207,11 +226,18 @@ buttons[buttons.length - 1].onClickEvent = function(){
   objects[0].popup();
 }
 
-buttons.push(new Button(settings.mainButton2.x, settings.mainButton2.y, settings.mainButton2.w, settings.mainButton2.h, pageColors.blue))
-sequences.push(new Sequence(settings.mainButton2.text.x, settings.mainButton2.text.y, "Digit Recognition", 1, settings.mainButton2.text.fontSize));
+mainButtons[1] = {
+  btnId: buttons.push(new Button(settings.mainButton2.x, settings.mainButton2.y, settings.mainButton2.w, settings.mainButton2.h, pageColors.blue)) -1,
+  seqId: sequences.push(new Sequence(settings.mainButton2.text.x, settings.mainButton2.text.y, "Digit Recognition", 1, settings.mainButton2.text.fontSize)) -1,
+}
+buttons[buttons.length-1].clickedColor = pageColors.darkBlue;
 //console.log(settings.mainButton1.x, window.innerHeight / 470, settings.mainButton2.w / 16)
 //console.log("w: "+window.innerWidth/ 300, "h: " +window.innerHeight / 100, "f: "+window.innerWidth/ 16 );
 buttons[buttons.length - 1].onClickEvent = function(){
+  for(let i in buttons){
+    buttons[i].active = false;
+  }
+  this.active = true;
   objects[0].clear();
   objects[0].setLine(0, "Machine Learning used to recognize ");
   objects[0].setLine(1, "handwritten digits.")

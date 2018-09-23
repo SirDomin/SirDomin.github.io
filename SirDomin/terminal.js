@@ -67,7 +67,7 @@ class Terminal{
     }
     buttons[this.windowBarButtonId].borderWidth = "0.5";
     this.windowBarButtonTextId = sequences.push(new Sequence(windowBar.x + windowBar.buttonWidth + windowBar.spaceBetweenButtons , window.innerHeight / 1.02, "Terminal", 1, (windowBar.w / 155))) -1;
-    this.titleId = sequences.push(new Sequence(this.x, this.exitButton.text.y, "Terminal", 1, this.exitButton.text.fontSize)) - 1;
+    this.titleId = sequences.push(new Sequence(this.x, this.exitButton.text.y + (this.w/140), "Terminal", 1, this.w/20)) - 1;
     for(let i = 1; i < 11; i++){
       this.linesY[i-1] = this.y + (this.barHeight * 2) + (this.lineHeight * i);
     }
@@ -93,6 +93,7 @@ class Terminal{
     sequences[this.sequenceId].rendering = false;
   }
   close(){
+    
     sequences[this.windowBarButtonTextId].rendering = false;
     sequences[this.titleId].rendering = false;
     buttons[this.windowBarButtonId].w = 0;
@@ -123,6 +124,7 @@ class Terminal{
   clear(){
     this.lines = [];
     this.close();
+    
   }
   render(){
     if(this.rendering){
@@ -157,10 +159,15 @@ class WindowBar{
     this.h = window.innerHeight / 19.38;
     this.buttonWidth = this.h * 2;
     this.spaceBetweenButtons = this.buttonWidth / 10;
+    this.startMenu = new StartMenu(this.h);
     this.startId = buttons.push(new Button(this.x, this.y, this.buttonWidth, this.h, pageColors.blue)) -1;
     buttons[this.startId].borderWidth = "0.5";
+    buttons[this.startId].clickedColor = pageColors.darkBlue; 
+    buttons[this.startId].onClickEvent = function(){
+      windowBar.startMenu.start();
+    }
     //console.log(window.innerWidth / 20)
-    this.textId = sequences.push(new Sequence(this.x, window.innerHeight / 1.01, "START", 1, (this.w / 95)))
+    this.textId = sequences.push(new Sequence((this.w / 360), window.innerHeight / 1.02, "START", 1, (this.w / 110)))
     this.soundButtonId = buttons.push(new Button(window.innerWidth - this.h, this.y, this.h, this.h, pageColors.white)) - 1;
     buttons[this.soundButtonId].soundIcon = new Image();
     buttons[this.soundButtonId].soundIcon.src = "mute.png";
@@ -203,11 +210,103 @@ class WindowBar{
     buttons[this.soundButtonId].soundIcon.src = "sound.png";
     
   }
+
+
+
+
+  update(){
+   
+  }
+  render(){
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle=pageColors.white;
+    ctx.rect(this.x, this.y, this.w, this.h);
+    ctx.stroke();
+  }
+}
+
+class StartMenu{
+  constructor(h){
+    this.x = 0;
+    this.y = window.innerHeight/3.3;
+    this.w = window.innerWidth/3.3;
+    this.h = window.innerHeight - this.y - h;
+    this.rendering = 0;
+    this.buttons = [];
+    
+      this.buttons.push({
+        btnId: buttons.push(new Button(this.x, this.y, this.w * 0.1, this.h/10, pageColors.blue)) -1,
+        seqId: sequences.push(new Sequence(this.x, this.y, "TESTING WORD", 0.1, 15)) - 1,
+      })
+    for(let i in this.buttons){
+      buttons[this.buttons[i].btnId].rendering = false;
+      sequences[this.buttons[i].seqId].rendering = false;
+    }
+    
+  }
   update(){
 
   }
   render(){
-    ctx.fillStyle = "black";
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    if(this.rendering) {
+      ctx.beginPath();
+      ctx.fillStyle = "black";
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle=pageColors.white;
+      ctx.rect(this.x, this.y, this.w, this.h);
+      ctx.stroke();
+    }
+    
+  }
+  collision(x, y){
+    if(x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h)return true;
+    return false;
+  }
+  start(){
+    if(this.rendering){
+      this.close();
+    }else{
+      buttons[windowBar.startId].active = true;
+      this.rendering = 1
+      for(let i in mainButtons){
+        buttons[mainButtons[i].btnId].rendering = false;
+        sequences[mainButtons[i].seqId].rendering = false;
+      }
+      this.buttons[0] = {
+        btnId: buttons.push(new Button(this.x, this.y, this.w*0.995, this.h/10, pageColors.blue)) -1,
+        seqId: sequences.push(new Sequence(this.x + this.w * 0.01, this.y + (this.w / 23.1) *2, "-> LinkedIn Profile <- ", 2, this.w / 23.1)) - 1,
+      }
+      buttons[this.buttons[0].btnId].onClickEvent = function(){
+        windowBar.mute();
+        window.open("https://www.linkedin.com/in/sirdomin/", '_blank');
+      }
+      this.buttons[1] ={
+        btnId: buttons.push(new Button(this.x, this.y + this.h/10, this.w*0.995, this.h/10, pageColors.blue)) -1,
+        seqId: sequences.push(new Sequence(this.x + this.w * 0.05, this.y + this.h/10 + (this.w / 23.1) *2, "-> Github Profile <- ", 2, this.w / 23.1)) - 1,
+      }
+      buttons[this.buttons[1].btnId].onClickEvent = function(){
+        windowBar.mute();
+        window.open("https://github.com/sirdomin", '_blank');
+      }
+    }
+    
+  }
+  close(){
+    for(let i in mainButtons){
+      buttons[mainButtons[i].btnId].rendering = true;
+      sequences[mainButtons[i].seqId].rendering = true;
+    }
+    buttons[windowBar.startId].active = false;
+    this.rendering = 0;
+    for(let i in this.buttons){
+      delete buttons[this.buttons[i].btnId];
+      delete sequences[this.buttons[i].seqId];
+    }
+  
+    //
   }
 }
