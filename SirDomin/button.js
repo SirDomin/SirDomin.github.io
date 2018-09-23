@@ -6,6 +6,8 @@ class Button{
     this.h = h;
     this.color = color;
     this.clicked = 0;
+    this.borderWidth = settings.borderWidth;
+    this.rendering = true;
   }
   update(){
 
@@ -18,13 +20,16 @@ class Button{
 
   }
   render(){
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.lineWidth="4";
-    ctx.strokeStyle=pageColors.white;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-    ctx.rect(this.x, this.y, this.w, this.h);
-    ctx.stroke();
+    if(this.rendering){
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.lineWidth = this.borderWidth;
+      ctx.strokeStyle=pageColors.white;
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+      ctx.rect(this.x, this.y, this.w, this.h);
+      ctx.stroke();
+    }
+    
   }
   collision(x, y){
 

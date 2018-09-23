@@ -10,7 +10,7 @@ class Sequence {
     this.wordToShow = "";
     this.letterIndexes = [];
     this.fontSize = font_size;
-
+    this.rendering = true;
     for(let i =0; i < this.word.length; i++){
       this.letterIndexes.push(i);
     }
@@ -37,9 +37,11 @@ class Sequence {
     }
   }
   render(){
-    ctx.fillStyle = pageColors.white;
-    ctx.font = this.fontSize + "px fontP"
-    ctx.fillText(this.wordToShow, this.x, this.y);
+    if(this.rendering){
+      ctx.fillStyle = pageColors.white;
+      ctx.font = this.fontSize + "px fontP"
+      ctx.fillText(this.wordToShow, this.x, this.y);
+    }
   }
 }
 String.prototype.replaceAt=function(index, replacement) {
