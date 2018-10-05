@@ -6,6 +6,8 @@ ctx = canvas.getContext("2d");
 settings = {
     numberOfDots: 500,
     dotSize: 2,
+    //color: "#FE5F55",
+    color: "black",
 }
 
 let dots, focusedDot, pickedDot;
@@ -14,15 +16,17 @@ generateFirstDots = function(){
     dots = [];
     focusedDot = 0;
     pickedDot = 1;
-    dots.push(new Dot(canvas.width / 2 - settings.dotSize / 2, canvas.height * 0.1));
-    dots.push(new Dot(canvas.width / 10 - settings.dotSize / 2, canvas.height * 0.9));
-    dots.push(new Dot(canvas.width - canvas.width / 10 - settings.dotSize / 2, canvas.height * 0.9));
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    dots.push(new Dot(canvas.width / 2 - settings.dotSize / 2, canvas.height * 0.1, settings.color));
+    dots.push(new Dot(canvas.width / 10 - settings.dotSize / 2, canvas.height * 0.9, settings.color));
+    dots.push(new Dot(canvas.width - canvas.width / 10 - settings.dotSize / 2, canvas.height * 0.9, settings.color));
 }
 
 
 renderNextDot = function(){
     let tmpPoint = getPointInMiddle(dots[focusedDot], dots[pickedDot]);
-    focusedDot = dots.push(new Dot(tmpPoint.x, tmpPoint.y)) - 1;
+    focusedDot = dots.push(new Dot(tmpPoint.x, tmpPoint.y, settings.color)) - 1;
     pickedDot = getRandomPoint();
 }
 main = function(){
@@ -57,6 +61,10 @@ document.getElementsByClassName('number-of-dots')[0].oninput = function(){
 }
 document.getElementsByClassName('dot-size')[0].oninput = function(){
     document.getElementById('dot-size').innerHTML = ("["+this.value+"]");
+}
+document.getElementsByClassName('dot-color')[0].onchange = function(){
+    document.getElementById('dot-color').innerHTML = ("["+this.value.toUpperCase()+"]")
+    settings.color = this.value;
 }
 generateFirstDots();
 main();

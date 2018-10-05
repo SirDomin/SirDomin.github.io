@@ -84,3 +84,8 @@ canvas{
     width: 50%;
     height: 50%;
 }
+.dot-color{
+    
+    cursor: pointer;
+    
+}
