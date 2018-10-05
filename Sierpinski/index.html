@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sierpinski Triangle</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+  </head>
+  <body>
+    <div class="main-div">
+      <div class="interface-setup">
+        <div class="header">SETTINGS</div>
+        <div class="div-input margin-top">
+          <div class="input-header">
+            <div class="header-text">Amount of dots</div> <div class="input-value" id="number-of-dots">[500]</div>
+          </div>
+          <input class="range-input number-of-dots" value = "500" min="1" max="2000" type="range"/>
+        </div>
+        <div class="div-input margin-top">
+            <div class="input-header">
+                <div class="header-text">Dot size</div> <div class="input-value" id="dot-size">[2]</div>
+            </div>
+            <input class="range-input dot-size" value = "2" min="1" max="4" type="range"/>
+        </div>
+        <div class="div-input margin-top">
+          <input type="button" class="button-input" value="RENDER"/>
+        </div>
+        <div class="div-input margin-top">
+            <input type="button" class="button-input" value="CLEAR"/>
+          </div>
+      </div>
+      <canvas class="canvas"></canvas>
+    </div>
+    <script src="dot.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

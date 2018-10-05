@@ -1,0 +1,86 @@
+body{
+    text-align: center;
+    margin: 0 !important;
+    font-family: 'Fredoka One', cursive;
+    background: #B8D8D8;
+}
+.interface-setup{
+    width:25%;
+    float:left;
+
+}
+.canvas{
+    float:left;
+}
+.header{
+    line-height: 200%;
+    font-size: 200%;
+    background: #4f6367;
+    color: #B8D8D8;
+}
+.margin-top{
+    margin-top: 10%;
+}
+.div-input{
+    background: #7A9E9F;
+    padding:1%;
+}
+.input-header{
+    font-size: 150%;
+    float:left;
+    width: 100%;
+}
+.range-input{
+    width:99%;
+    -webkit-appearance: none;
+    height: 25px;
+    background: #B8D8D8;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+.range-input:hover{
+    opacity: 1;
+}
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #FE5F55;
+    cursor: pointer;
+}
+
+.range-input::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+.button-input{
+    width: 50%;
+    height: 4vh;
+    border: solid 1px black;
+    background: #FE5F55;
+    font-size: 150%;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    font-family: 'Fredoka One', cursive;
+    cursor: pointer;
+}
+.button-input:hover{
+    opacity: 1;
+}
+.input-value{
+    float:right;
+    
+}
+.header-text{
+    float:left;
+}
+canvas{
+    width: 50%;
+    height: 50%;
+}
