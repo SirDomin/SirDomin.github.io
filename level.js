@@ -61,6 +61,7 @@ Gui = function(){
     this.w = settings.tileWidth;
     this.h = settings.tileHeight / 2;
     this.fontSize = this.w / 20;
+    alert(this.w);
     this.hpBar = {
         x: this.w / 100,
         y: this.h / 10,
