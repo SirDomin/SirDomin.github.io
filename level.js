@@ -82,7 +82,7 @@ Gui = function(){
         //ctx.fillStyle = "black";
         //ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.fillStyle = "black";
-        ctx.font=(this.fontSize+ "px Arial");
+        ctx.font="10px Arial";
         ctx.fillText("Score: " + player.getScore(),this.score.x,this.score.y);
         ctx.fillText("lvl: " + level.level,this.level.x,this.level.y);
 
