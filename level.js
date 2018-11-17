@@ -88,3 +88,14 @@ Gui = function(){
 
     }
 }
+
+Sprite = function(image, numberOfImages, imageWidth, imageHeight){
+    this.img = img;
+    this.noi = numberOfImages;
+    this.w = imageWidth;
+    this.h = imageHeight;
+    this.getState = function(){
+        
+    }
+
+}

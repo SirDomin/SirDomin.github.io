@@ -1,29 +1,46 @@
 function Player() {
-    this.w = 100; // width of player
-    this.h = 100; // height of player
+    this.w = canvas.width / 8; // width of player
+    this.h = canvas.width / 8; // height of player
     this.x = (canvas.width / 2) - (this.w / 2); // player's pos on x axis
     this.y = canvas.height - this.h - 20; // player's pos on y axis
     this.hp = 10; // player's health
     this.maxHp = 10;
     this.damage = 50;
     this.score = 0; // player's score
-    this.msBetweenShoots = 400; // time betweens shots
+    this.msBetweenShots = 10; // time betweens shots
     this.msTime = 0; 
     this.velocity  = 0;
+    this.shots = [];
     
     this.render = function(){
         ctx.fillRect(this.x,this.y,this.w,this.h);
-        if(this.msTime == this.msBetweenShoots){
-
+        for(i = 0; i < this.shots.length; i++){
+            this.shots[i].update();
+            this.shots[i].render();
+            if(this.shots[i].y <= 0){
+                this.shots.splice([i],1);
+            }
+        }
+        if(this.msTime >= this.msBetweenShots){
+            this.shots[this.shots.length] = new Shot(this.x,this.y,this.w);
+            this.msTime = 0;
         } 
         else {
-            this.msTime++;
+            this.msTime += 1;
         }
     }//redner
 
     this.update = function(){
-       
         this.x += this.velocity;
+        //żeby nie wyleciało poza mape
+        if(this.x < 0){
+            this.x = 0;
+        } 
+        else if (this.x + this.w > canvas.width){
+            this.x = canvas.width - this.w;
+        }
+
+        
     }//update
     this.stop = function(){
         this.velocity = 0;
