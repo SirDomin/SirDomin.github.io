@@ -3,14 +3,7 @@ tmpobj = {
     y: 10
 
 }
-player = {
-    getScore:function(){
-        return 100;
-    },
-    getHp:function(){
-        return 0.9;
-    }
-}
+
 speed = 5;
 colors =["white", "blue", "yellow", "brown", "cyan"];
 Tile = function(x, y, id){
@@ -61,7 +54,6 @@ Gui = function(){
     this.w = settings.tileWidth;
     this.h = settings.tileHeight / 2;
     this.fontSize = this.w / 20;
-    alert(this.w);
     this.hpBar = {
         x: this.w / 100,
         y: this.h / 10,

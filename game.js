@@ -5,8 +5,18 @@ canvas.height = window.innerHeight;
 ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+player = new Player();
+document.addEventListener("touchstart",function(e){
 
-
+    if(e.changedTouches[0].pageX < canvas.width / 2){
+        player.moveLeft();
+    }else{
+        player.moveRight();
+    }
+});
+document.addEventListener("touchend", function(e){
+    player.stop();
+});
 settings = {
     tileWidth: canvas.width,
     tileHeight: canvas.height/4,
@@ -21,14 +31,14 @@ function update(){
     //update wszystkich elem;
 
     level.update();
-
+    player.update();
 }
 function render(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //tutaj renderujemy wszystkie leementy
 
     level.render();
-
+    player.render();
 }
 function main(){
     update();
