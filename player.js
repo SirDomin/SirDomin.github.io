@@ -22,6 +22,7 @@ function Player() {
     }//redner
 
     this.update = function(){
+       
         this.x += this.velocity;
     }//update
     this.stop = function(){

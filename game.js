@@ -5,6 +5,7 @@ ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 player = new Player();
+pause = false;
 document.addEventListener("touchstart",function(e){
 
     if(e.changedTouches[0].pageX < canvas.width / 2){
@@ -15,6 +16,18 @@ document.addEventListener("touchstart",function(e){
 });
 document.addEventListener("touchend", function(e){
     player.stop();
+});
+window.addEventListener("orientationchange", function() {
+    if(window.innerHeight > window.innerWidth){
+        document.body.style.setProperty("-webkit-transform", "rotate(-90deg)", null);
+        this.document.getElementById("canvas").style="margin-left: 75vh;"
+        pause = true;   
+    }else{
+        document.body.style.setProperty("-webkit-transform", "rotate(0deg)", null);
+        this.document.getElementById("canvas").style="margin-left: 0vh;"
+        pause = false;
+        main();
+    }
 });
 settings = {
     tileWidth: canvas.width,
@@ -44,10 +57,24 @@ function render(){
 
     level.render();
     player.render();
+    if(pause){
+        ctx.save()
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,1000, 1000 );
+        ctx.fillStyle = "white";
+        ctx.translate(canvas.width/2,canvas.height/2);
+        ctx.rotate(Math.PI/2);
+        ctx.fillText("UNSUPPORTED PORTRAIT MODE", -canvas.width / 3, 0);
+        ctx.rotate(-Math.PI/2);
+
+// un-translate the canvas back to origin==top-left canvas
+
+ctx.translate(-canvas.width/2,-canvas.height/2);
+    }
 }
 function main(){
     update();
     render();
-    requestAnimationFrame(main);
+    if(!pause)requestAnimationFrame(main);
 }
 main();
