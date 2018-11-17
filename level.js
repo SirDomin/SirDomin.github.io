@@ -60,7 +60,7 @@ Gui = function(){
     this.y = 0;
     this.w = settings.tileWidth;
     this.h = settings.tileHeight / 2;
-    this.fontSize = 10;
+    this.fontSize = this.w / 20;
     this.hpBar = {
         x: this.w / 100,
         y: this.h / 10,
@@ -82,7 +82,7 @@ Gui = function(){
         //ctx.fillStyle = "black";
         //ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.fillStyle = "black";
-        ctx.font='5px "Vast Shadow"';
+        ctx.font= this.fontSize + 'px "Vast Shadow"';
         ctx.fillText("Score: " + player.getScore(),this.score.x,this.score.y);
         ctx.fillText("lvl: " + level.level,this.level.x,this.level.y);
 
