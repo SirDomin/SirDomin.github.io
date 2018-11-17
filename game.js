@@ -1,7 +1,7 @@
 canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
+screen.orientation.lock("portrait");
 ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -26,6 +26,12 @@ settings = {
     baseObjectWidth2: canvas.width / 4,
     baseObjectHeight: canvas.height / 10
 }
+images = [];
+for(var i = 0; i < 5; i++){
+    images[i] = new Image();
+    images[i].src = "tile"+(i%2)+".png";
+}
+
 level = new Level(1);
 function update(){
     //update wszystkich elem;

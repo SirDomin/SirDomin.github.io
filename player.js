@@ -28,11 +28,11 @@ function Player() {
         this.velocity = 0;
     }
     this.moveLeft = function(){
-        this.velocity = ((this.velocity + 3) * -1.5);
+        this.velocity = ((this.velocity + 5) * -1.5);
     }//moveLeft
 
     this.moveRight = function(){
-        this.velocity = ((this.velocity + 3) * 1.5);;
+        this.velocity = ((this.velocity + 5) * 1.5);;
     }//moveRight
 
     this.heal = function(valueHp){

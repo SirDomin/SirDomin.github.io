@@ -12,9 +12,11 @@ Tile = function(x, y, id){
     this.x = x;
     this.y = y;
     this.id = id;
+    this.img = images[id];
     this.render = function(){
-        ctx.fillStyle=colors[this.id];
-        ctx.fillRect(this.x,this.y, this.w, this.h);
+        //ctx.fillStyle=colors[this.id];
+        //ctx.fillRect(this.x,this.y, this.w, this.h);
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h + 5)
     }
     this.update = function(){
         this.y += speed;
