@@ -44,6 +44,7 @@ function Player() {
         this.x += this.velocity;
         this.collisonBox.x += this.velocity;//this.x + this.w / 2 - (this.w / 4);
         //żeby nie wyleciało poza map
+        /*
         if(this.x < 0){
             this.x = 0;
             this.collisonBox.x = this.x + (this.w / 3);
@@ -52,7 +53,15 @@ function Player() {
             this.x = canvas.width - this.w;
             this.collisonBox.x = this.x + (this.w / 3);
         }
-        
+        */
+       if(this.x < 0){
+        this.x = 0;
+        this.collisonBox.x = this.x + (this.w / 3);
+    } 
+    else if (this.x + this.w > canvas.width){
+        this.x = canvas.width - this.w;
+        this.collisonBox.x = this.x + (this.w / 3);
+    }
         if(this.hp <= 0){
             game = false;
         }

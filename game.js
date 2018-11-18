@@ -54,8 +54,8 @@ butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
 
 bgAudio = new Audio("dj_rafix_-_calm_in_grass_finel.mp3");
-bgAudio.onloadeddata = function() {
-    bgAudio.play();
+bgAudio.onloadedmetadata = function() {
+    
     main();
 };
 //db
@@ -121,7 +121,7 @@ pause = false;
 document.addEventListener("touchstart",function(e){
     if(!started){
         started = true;
-
+        bgAudio.play();
     }
     if(e.changedTouches[0].pageX < canvas.width / 2){ // dwa różne ify, jeden dzieli na połowę ruszanie, a drugi od lewej/prawej gracza
     //if(e.changedTouches[0].pageX < player.x + (player.w / 2)){
