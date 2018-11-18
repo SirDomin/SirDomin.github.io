@@ -54,7 +54,9 @@ butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
 
 var bgAudio = new Audio("dj_rafix_-_calm_in_grass_finel.mp3");
-
+bgAudio.onloadeddata = function(){
+    main();
+}
 //db
 
 var config = {
@@ -239,4 +241,4 @@ function main(){
 
     if(!pause && game) requestAnimationFrame(main);
 }
-main();
+//main();
