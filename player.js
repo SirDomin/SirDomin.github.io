@@ -54,12 +54,12 @@ function Player() {
             this.collisonBox.x = this.x + (this.w / 3);
         }
         */
-       if(this.x < 0){
-        this.x = 0;
+       if(this.x < -10){
+        this.x = -10;
         this.collisonBox.x = this.x + (this.w / 3);
     } 
-    else if (this.x + this.w > canvas.width){
-        this.x = canvas.width - this.w;
+    else if (this.x + this.w > canvas.width + 10){
+        this.x = canvas.width - this.w + 10;
         this.collisonBox.x = this.x + (this.w / 3);
     }
         if(this.hp <= 0){

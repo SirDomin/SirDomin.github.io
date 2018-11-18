@@ -56,6 +56,10 @@ butterflyImage.src = "motyl.png";
 var bgAudio = new Audio("dj.mp3");
 bgAudio.onloadeddata = function(){
     main();
+    bgAudio.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
 }
 //db
 
@@ -100,9 +104,9 @@ var config = {
     }
   }
   function displayData(){
-    ref.on('value', gotData);
+    ref.once('value', gotData);
   }
-  ref.on('value', gotData);
+  //ref.on('value', gotData);
 
 
 bossLevel = false;
@@ -126,7 +130,7 @@ document.addEventListener("touchstart",function(e){
         player.moveRight();
     }
     if(!game){
-
+        bgAudio.play();
         speed = 1;
         game = true;
         player = new Player();
@@ -144,7 +148,7 @@ document.addEventListener("touchstart",function(e){
          interb = setInterval(()=>{
             bgAudio.play();
             clearInterval(interb);
-         }, 100);
+         }, 1000);
     }
 });
 document.addEventListener("touchend", function(e){
