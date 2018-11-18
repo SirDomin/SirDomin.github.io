@@ -5,6 +5,7 @@ ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 game = true;
+started = false;
 currLvl = 1;
 settings = {
     tileWidth: canvas.width,
@@ -15,6 +16,8 @@ settings = {
     baseObjectWidth2: canvas.width / 4,
     baseObjectHeight: canvas.height / 10
 }
+lineY = canvas.height/10;
+lineHeight = settings.baseObjectHeight / 2;
 images = [];
 for(var i = 0; i < 5; i++){
     images[i] = new Image();
@@ -32,25 +35,90 @@ spiderImage2.src = "spider2.png";
 spiderImage3 = new Image();
 spiderImage3.src = "spider3.png";
 
+spiderImage4 = new Image();
+spiderImage4.src = "spider4.png";
+
+spiderImage5 = new Image();
+spiderImage5.src = "spider5.png";
+
+
+spiderBossL = new Image();
+spiderBossL.src = "boss_w_lewo.png"
+spiderBossR = new Image();
+spiderBossR.src = "boss_w_prawo.png";
 butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
+
+//db
+
+var config = {
+    apiKey: "AIzaSyCcnIYcmV9hc3jEZqbecA1J11nyB36U2fg",
+    authDomain: "databasehuuug1.firebaseapp.com",
+    databaseURL: "https://databasehuuug1.firebaseio.com",
+    projectId: "databasehuuug1",
+    storageBucket: "databasehuuug1.appspot.com",
+    messagingSenderId: "165136848581"
+  };
+  firebase.initializeApp(config);
+  leaderboard = [];
+  var database = firebase.database();
+  var ref = database.ref('scores');
+  
+  function gotData(data){  // czyta z bazy i wyświetla 
+    leaderboard = [];
+    var scores = data.val();
+    var keys = Object.keys(scores);
+
+    for(var i = 0; i < keys.length; i++){
+        var k = keys[i];
+        var name = scores[k].name;
+        var score = scores[k].score;
+        //console.log(name,score);
+        //document.getElementById("bigOne").innerHTML += name + ', ' + score  +'</br>' ;
+        leaderboard.push({name: name, score: score});
+    }
+    //console.log(leaderboard);
+    best = [0,0,0];
+    leaderboard.sort(function(a, b){return a.score - b.score});
+    leaderboard.reverse();
+    ctx.fillText("LEADERBOARDS", canvas.width / 3, lineY + lineHeight*4);
+    if(leaderboard.length < 10){
+        maxToShow = leaderboard.length;
+    }else{
+        maxToShow = 10;
+    }
+    for(x1= 0; x1 < maxToShow; x1++){
+        ctx.fillText(leaderboard[x1].name+" : "+leaderboard[x1].score, canvas.width / 4, lineY + lineHeight*(x1 + 5));
+    }
+  }
+  ref.on('value', gotData);
+
+
+bossLevel = false;
+guideImage = new Image();
+guideImage.src = "guide.png"
 enemiesCount = 0;
 player = new Player();
 level = new Level(currLvl);
 enemies = [];
-for(var i =0; i < 15; i++){
-    enemiesCount ++;
+for(var i = 0; i < 15; i++){
+    enemiesCount++;
     enemies.push(new Enemy())
 }
 pause = false;
 document.addEventListener("touchstart",function(e){
+    if(!started){
+        started = true;
 
-    if(e.changedTouches[0].pageX < canvas.width / 2){
+    }
+    if(e.changedTouches[0].pageX < canvas.width / 2){ // dwa różne ify, jeden dzieli na połowę ruszanie, a drugi od lewej/prawej gracza
+    //if(e.changedTouches[0].pageX < player.x + (player.w / 2)){
         player.moveLeft();
     }else{
         player.moveRight();
     }
     if(!game){
+        speed = 1;
         game = true;
         player = new Player();
         level = new Level(1);
@@ -110,10 +178,10 @@ function render(){
     //tutaj renderujemy wszystkie leementy
 
     level.render();
-    player.render();
     for(i in enemies){
         enemies[i].render();
     }
+    player.render();
     level.gui.render();
     if(pause){
         ctx.save()
@@ -122,7 +190,7 @@ function render(){
         ctx.fillStyle = "white";
         ctx.translate(canvas.width/2,canvas.height/2);
         ctx.rotate(Math.PI/2);
-        ctx.fillText("UNSUPPORTED PORTRAIT MODE", -canvas.width / 3, 0);
+        ctx.fillText("UNSUPPORTED LANDSCAPE MODE", -canvas.width / 3, 0);
         ctx.rotate(-Math.PI/2);
 
 // un-translate the canvas back to origin==top-left canvas
@@ -130,12 +198,22 @@ function render(){
 ctx.translate(-canvas.width/2,-canvas.height/2);
     }
     if(!game){
+        
         ctx.fillStyle = "black";
         ctx.fillRect(0,0,canvas.width, canvas.height);
         ctx.fillStyle = "white";
-        ctx.fillText("YOU LOST", canvas.width / 2.5, canvas.height/2);
-        ctx.fillText("score: "+player.getScore(), canvas.width / 2.5, canvas.height/1.8);
-        ctx.fillText("tap to play again", canvas.width / 3, canvas.height/1.6);
+        ctx.fillText( player.hp <= 0 ? "YOU LOST" : "YOU WON", canvas.width / 2.5, lineY);
+        ctx.fillText("score: "+player.getScore(), canvas.width / 2.5, lineY + lineHeight*1);
+        ctx.fillText("tap to play again", canvas.width / 3, lineY + lineHeight*2);
+        if(player.hp > 0){
+            player.name = prompt("Your nickname");
+            var data = {
+                name: player.name,
+                score: player.score
+              }
+              
+              ref.push(data);
+        }
     }
 
 }

@@ -1,19 +1,28 @@
 function Player() {
-    this.w = canvas.width / 4; // width of player
-    this.h = canvas.width / 8; // height of player
+    this.w = canvas.width / 3; // width of player
+    this.h = canvas.width / 6; // height of player
     this.x = (canvas.width / 2) - (this.w / 2); // player's pos on x axis
     this.y = canvas.height - this.h - 50; // player's pos on y axis
-    this.hp = 10; // player's health
-    this.maxHp = 10;
-    this.damage = 10;
+    this.hp = 15; // player's health
+    this.maxHp = 15;
+    this.damage = 20;
     this.score = 0; // player's score
     this.msBetweenShots = 10; // time betweens shots
     this.msTime = 0; 
     this.velocity  = 0;
     this.shots = [];
     this.img = new Sprite(butterflyImage,7, 44, 28, 3);
+    this.name = "test";
+
+    this.collisonBox = {
+        w: this.w / 3,
+        h: this.h,
+        x: this.x + (this.w / 3) ,
+        y: this.y
+    }
+
     this.render = function(){
-        //ctx.fillRect(this.x,this.y,this.w,this.h);
+        //ctx.fillRect(this.collisonBox.x,this.collisonBox.y,this.collisonBox.w,this.collisonBox.h);
         this.img.render(this.x, this.y, this.w , this.h)
         for(i = 0; i < this.shots.length; i++){
             this.shots[i].update();
@@ -33,18 +42,22 @@ function Player() {
 
     this.update = function(){
         this.x += this.velocity;
-        //żeby nie wyleciało poza mape
+        this.collisonBox.x += this.velocity;//this.x + this.w / 2 - (this.w / 4);
+        //żeby nie wyleciało poza map
         if(this.x < 0){
             this.x = 0;
+            this.collisonBox.x = this.x + (this.w / 3);
         } 
         else if (this.x + this.w > canvas.width){
             this.x = canvas.width - this.w;
+            this.collisonBox.x = this.x + (this.w / 3);
         }
+        
         if(this.hp <= 0){
             game = false;
         }
     for(x in enemies){
-        if(checkCollision({x: this.x, y: this.y, w: this.w, h: this.h},{x: enemies[x].x, y: enemies[x].y, w: enemies[x].w, h: enemies[x].h})){
+        if(checkCollision({x: this.collisonBox.x, y: this.collisonBox.y, w: this.collisonBox.w, h: this.collisonBox.h},{x: enemies[x].collisonBox.x, y: enemies[x].collisonBox.y, w: enemies[x].collisonBox.w, h: enemies[x].collisonBox.h})){
             this.hp -= 5;
         }
         for(i in enemies[x].shots){
@@ -60,11 +73,11 @@ function Player() {
         this.velocity = 0;
     }
     this.moveLeft = function(){
-        this.velocity = ((this.velocity + 5) * -1.5);
+            this.velocity = ((this.velocity + 5) * -1.0);
     }//moveLeft
 
     this.moveRight = function(){
-        this.velocity = ((this.velocity + 5) * 1.5);;
+            this.velocity = ((this.velocity + 5) * 1.0);
     }//moveRight
 
     this.heal = function(valueHp){
