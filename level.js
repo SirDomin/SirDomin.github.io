@@ -4,7 +4,7 @@ tmpobj = {
 
 }
 
-speed = 5;
+speed = 1;
 colors =["white", "blue", "yellow", "brown", "cyan"];
 Tile = function(x, y, id){
     this.w = settings.tileWidth;
@@ -44,7 +44,22 @@ Level = function(lvl){
         for(var i = 0; i < this.tiles.length; i++){
             this.tiles[i].render();
         }
-        this.gui.render();
+        
+    }
+    this.lvlup = function(){
+        console.log("XS")
+        currLvl ++;
+        this.level ++;
+        for(x in enemies){
+            if(!enemies[x].exist){
+                enemies[x] = new Enemy();
+            }else{
+                enemies[x].x = (canvas.width - enemies[x].w) * Math.random();
+                enemies[x].y = -canvas.height  * Math.random();
+                enemies[x].promoted = false;
+            }
+            enemiesCount++;
+        }
     }
 }
 Gui = function(){

@@ -2,18 +2,18 @@ function Enemy(w = 50,h = 50) {
 	this.w = w; 
 	this.h = h;
 	this.x = (canvas.width - this.w) * Math.random();
-	this.y = -canvas.height /2  * Math.random();
-	this.evo = 6;
+	this.y = -canvas.height  * Math.random();
+	this.evo = 0;
 	this.hp = 50;
 	this.maxHp = 50;
 	this.value = 100;
 	this.exist = true;
-	this.shoots = true;
+	this.shoots = false;
 	this.promoted = false;
-	this.velocity = 1;
+	this.velocity = 2;
 	this.bodyDmg = 1;
 	this.msTime = 0;
-	this.msBetweenShots = 200;
+	this.msBetweenShots = 200 + 400* Math.random();
 	this.shots = [];
 	this.img = new Sprite(spiderImage,8, 32, 32, 6);
 	this.hpBar = {
@@ -46,6 +46,8 @@ function Enemy(w = 50,h = 50) {
 			this.y += this.velocity;
 		} else if (this.y + this.h >= canvas.height && this.exist && !this.promoted){
 			//this.evolution();
+			enemiesCount --;
+			console.log(enemiesCount);
 			this.evo += 1;
 			this.promoted = true;
 			this.hp = 50 * (this.evo + 1);
@@ -82,6 +84,7 @@ function Enemy(w = 50,h = 50) {
 		
 		if(this.hp<=0){
 			player.score += this.value;
+			enemiesCount--;
 			this.exist = false;
 		}
 	}//damage

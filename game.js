@@ -4,7 +4,8 @@ canvas.height = window.innerHeight;
 ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+game = true;
+currLvl = 1;
 settings = {
     tileWidth: canvas.width,
     tileHeight: canvas.height/4,
@@ -23,11 +24,12 @@ spiderImage = new Image();
 spiderImage.src = "spider.png";
 butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
-
+enemiesCount = 0;
 player = new Player();
-level = new Level(1);
+level = new Level(currLvl);
 enemies = [];
-for(var i =0; i < 5; i++){
+for(var i =0; i < 15; i++){
+    enemiesCount ++;
     enemies.push(new Enemy())
 }
 pause = false;
@@ -37,6 +39,18 @@ document.addEventListener("touchstart",function(e){
         player.moveLeft();
     }else{
         player.moveRight();
+    }
+    if(!game){
+        game = true;
+        player = new Player();
+        level = new Level(1);
+        enemies = [];
+        enemiesCount = 0;
+        for(var i =0; i < 15; i++){
+            enemiesCount ++;
+            enemies.push(new Enemy());
+        }
+        main();
     }
 });
 document.addEventListener("touchend", function(e){
@@ -71,8 +85,14 @@ function update(){
 
     level.update();
     player.update();
+
     for(i in enemies){
+     
         enemies[i].update();
+    }
+    
+    if(enemiesCount <= 0){
+        level.lvlup();
     }
 }
 function render(){
@@ -84,6 +104,7 @@ function render(){
     for(i in enemies){
         enemies[i].render();
     }
+    level.gui.render();
     if(pause){
         ctx.save()
         ctx.fillStyle="black";
@@ -98,10 +119,19 @@ function render(){
 
 ctx.translate(-canvas.width/2,-canvas.height/2);
     }
+    if(!game){
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.fillText("YOU LOST", canvas.width / 2.5, canvas.height/2);
+        ctx.fillText("score: "+player.getScore(), canvas.width / 2.5, canvas.height/1.8);
+        ctx.fillText("tap to play again", canvas.width / 3, canvas.height/1.6);
+    }
+
 }
 function main(){
     update();
     render();
-    if(!pause)requestAnimationFrame(main);
+    if(!pause && game)requestAnimationFrame(main);
 }
 main();

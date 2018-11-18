@@ -40,7 +40,20 @@ function Player() {
         else if (this.x + this.w > canvas.width){
             this.x = canvas.width - this.w;
         }
-
+        if(this.hp <= 0){
+            game = false;
+        }
+    for(x in enemies){
+        if(checkCollision({x: this.x, y: this.y, w: this.w, h: this.h},{x: enemies[x].x, y: enemies[x].y, w: enemies[x].w, h: enemies[x].h})){
+            this.hp -= 5;
+        }
+        for(i in enemies[x].shots){
+            if(checkCollision({x: this.x, y: this.y, w: this.w, h: this.h},{x: enemies[x].shots[i].x, y: enemies[x].shots[i].y, w: enemies[x].shots[i].w, h: enemies[x].shots[i].h})){
+                enemies[x].shots.splice(i, 1);
+                this.hp -= 5;
+            }
+        }
+    }
         
     }//update
     this.stop = function(){
