@@ -23,6 +23,8 @@ for(var i = 0; i < 5; i++){
     images[i] = new Image();
     images[i].src = "tile"+(i%1)+".png";
 }
+timeDelay = 30;
+currDelay = 0;
 spiderImage = new Image();
 spiderImage.src = "spider.png";
 
@@ -51,6 +53,11 @@ spiderBossR.src = "boss_w_prawo.png";
 butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
 
+bgAudio = new Audio("dj_rafix_-_calm_in_grass_finel.mp3");
+bgAudio.onloadeddata = function() {
+    bgAudio.play();
+    main();
+};
 //db
 
 var config = {
@@ -93,6 +100,9 @@ var config = {
         ctx.fillText(leaderboard[x1].name+" : "+leaderboard[x1].score, canvas.width / 4, lineY + lineHeight*(x1 + 5));
     }
   }
+  function displayData(){
+    ref.on('value', gotData);
+  }
   ref.on('value', gotData);
 
 
@@ -120,6 +130,7 @@ document.addEventListener("touchstart",function(e){
         player.moveRight();
     }
     if(!game){
+
         speed = 1;
         game = true;
         player = new Player();
@@ -201,12 +212,14 @@ ctx.translate(-canvas.width/2,-canvas.height/2);
     }
     if(!game){
         
+        bossLevel = false;
         ctx.fillStyle = "black";
         ctx.fillRect(0,0,canvas.width, canvas.height);
         ctx.fillStyle = "white";
         ctx.fillText( player.hp <= 0 ? "YOU LOST" : "YOU WON", canvas.width / 2.5, lineY);
         ctx.fillText("score: "+player.getScore(), canvas.width / 2.5, lineY + lineHeight*1);
         ctx.fillText("tap to play again", canvas.width / 3, lineY + lineHeight*2);
+        displayData();
         if(player.hp > 0){
             enemies[0].img = new Sprite(blood,8, 64, 64, 6);
             enemies[0].img.render(this.x, this.y, this.w, this.h);
@@ -226,6 +239,7 @@ ctx.translate(-canvas.width/2,-canvas.height/2);
 function main(){
     update();
     render();
-    if(!pause && game)requestAnimationFrame(main);
+
+    if(!pause && game) requestAnimationFrame(main);
 }
-main();
+//main();

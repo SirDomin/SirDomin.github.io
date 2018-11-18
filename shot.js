@@ -1,9 +1,9 @@
 function Shot(playerX ,playerY, playerW){
-    this.w = 10;
-    this.h = 10;
+    this.w = canvas.width / 36;
+    this.h = canvas.width / 36;
     this.y = playerY + this.h;
     this.x = playerX + (playerW / 2) - (this.w / 2);
-    this.velocity = 6;
+    this.velocity = canvas.height / 106;
 
     this.render = function(){
         ctx.fillStyle="blue";
