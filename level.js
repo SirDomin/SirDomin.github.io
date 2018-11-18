@@ -33,7 +33,7 @@ Level = function(lvl){
     this.level = lvl;
     this.tiles = [];
     this.gui = new Gui();
-
+    enemiesKilled = 0;
     this.tiles.push(new Tile(0,-(settings.tileHeight), 0));
     this.tiles.push(new Tile(0,settings.tileHeight * 0, 1));
     this.tiles.push(new Tile(0,settings.tileHeight * 1, 2));
@@ -51,6 +51,7 @@ Level = function(lvl){
         
     }
     this.lvlup = function(){
+        enemiesKilled = 0;
         currLvl ++;
         this.level ++;
         for(x in enemies){

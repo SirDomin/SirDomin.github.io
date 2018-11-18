@@ -4,9 +4,10 @@ function EnemyShot(playerX ,playerY, playerW){
     this.y = playerY + this.h;
     this.x = playerX + (playerW / 2) - (this.w / 2);
     this.velocity = 6;
-
+   
     this.render = function(){
         ctx.fillRect(this.x,this.y,this.w,this.h);
+        
     }//render
     
     this.update = function(){

@@ -111,6 +111,7 @@ function Enemy() {
 		player.score += this.value;
 		enemiesCount--;
 		this.exist = false;
+		enemiesKilled ++;
 	}
 	this.getValue = function(){
 		return this.value;

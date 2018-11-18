@@ -9,7 +9,7 @@ function Player() {
     this.score = 0; // player's score
     this.msBetweenShots = 10; // time betweens shots
     this.msTime = 0; 
-    this.velocity  = 0;
+    this.velocity  = settings.playerVelocity;
     this.shots = [];
     this.img = new Sprite(butterflyImage,7, 44, 28, 3);
     this.name = "test";
@@ -41,8 +41,18 @@ function Player() {
     }//redner
 
     this.update = function(){
-        this.x += this.velocity;
-        this.collisonBox.x += this.velocity;//this.x + this.w / 2 - (this.w / 4);
+        
+        if(this.x + this.w /2 < touchPoint.x){
+            this.x += this.velocity;
+            this.collisonBox.x += this.velocity;
+        }else if(Math.sqrt(Math.pow(this.x + this.w/2 - touchPoint.x,2)) < 10){
+            
+        }else{
+            this.x -= this.velocity;
+            this.collisonBox.x -= this.velocity;
+        }
+        console.log()
+        //this.x + this.w / 2 - (this.w / 4);
         //żeby nie wyleciało poza map
         /*
         if(this.x < 0){
@@ -82,11 +92,11 @@ function Player() {
         this.velocity = 0;
     }
     this.moveLeft = function(){
-            this.velocity = ((this.velocity + 5) * -1.0);
+            //this.velocity = ((this.velocity + 5) * -1.0);
     }//moveLeft
 
     this.moveRight = function(){
-            this.velocity = ((this.velocity + 5) * 1.0);
+            //this.velocity = ((this.velocity + 5) * 1.0);
     }//moveRight
 
     this.heal = function(valueHp){

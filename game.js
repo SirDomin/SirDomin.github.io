@@ -14,7 +14,8 @@ settings = {
     bulletHeight: 10,
     baseObjectWidth1: canvas.width / 6,
     baseObjectWidth2: canvas.width / 4,
-    baseObjectHeight: canvas.height / 10
+    baseObjectHeight: canvas.height / 10,
+    playerVelocity : 5
 }
 lineY = canvas.height/10;
 lineHeight = settings.baseObjectHeight / 2;
@@ -46,13 +47,17 @@ spiderImage5.src = "spider5.png";
 blood = new Image();
 blood.src = "blood.png";
 
+skip = true;
+
+clickable = false;
 spiderBossL = new Image();
 spiderBossL.src = "boss_w_lewo.png"
 spiderBossR = new Image();
 spiderBossR.src = "boss_w_prawo.png";
 butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
-
+tail = new Image();
+tail.src="tail.png";
 var bgAudio = new Audio("dj.mp3");
 bgAudio.onloadeddata = function(){
     main();
@@ -62,6 +67,18 @@ bgAudio.onloadeddata = function(){
     }, false);
 }
 //db
+touchPoint = {
+    x: canvas.width / 2,
+    y: canvas.height - (canvas.width / 6) - 50
+}
+document.addEventListener('touchmove', function(e) {
+    // Iterate through the list of touch points that changed
+    // since the last event and print each touch point's identifier.
+
+    touchPoint.x = e.changedTouches[0].pageX;
+    //touchPoint.y = e.changedTouches[0].pageX;
+ }, false);
+
 
 var config = {
     apiKey: "AIzaSyCcnIYcmV9hc3jEZqbecA1J11nyB36U2fg",
@@ -122,14 +139,16 @@ for(var i = 0; i < 15; i++){
 }
 pause = false;
 document.addEventListener("touchstart",function(e){
-
+    player.velocity = settings.playerVelocity;
+    touchPoint.x = e.changedTouches[0].pageX;
     if(e.changedTouches[0].pageX < canvas.width / 2){ // dwa różne ify, jeden dzieli na połowę ruszanie, a drugi od lewej/prawej gracza
     //if(e.changedTouches[0].pageX < player.x + (player.w / 2)){
         player.moveLeft();
     }else{
         player.moveRight();
     }
-    if(!game){
+    if(!game && clickable){
+        
         bgAudio.play();
         speed = 1;
         game = true;
@@ -152,6 +171,7 @@ document.addEventListener("touchstart",function(e){
     }
 });
 document.addEventListener("touchend", function(e){
+    touchPoint.x = player.x;
     player.stop();
 });
 window.addEventListener("orientationchange", function() {
@@ -189,8 +209,14 @@ function update(){
         enemies[i].update();
     }
     
-    if(enemiesCount <= 0){
-        level.lvlup();
+    if(enemiesCount <= 0 && skip){
+        skip = false;
+        skipped = setInterval(function(){
+            level.lvlup();
+            skip = true;
+            clearInterval(skipped);
+        }, 2000);
+        
     }
 }
 function render(){
@@ -203,6 +229,14 @@ function render(){
     }
     player.render();
     level.gui.render();
+    if(!skip){
+        ctx.fillStyle="black";
+        ctx.fillRect(0,canvas.height / 3, canvas.width, settings.baseObjectHeight);
+        ctx.fillStyle = "white";
+        ctx.fillText(" level clear", 0, canvas.height / 3)
+        ctx.fillText(" LVL up, "+enemiesKilled+" enemies got upgraded", 0, canvas.height / 3 + canvas.height / 28)
+        ctx.fillText(" "+(15 -enemiesKilled)+" enemies became faster", 0, canvas.height / 3 + canvas.height / 12)
+    }
     if(pause){
         ctx.save()
         ctx.fillStyle="black";
@@ -218,7 +252,10 @@ function render(){
 ctx.translate(-canvas.width/2,-canvas.height/2);
     }
     if(!game){
-        
+        clicc = setInterval(function(){
+            clickable = true;
+            clearInterval(clicc);
+        }, 1000)
         bossLevel = false;
         ctx.fillStyle = "black";
         ctx.fillRect(0,0,canvas.width, canvas.height);
@@ -228,11 +265,16 @@ ctx.translate(-canvas.width/2,-canvas.height/2);
         ctx.fillText("tap to play again", canvas.width / 3, lineY + lineHeight*2);
         displayData();
         if(player.hp > 0){
+
             enemies[0].img = new Sprite(blood,8, 64, 64, 6);
             enemies[0].img.render(this.x, this.y, this.w, this.h);
             player.name = "";
             while(!player.name)
                 player.name = prompt("Your nickname");
+                clicc = setInterval(function(){
+                    clickable = true;
+                    clearInterval(clicc);
+                }, 1000)
             var data = {
                 name: player.name,
                 score: player.score
