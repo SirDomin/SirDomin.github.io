@@ -4,7 +4,32 @@ canvas.height = window.innerHeight;
 ctx = canvas.getContext("2d");
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+settings = {
+    tileWidth: canvas.width,
+    tileHeight: canvas.height/4,
+    bulletWidth: 10,
+    bulletHeight: 10,
+    baseObjectWidth1: canvas.width / 6,
+    baseObjectWidth2: canvas.width / 4,
+    baseObjectHeight: canvas.height / 10
+}
+images = [];
+for(var i = 0; i < 5; i++){
+    images[i] = new Image();
+    images[i].src = "tile"+(i%1)+".png";
+}
+spiderImage = new Image();
+spiderImage.src = "spider.png";
+butterflyImage = new Image();
+butterflyImage.src = "motyl.png";
+
 player = new Player();
+level = new Level(1);
+enemies = [];
+for(var i =0; i < 5; i++){
+    enemies.push(new Enemy())
+}
 pause = false;
 document.addEventListener("touchstart",function(e){
 
@@ -29,27 +54,26 @@ window.addEventListener("orientationchange", function() {
         main();
     }
 });
-settings = {
-    tileWidth: canvas.width,
-    tileHeight: canvas.height/4,
-    bulletWidth: 10,
-    bulletHeight: 10,
-    baseObjectWidth1: canvas.width / 6,
-    baseObjectWidth2: canvas.width / 4,
-    baseObjectHeight: canvas.height / 10
-}
-images = [];
-for(var i = 0; i < 5; i++){
-    images[i] = new Image();
-    images[i].src = "tile"+(i%2)+".png";
+
+
+
+function checkCollision(obj1, obj2){
+    if (obj1.x < obj2.x + obj2.w &&
+        obj1.x + obj1.w > obj2.x &&
+        obj1.y < obj2.y + obj2.h &&
+        obj1.h + obj1.y > obj2.y) {
+         return true;
+     }
 }
 
-level = new Level(1);
 function update(){
     //update wszystkich elem;
 
     level.update();
     player.update();
+    for(i in enemies){
+        enemies[i].update();
+    }
 }
 function render(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,6 +81,9 @@ function render(){
 
     level.render();
     player.render();
+    for(i in enemies){
+        enemies[i].render();
+    }
     if(pause){
         ctx.save()
         ctx.fillStyle="black";

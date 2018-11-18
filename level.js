@@ -16,7 +16,7 @@ Tile = function(x, y, id){
     this.render = function(){
         //ctx.fillStyle=colors[this.id];
         //ctx.fillRect(this.x,this.y, this.w, this.h);
-        ctx.drawImage(this.img, this.x, this.y, this.w, this.h + 5)
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h + 5);
     }
     this.update = function(){
         this.y += speed;
@@ -39,14 +39,11 @@ Level = function(lvl){
         for(var i = 0; i < this.tiles.length; i++){
             this.tiles[i].update();
         }
-
     }
     this.render = function(){
         for(var i = 0; i < this.tiles.length; i++){
             this.tiles[i].render();
         }
-
-        
         this.gui.render();
     }
 }
@@ -80,22 +77,23 @@ Gui = function(){
         ctx.font= this.fontSize + 'px "Vast Shadow"';
         ctx.fillText("Score: " + player.getScore(),this.score.x,this.score.y);
         ctx.fillText("lvl: " + level.level,this.level.x,this.level.y);
-
         ctx.fillStyle="black";
         ctx.fillRect(this.hpBar.x - 2,this.hpBar.y - 2, this.hpBar.w + 4, this.hpBar.h + 4 )
         ctx.fillStyle="red";
         ctx.fillRect(this.hpBar.x,this.hpBar.y, this.hpBar.w * player.getHp(), this.hpBar.h)
-
     }
 }
-
-Sprite = function(image, numberOfImages, imageWidth, imageHeight){
-    this.img = img;
-    this.noi = numberOfImages;
+Sprite = function(image, numberOfImages, imageWidth, imageHeight, animSpeed){
+    this.animSpeed = animSpeed;
+    this.img = image;
+    this.noi = numberOfImages - 1;
     this.w = imageWidth;
     this.h = imageHeight;
-    this.getState = function(){
-        
+    this.currState = 0;
+    this.state = 0;
+    this.render = function(x, y, w, h){
+        this.state = this.state % this.animSpeed + 1;
+        if(this.state % this.animSpeed == 0)this.currState = (this.currState % this.noi) +1;
+        ctx.drawImage(this.img, this.w * this.currState, 0, this.w, this.h, x, y,w, h)
     }
-
 }

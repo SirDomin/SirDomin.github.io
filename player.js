@@ -1,19 +1,20 @@
 function Player() {
-    this.w = canvas.width / 8; // width of player
+    this.w = canvas.width / 4; // width of player
     this.h = canvas.width / 8; // height of player
     this.x = (canvas.width / 2) - (this.w / 2); // player's pos on x axis
-    this.y = canvas.height - this.h - 20; // player's pos on y axis
+    this.y = canvas.height - this.h - 50; // player's pos on y axis
     this.hp = 10; // player's health
     this.maxHp = 10;
-    this.damage = 50;
+    this.damage = 10;
     this.score = 0; // player's score
     this.msBetweenShots = 10; // time betweens shots
     this.msTime = 0; 
     this.velocity  = 0;
     this.shots = [];
-    
+    this.img = new Sprite(butterflyImage,7, 44, 28, 3);
     this.render = function(){
-        ctx.fillRect(this.x,this.y,this.w,this.h);
+        //ctx.fillRect(this.x,this.y,this.w,this.h);
+        this.img.render(this.x, this.y, this.w , this.h)
         for(i = 0; i < this.shots.length; i++){
             this.shots[i].update();
             this.shots[i].render();
