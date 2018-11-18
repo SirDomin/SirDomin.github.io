@@ -22,6 +22,16 @@ for(var i = 0; i < 5; i++){
 }
 spiderImage = new Image();
 spiderImage.src = "spider.png";
+
+spiderImage1 = new Image();
+spiderImage1.src = "spider1.png";
+
+spiderImage2 = new Image();
+spiderImage2.src = "spider2.png";
+
+spiderImage3 = new Image();
+spiderImage3.src = "spider3.png";
+
 butterflyImage = new Image();
 butterflyImage.src = "motyl.png";
 enemiesCount = 0;

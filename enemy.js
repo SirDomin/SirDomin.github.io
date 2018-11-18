@@ -2,7 +2,7 @@ function Enemy(w = 50,h = 50) {
 	this.w = w; 
 	this.h = h;
 	this.x = (canvas.width - this.w) * Math.random();
-	this.y = -canvas.height  * Math.random();
+	this.y = -canvas.height  * Math.random() * 2;
 	this.evo = 0;
 	this.hp = 50;
 	this.maxHp = 50;

@@ -57,6 +57,7 @@ Level = function(lvl){
                 enemies[x].x = (canvas.width - enemies[x].w) * Math.random();
                 enemies[x].y = -canvas.height  * Math.random();
                 enemies[x].promoted = false;
+                 enemies[x].img = new Sprite(window["spiderImage"+enemies[x].evo],8, 32, 32, 6)
             }
             enemiesCount++;
         }
