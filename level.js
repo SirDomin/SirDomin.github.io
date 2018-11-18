@@ -80,9 +80,17 @@ Level = function(lvl){
             enemies[0].maxHp = 1000;
             enemies[0].hp = 1000;
             enemies[0].value = 1000;
-            enemies[0].img = new Sprite(spiderBossR,8, 64, 64, 6)
+            enemies[0].shoots = true;
+            enemies[0].msBetweenShots = 50;
+            enemies[0].img = new Sprite(spiderBossR,8, 64, 64, 6);
+            enemies[0].shot = function(){
+                this.shots[this.shots.length] = new EnemyShot(this.x, this.y + this.h, this.w);
+                this.shots[this.shots.length] = new EnemyShot(this.x - this.w/2, this.y + this.h, this.w);
+                this.shots[this.shots.length] = new EnemyShot(this.x + this.w/2, this.y + this.h, this.w);
+                this.msTime = 0;
+            }
             enemies[0].onkill = function(){
-
+                
                 player.score += this.value;
 			    enemiesCount--;
                 this.exist = false;

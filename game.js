@@ -41,6 +41,8 @@ spiderImage4.src = "spider4.png";
 spiderImage5 = new Image();
 spiderImage5.src = "spider5.png";
 
+blood = new Image();
+blood.src = "blood.png";
 
 spiderBossL = new Image();
 spiderBossL.src = "boss_w_lewo.png"
@@ -164,7 +166,7 @@ function update(){
     level.update();
     player.update();
 
-    for(i in enemies){
+    if(started)for(i in enemies){
      
         enemies[i].update();
     }
@@ -178,7 +180,7 @@ function render(){
     //tutaj renderujemy wszystkie leementy
 
     level.render();
-    for(i in enemies){
+    if(started)for(i in enemies){
         enemies[i].render();
     }
     player.render();
@@ -206,7 +208,11 @@ ctx.translate(-canvas.width/2,-canvas.height/2);
         ctx.fillText("score: "+player.getScore(), canvas.width / 2.5, lineY + lineHeight*1);
         ctx.fillText("tap to play again", canvas.width / 3, lineY + lineHeight*2);
         if(player.hp > 0){
-            player.name = prompt("Your nickname");
+            enemies[0].img = new Sprite(blood,8, 64, 64, 6);
+            enemies[0].img.render(this.x, this.y, this.w, this.h);
+            player.name = "";
+            while(!player.name)
+                player.name = prompt("Your nickname");
             var data = {
                 name: player.name,
                 score: player.score

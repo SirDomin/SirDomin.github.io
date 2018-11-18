@@ -3,14 +3,14 @@ function Enemy() {
 	this.h = canvas.width / 7 + 2;
 	this.x = (canvas.width - this.w) * Math.random();
 	this.y = -canvas.height  * Math.random() * 2;
-	this.evo = 5;
+	this.evo = 0;
 	this.hp = 50;
 	this.maxHp = 50;
 	this.value = 100;
 	this.exist = true;
 	this.shoots = false;
 	this.promoted = false;
-	this.velocity = 2;
+	this.velocity = 2 + (level.level / 4);
 	this.bodyDmg = 1;
 	this.msTime = 0;
 	this.msBetweenShots = 200 + 400* Math.random();
@@ -73,8 +73,7 @@ function Enemy() {
 		this.hpBar.w = this.w;
 		if(this.shoots){
 			if(this.msTime >= this.msBetweenShots){
-				this.shots[this.shots.length] = new EnemyShot(this.x, this.y, this.w);
-				this.msTime = 0;
+				this.shot();
 			} else {
 				this.msTime++;
 			}
@@ -90,7 +89,10 @@ function Enemy() {
 		}
 		
 	}//update
-
+	this.shot = function(){
+		this.shots[this.shots.length] = new EnemyShot(this.x, this.y + this.h, this.w);
+		this.msTime = 0;
+	}
 	this.setNewYX = function(){
 		this.x = (canvas.width - this.w) * Math.random();
 		this.y = -canvas.height  * Math.random() * 2;

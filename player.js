@@ -61,7 +61,7 @@ function Player() {
             this.hp -= 5;
         }
         for(i in enemies[x].shots){
-            if(checkCollision({x: this.x, y: this.y, w: this.w, h: this.h},{x: enemies[x].shots[i].x, y: enemies[x].shots[i].y, w: enemies[x].shots[i].w, h: enemies[x].shots[i].h})){
+            if(checkCollision({x: this.collisonBox.x, y: this.collisonBox.y, w: this.collisonBox.w, h: this.collisonBox.h},{x: enemies[x].shots[i].x, y: enemies[x].shots[i].y, w: enemies[x].shots[i].w, h: enemies[x].shots[i].h})){
                 enemies[x].shots.splice(i, 1);
                 this.hp -= 5;
             }
