@@ -10,7 +10,7 @@ function Enemy() {
 	this.exist = true;
 	this.shoots = false;
 	this.promoted = false;
-	this.velocity = canvas.width / 320 + (level.level > 5 ? 5 : level.level);
+	this.velocity = canvas.width / 320 + (level.level > 3 ? 3 : level.level);
 	this.bodyDmg = 1;
 	this.msTime = 0;
 	this.msBetweenShots = 200 + 400* Math.random();
