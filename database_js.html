@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+	<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  </head>
+  <body>
+		
+		
+		
+		<h1 id="bigOne"></h1>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+			apiKey: "AIzaSyCcnIYcmV9hc3jEZqbecA1J11nyB36U2fg",
+			authDomain: "databasehuuug1.firebaseapp.com",
+			databaseURL: "https://databasehuuug1.firebaseio.com",
+			projectId: "databasehuuug1",
+			storageBucket: "databasehuuug1.appspot.com",
+			messagingSenderId: "165136848581"
+		  };
+		  firebase.initializeApp(config);
+		  
+		 console.log(firebase);
+		  
+		  var database = firebase.database();
+		  var ref = database.ref('scores');
+		  ref.on('value', gotData, errData);
+		  
+		  function gotData(data){  // czyta z bazy i wyświetla 
+			var scores = data.val();
+			var keys = Object.keys(scores);
+			console.log(keys);
+			for(var i = 0; i < keys.length; i++){
+				var k = keys[i];
+				var name = scores[k].name;
+				var score = scores[k].score;
+				//console.log(name,score);
+				document.getElementById("bigOne").innerHTML += name + ', ' + score  +'</br>' ;
+				
+			}
+		  }
+		  
+		  function errData(err) {
+			console.log('Error!');
+			console.log(err);
+		  }
+		 
+function wys(){		 //to ma zbierać dane i do bazy wysłać
+		 var data = {
+			name: player.name,
+			score: player.score
+		  }
+		  
+		  ref.push(data);
+		}
+			
+		</script>
+
+		
+		
+		
+		
+		
+  </body>
+</html>
