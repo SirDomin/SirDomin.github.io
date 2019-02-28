@@ -10,7 +10,7 @@ function setup(){
 
 
 
-    points = font.textToPoints('SirDomin',50,200,192);
+    points = font.textToPoints('12345678',50,200,192);
     for(var i in points){
         particles[i] = new Particle(points[i].x,points[i].y,5,i)
     }
