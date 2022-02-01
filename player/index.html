@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+    <style>
+        body {
+            margin: 0;
+            background: #404040;
+        }
+        #player {
+            width: 100%;
+            margin: 0;
+        }
+        #random-episode {
+            display: flex;
+            justify-content: center;
+        }
+
+        #episodes-container > div, #random-episode{
+            display: flex;
+            font-size: 2em;
+            padding: 10px;
+            margin: auto auto 10px;
+            width: 95vw;
+            color: rgb(240, 236, 229);
+            background-color: #181818;
+            border-radius: 0.5em;
+            border: solid 1px rgb(57, 62, 64);
+        }
+        .container {
+            max-width: 100%;
+            overflow: hidden;
+            background: #404040;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video
+                id="player"
+                controls
+        >
+        </video>
+
+        <div id="random-episode">Random</div>
+        <div id="episodes-container">
+
+        </div>
+    </div>
+
+    <script src="src/script.js"></script>
+</body>
+</html>
