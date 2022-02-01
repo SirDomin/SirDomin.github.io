@@ -1,5 +1,4 @@
-let pastebinUrl = 'https://pastebin.com/raw/fP42wBUS';
-// let pastebinUrl = '/player/src/data.txt';
+let pastebinUrl = '/player/src/data.txt';
 
 let episodes = [];
 fetch(pastebinUrl, {
@@ -20,7 +19,7 @@ fetch(pastebinUrl, {
 });
 
 function parseToArray(text) {
-    return text.split('.mp4');
+    return decodeURIComponent(escape(window.atob(text))).split('.mp4');
 }
 
 function getIndex(string) {
